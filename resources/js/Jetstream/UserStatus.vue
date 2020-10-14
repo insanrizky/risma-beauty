@@ -1,6 +1,6 @@
 <template>
   <span
-    class="px-2 py-1 text-white rounded font-bold"
+    class="px-2 py-1 text-white rounded font-bold text-sm"
     :class="statusChipColor"
     >{{ status }}</span
   >
