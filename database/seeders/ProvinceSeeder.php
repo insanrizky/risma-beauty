@@ -14,7 +14,7 @@ class ProvinceSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('provinces')->insert([
+        $data = [
             [
                 'id' => 11,
                 'name' => 'ACEH',
@@ -151,6 +151,12 @@ class ProvinceSeeder extends Seeder
                 'id' => 94,
                 'name' => 'PAPUA',
             ],
-        ]);
+        ];
+
+        foreach ($data as $key => $prov) {
+            $data[$key]['name'] = ucwords(strtolower($prov['name']));
+        }
+
+        DB::table('provinces')->insert($data);
     }
 }

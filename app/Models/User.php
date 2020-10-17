@@ -58,8 +58,8 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function detail()
+    public function userDetail()
     {
-        return $this->hasOne('App\Models\UserDetail', 'user_id', 'id');
+        return $this->hasOne(UserDetail::class, 'user_id', 'id');
     }
 }

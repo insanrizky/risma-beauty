@@ -28,11 +28,11 @@ class BankSeeder extends Seeder
                 'code' => '427',
             ],
             [
-                'name' => 'MANDIRI',
+                'name' => 'Mandiri',
                 'code' => '008',
             ],
             [
-                'name' => 'JENIUS / BTPN',
+                'name' => 'Jenius / BTPN',
                 'code' => '213',
             ],
         ]);

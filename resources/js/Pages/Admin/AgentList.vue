@@ -34,7 +34,7 @@
           <div class="max-w-sm w-full lg:max-w-full lg:flex">
             <div v-if="is_fetching">
               <div
-                v-for="x in [1,2]"
+                v-for="x in [1, 2]"
                 :key="x"
                 class="border border-gray-300 shadow rounded-md p-4 max-w-sm w-full mx-auto bg-white mb-4"
               >
@@ -59,15 +59,43 @@
                 :key="agent.id"
                 class="bg-white mb-6 md:ml-6 shadow rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal"
               >
-                <div class="flex justify-between mb-4">
+                <div class="flex justify-between items-center mb-4">
                   <user-status :status="agent.status" class="text-sm" />
+                  <span
+                    v-if="agent.status === 'AKTIF'"
+                    class="flex rounded-full py-1 px-2 bg-green-500 text-white"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      height="24"
+                      width="24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                    <span class="mx-1">{{ agent.total_point || 0 }}</span>
+                  </span>
                 </div>
                 <hr class="mb-3" />
                 <div class="flex items-center mb-4">
                   <img
+                    v-if="!agent.profile_photo_path"
                     class="w-10 h-10 rounded-full mr-4"
-                    src="https://ui-avatars.com/api/?name=Admin&color=7F9CF5&background=EBF4FF"
-                    alt="Avatar of Jonathan Reinink"
+                    :src="`https://ui-avatars.com/api/?name=${agent.name}&color=7F9CF5&background=EBF4FF`"
+                    alt="Avatar"
+                  />
+                  <img
+                    v-if="agent.profile_photo_path"
+                    class="w-10 h-10 rounded-full mr-4"
+                    :src="`${base_url}/storage/${agent.profile_photo_path}`"
+                    alt="Avatar"
                   />
                   <div class="text-sm">
                     <p class="text-gray-900 leading-none">{{ agent.name }}</p>
@@ -75,6 +103,11 @@
                   </div>
                 </div>
                 <div class="mb-4">
+                  <div class="flex mb-4" v-if="agent.status === 'AKTIF'">
+                    <chip-label :bgColor="'bg-purple-500'">
+                      ID: {{ agent.identifier }}
+                    </chip-label>
+                  </div>
                   <div class="flex">
                     <svg
                       id="Bold"
@@ -138,14 +171,25 @@
                       <g></g>
                     </svg>
                     <p class="ml-2 text-gray-700 text-base">
-                      Bank {{ agent.bank_name }} - {{ agent.account_number }}
+                      Bank {{ agent.bank.name }} - {{ agent.account_number }}
                     </p>
                   </div>
                   <p class="mt-3 text-gray-700 text-base">
-                    {{ agent.address }}
+                    {{ getFullAddress(agent) }}
                   </p>
                 </div>
 
+                <div class="mb-5 mt-1 flex">
+                  <chip-label :bgColor="'bg-gray-800'">
+                    <a :href="agent.ktp_file_url" target="_blank">KTP</a>
+                  </chip-label>
+                  <chip-label :bgColor="'bg-gray-800'" class="ml-2">
+                    <a :href="agent.payment_file_url" target="_blank"
+                      >Bukti Pembayaran</a
+                    >
+                  </chip-label>
+                </div>
+                <hr class="my-3" />
                 <div class="flex justify-between">
                   <div class="flex">
                     <a :href="agent.instagram_link" target="_blank">
@@ -314,26 +358,15 @@
                   </div>
 
                   <div v-if="agent.status === 'AKTIF'">
-                    <span
-                      class="flex rounded-full py-1 px-2 bg-green-500 text-white"
+                    <inertia-link
+                      :href="
+                        route('admin.show-resellers', {
+                          identifier: agent.identifier,
+                        })
+                      "
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        height="24"
-                        width="24"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
-                      <span class="mx-1">{{ agent.total_point || 0 }}</span>
-                    </span>
+                      <jet-button>Lihat Reseller</jet-button>
+                    </inertia-link>
                   </div>
                 </div>
               </div>
@@ -347,7 +380,6 @@
         </div>
       </div>
     </div>
-
   </app-layout>
 </template>
 
@@ -355,18 +387,19 @@
 import AppLayout from "./../../Layouts/AppLayout";
 import JetButton from "./../../JetStream/Button";
 import UserStatus from "./../../JetStream/UserStatus";
-import Label from "./../../JetStream/Label";
+import ChipLabel from "./../../JetStream/ChipLabel";
 
 export default {
   components: {
     AppLayout,
     UserStatus,
     JetButton,
-    Label,
+    ChipLabel,
   },
 
   data() {
     return {
+      base_url: "",
       agents: [],
       filter: "Semua",
       is_fetching: false,
@@ -379,6 +412,9 @@ export default {
   },
 
   methods: {
+    getFullAddress(agent) {
+      return `${agent.address}, ${agent.city.name}, ${agent.province.name}`;
+    },
     changeSearch($event) {
       this.search = $event.target.value;
       this.status = "Semua";
@@ -392,14 +428,16 @@ export default {
       this.is_fetching = true;
       try {
         const {
-          data: { data },
+          data: { data, base_url },
         } = await axios.get("/api/admin/user", {
           params: {
-            type: 'AGENT',
-            status: this.filter === "Semua" ? undefined : this.filter.toUpperCase(),
+            type: "AGENT",
+            status:
+              this.filter === "Semua" ? undefined : this.filter.toUpperCase(),
             search: this.search,
           },
         });
+        this.base_url = base_url;
         this.agents = data;
         this.is_fetching = false;
       } catch (e) {
@@ -416,7 +454,14 @@ export default {
         });
         const agent = this.agents.find((agent) => agent.id === id);
         agent.status = data.status;
+        agent.identifier = data.identifier;
+        if (is_verified) {
+          this.$swal("Berhasil!", "Agen berhasil diverifikasi", "success");
+        } else {
+          this.$swal("Berhasil!", "Verifikasi Agen digagalkan", "success");
+        }
       } catch (e) {
+        this.$swal("Terjadi Kesalahan!", "", "error");
         console.log(e);
       }
     },

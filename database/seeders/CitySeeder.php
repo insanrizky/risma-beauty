@@ -14,7 +14,7 @@ class CitySeeder extends Seeder
      */
     public function run()
     {
-        DB::table('cities')->insert([
+        $data = [
             [
                 'id' => 1101,
                 'province_id' => 11,
@@ -2585,6 +2585,11 @@ class CitySeeder extends Seeder
                 'province_id' => 94,
                 'name' => 'KOTA JAYAPURA',
             ],
-        ]);
+        ];
+
+        foreach ($data as $key => $city) {
+            $data[$key]['name'] = ucwords(strtolower($city['name']));
+        }
+        DB::table('cities')->insert($data);
     }
 }

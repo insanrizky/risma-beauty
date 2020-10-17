@@ -16,7 +16,7 @@ class CreateUserDetailsTable extends Migration
         Schema::create('user_details', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->integer('identifier')->nullable();
+            $table->string('identifier')->nullable();
             $table->integer('upline_identifier')->nullable();
             $table->string('contact')->nullable();
             $table->integer('province_id')->nullable();

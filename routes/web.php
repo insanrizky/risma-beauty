@@ -30,4 +30,5 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     Route::put('/user/detail', [UserController::class, 'updateUserDetail'])->name('user-detail.update');
 
     Route::get('/admin/agent', [AdminController::class, 'showAgents'])->name('admin.show-agents');
+    Route::get('/admin/agent/{identifier}/reseller', [AdminController::class, 'showResellers'])->name('admin.show-resellers');
 });
