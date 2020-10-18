@@ -19,7 +19,7 @@ class UplineValidationRule implements Rule
         $type = $this->input['type'];
 
         if ($type === config('global.type.reseller')) {
-            $isValidUpline = UserDetail::where('upline_identifier', $value)->first();
+            $isValidUpline = UserDetail::where('identifier', $value)->first();
             return $isValidUpline;
         }
         return true;

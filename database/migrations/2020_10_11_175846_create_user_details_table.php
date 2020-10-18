@@ -17,7 +17,7 @@ class CreateUserDetailsTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->string('identifier')->nullable();
-            $table->integer('upline_identifier')->nullable();
+            $table->string('upline_identifier')->nullable();
             $table->string('contact')->nullable();
             $table->integer('province_id')->nullable();
             $table->integer('city_id')->nullable();

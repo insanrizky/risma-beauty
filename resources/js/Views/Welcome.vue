@@ -10,11 +10,20 @@
       <div class="mt-6 text-gray-500">
         <p class="mb-2">Status Akun Kamu:</p>
         <user-status :status="$page.data.status" />
-        <chip-label
-          v-if="$page.data.status === 'AKTIF'"
-          :bgColor="'bg-purple-500'"
-          >ID: {{ $page.data.identifier }}</chip-label
-        >
+
+        <div class="mt-4 flex flex-col">
+          <chip-label
+            v-if="$page.data.status === 'AKTIF'"
+            :bgColor="chipIdColor"
+            class="mb-2"
+            >ID Kamu: {{ $page.data.identifier }}</chip-label
+          >
+          <chip-label
+            v-if="$page.user.type === 'RESELLER'"
+            :bgColor="'bg-purple-500'"
+            >ID Agen: {{ $page.data.upline_identifier }}</chip-label
+          >
+        </div>
 
         <p class="mt-6 border-t pt-4" v-if="isInRegistration">
           Lengkapi dulu data kamu supaya bisa diverifikasi admin dan mulai
@@ -126,7 +135,7 @@
             </g>
           </svg>
           <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold">
-            <a href="https://laracasts.com">Klaim dan Tukar Poin</a>
+            <inertia-link :href="route('admin.show-points')">Klaim dan Tukar Poin</inertia-link>
           </div>
         </div>
 
@@ -136,7 +145,7 @@
             sebanyak-banyaknya!
           </div>
 
-          <a href="https://laracasts.com">
+          <inertia-link :href="route('admin.show-points')">
             <div
               class="mt-3 flex items-center text-sm font-semibold text-indigo-700"
             >
@@ -156,7 +165,7 @@
                 </svg>
               </div>
             </div>
-          </a>
+          </inertia-link>
         </div>
       </div>
 
@@ -206,7 +215,14 @@
             />
           </svg>
           <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold">
-            <a href="https://laravel.com/docs">Reseller Saya</a>
+            <inertia-link
+              :href="
+                route('admin.show-resellers', {
+                  identifier: $page.data.identifier,
+                })
+              "
+              >Reseller Saya</inertia-link
+            >
           </div>
         </div>
 
@@ -215,7 +231,13 @@
             Kamu bisa lihat semua daftar Reseller kamu di sini lho!
           </div>
 
-          <a href="https://laravel.com/docs">
+          <inertia-link
+            :href="
+              route('admin.show-resellers', {
+                identifier: $page.data.identifier,
+              })
+            "
+          >
             <div
               class="mt-3 flex items-center text-sm font-semibold text-indigo-700"
             >
@@ -235,7 +257,7 @@
                 </svg>
               </div>
             </div>
-          </a>
+          </inertia-link>
         </div>
       </div>
     </div>
@@ -255,6 +277,16 @@ export default {
   },
 
   computed: {
+    chipIdColor() {
+      switch (this.$page.user.type) {
+        case "AGENT":
+          return "bg-purple-500";
+        case "RESELLER":
+          return "bg-blue-500";
+        default:
+          return "bg-green-500";
+      }
+    },
     isInRegistration() {
       return this.$page.data.status === "DALAM PROSES PENDAFTARAN";
     },

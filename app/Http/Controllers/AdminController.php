@@ -23,7 +23,8 @@ class AdminController extends Controller
     public function getUserList(Request $request)
     {
         $builder = UserDetail::with(['bank', 'province', 'city'])
-                            ->where('users.type', $request->input('type'));
+                            ->where('users.type', $request->input('type'))
+                            ->where('status', '<>', config('global.status.in_registration'));
 
         if ($status = $request->input('status')) {
             $builder->where('status', $status);
@@ -46,7 +47,7 @@ class AdminController extends Controller
         return response()->json(['data' => $data, 'base_url' => url('/')]);
     }
 
-    public function verifyAgent(Request $request, $userId)
+    public function verify(Request $request, $userId)
     {
         $input = $request->all();
 

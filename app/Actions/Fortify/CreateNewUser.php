@@ -6,6 +6,7 @@ use App\Models\Team;
 use App\Models\User;
 use App\Models\UserDetail;
 use App\Validators\UplineValidationRule;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -37,9 +38,9 @@ class CreateNewUser implements CreatesNewUsers
                 'name' => $input['name'],
                 'email' => $input['email'],
                 'password' => Hash::make($input['password']),
-            ]), function (User $user) {
+            ]), function (User $user) use ($input) {
                 $this->createTeam($user);
-                $this->createUserDetails($user);
+                $this->createUserDetails($user, $input);
             });
         });
     }
@@ -50,12 +51,16 @@ class CreateNewUser implements CreatesNewUsers
      * @param  \App\Models\User  $user
      * @return void
      */
-    protected function createUserDetails(User $user)
+    protected function createUserDetails(User $user, $input)
     {
-        UserDetail::insert([
+        $payload = [
             'user_id' => $user->id,
             'status' => config('global.status.in_registration'),
-        ]);
+        ];
+        if ($user->type === config('global.type.reseller')) {
+            $payload['upline_identifier'] = $input['upline_identifier'];
+        }
+        UserDetail::create($payload);
     }
 
     /**
