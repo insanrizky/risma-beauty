@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3">
     <div
       v-for="x in Array(total)"
       :key="x"

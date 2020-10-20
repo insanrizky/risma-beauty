@@ -36,11 +36,11 @@ class UserController extends Controller
         $userId = Auth::user()->id;
         try {
             if ($request->hasFile('ktp_file')) {
-                $this->uploadFile($request, $userId, 'user_details', 'ktp_file', 'ktp_files');
+                $this->uploadFile($request, ['user_id' => $userId], 'user_details', 'ktp_file', 'ktp_files');
             }
 
             if ($request->hasFile('payment_file')) {
-                $this->uploadFile($request, $userId, 'user_details', 'payment_file', 'registration_payment_files');
+                $this->uploadFile($request, ['user_id' => $userId], 'user_details', 'payment_file', 'registration_payment_files');
             }
 
             $userDetail = UserDetail::where('user_id', $userId)->first();

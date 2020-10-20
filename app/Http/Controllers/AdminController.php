@@ -52,11 +52,9 @@ class AdminController extends Controller
         $input = $request->all();
 
         $status = config('global.status.rejected');
-        $is_verified = false;
         $identifier = null;
         if ($input['is_verified']) {
             $status = config('global.status.active');
-            $is_verified = true;
             $identifier = strtoupper(uniqid());
         }
 
@@ -66,7 +64,7 @@ class AdminController extends Controller
         ]);
 
         return response()->json(['data' => [
-            'is_verified' => $is_verified,
+            'is_verified' => $input['is_verified'],
             'status' => $status,
             'identifier' => $identifier,
         ]]);

@@ -2263,6 +2263,37 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Icons/Trash.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Icons/Trash.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Icons/Whatsapp.vue?vue&type=script&lang=js&":
 /*!**************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Icons/Whatsapp.vue?vue&type=script&lang=js& ***!
@@ -4498,6 +4529,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 
 
@@ -4529,6 +4563,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
+      debounceSearch: null,
       base_url: "",
       agents: [],
       filter: "Semua",
@@ -4544,16 +4579,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return "".concat(agent.address, ", ").concat(agent.city.name, ", ").concat(agent.province.name);
     },
     changeSearch: function changeSearch($event) {
+      var _this = this;
+
       this.search = $event.target.value;
       this.status = "Semua";
-      this.fetchAgents();
+      clearTimeout(this.debounceSearch);
+      this.debounceSearch = setTimeout(function () {
+        _this.fetchAgents();
+      }, 700);
     },
     changeFilter: function changeFilter($event) {
       this.filter = $event.target.value;
       this.fetchAgents();
     },
     fetchAgents: function fetchAgents() {
-      var _this = this;
+      var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         var _yield$axios$get, _yield$axios$get$data, data, base_url;
@@ -4562,14 +4602,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this.is_fetching = true;
+                _this2.is_fetching = true;
                 _context.prev = 1;
                 _context.next = 4;
                 return axios.get("/api/admin/user", {
                   params: {
                     type: "AGENT",
-                    status: _this.filter === "Semua" ? undefined : _this.filter.toUpperCase(),
-                    search: _this.search
+                    status: _this2.filter === "Semua" ? undefined : _this2.filter.toUpperCase(),
+                    search: _this2.search
                   }
                 });
 
@@ -4578,9 +4618,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _yield$axios$get$data = _yield$axios$get.data;
                 data = _yield$axios$get$data.data;
                 base_url = _yield$axios$get$data.base_url;
-                _this.base_url = base_url;
-                _this.agents = data;
-                _this.is_fetching = false;
+                _this2.base_url = base_url;
+                _this2.agents = data;
+                _this2.is_fetching = false;
                 _context.next = 17;
                 break;
 
@@ -4588,7 +4628,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context.prev = 13;
                 _context.t0 = _context["catch"](1);
                 console.log(_context.t0);
-                _this.is_fetching = false;
+                _this2.is_fetching = false;
 
               case 17:
               case "end":
@@ -4599,7 +4639,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     verifyAgent: function verifyAgent(id, is_verified) {
-      var _this2 = this;
+      var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         var _yield$axios$put, data, agent;
@@ -4617,16 +4657,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 3:
                 _yield$axios$put = _context2.sent;
                 data = _yield$axios$put.data.data;
-                agent = _this2.agents.find(function (agent) {
+                agent = _this3.agents.find(function (agent) {
                   return agent.id === id;
                 });
                 agent.status = data.status;
                 agent.identifier = data.identifier;
 
                 if (is_verified) {
-                  _this2.$swal("Berhasil!", "Agen berhasil diverifikasi", "success");
+                  _this3.$swal("Berhasil!", "Agen berhasil diverifikasi", "success");
                 } else {
-                  _this2.$swal("Berhasil!", "Verifikasi Agen digagalkan", "success");
+                  _this3.$swal("Berhasil!", "Verifikasi Agen digagalkan", "success");
                 }
 
                 _context2.next = 15;
@@ -4636,7 +4676,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context2.prev = 11;
                 _context2.t0 = _context2["catch"](0);
 
-                _this2.$swal("Terjadi Kesalahan!", "", "error");
+                _this3.$swal("Terjadi Kesalahan!", "", "error");
 
                 console.log(_context2.t0);
 
@@ -4905,6 +4945,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Icons_Card__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./../../Icons/Card */ "./resources/js/Icons/Card.vue");
 /* harmony import */ var _Icons_Dollar__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./../../Icons/Dollar */ "./resources/js/Icons/Dollar.vue");
 /* harmony import */ var _Icons_Plus__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./../../Icons/Plus */ "./resources/js/Icons/Plus.vue");
+/* harmony import */ var _Icons_Trash__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./../../Icons/Trash */ "./resources/js/Icons/Trash.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -5023,6 +5064,47 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -5052,11 +5134,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     InstagramIcon: _Icons_Instagram__WEBPACK_IMPORTED_MODULE_11__["default"],
     CardIcon: _Icons_Card__WEBPACK_IMPORTED_MODULE_12__["default"],
     DollarIcon: _Icons_Dollar__WEBPACK_IMPORTED_MODULE_13__["default"],
-    PlusIcon: _Icons_Plus__WEBPACK_IMPORTED_MODULE_14__["default"]
+    PlusIcon: _Icons_Plus__WEBPACK_IMPORTED_MODULE_14__["default"],
+    TrashIcon: _Icons_Trash__WEBPACK_IMPORTED_MODULE_15__["default"]
   },
   data: function data() {
     return {
-      filter: "Semua",
+      debounceSearch: null,
+      filterUserType: "Semua",
+      filterStatus: "Semua",
       points: [],
       is_fetching: true,
       search: ""
@@ -5066,6 +5151,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.fetchPoints();
   },
   methods: {
+    canVerifyPoint: function canVerifyPoint(targetType, uplineIdentifier, status) {
+      var _this$$page = this.$page,
+          type = _this$$page.user.type,
+          identifier = _this$$page.user_detail.identifier;
+      return type === "ADMIN" && status === "MENUNGGU VERIFIKASI" || targetType === "RESELLER" && uplineIdentifier === identifier;
+    },
+    canDeleteClaim: function canDeleteClaim(targetUserId, status) {
+      return targetUserId === this.$page.user.id && status === "MENUNGGU VERIFIKASI";
+    },
+    chipClaimStatus: function chipClaimStatus(status) {
+      switch (status) {
+        case "KLAIM DITERIMA":
+          return "bg-green-500";
+
+        case "GAGAL VERIFIKASI":
+          return "bg-red-600";
+
+        case "KLAIM DICAIRKAN":
+          return "bg-blue-500";
+
+        default:
+          return "bg-black";
+      }
+    },
     chipColor: function chipColor(type) {
       switch (type) {
         case "AGENT":
@@ -5081,54 +5190,147 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           return "";
       }
     },
-    changeFilter: function changeFilter($event) {
-      this.filter = $event.target.value;
+    changeUserType: function changeUserType($event) {
+      this.filterUserType = $event.target.value;
+      this.fetchPoints();
+    },
+    changeFilterStatus: function changeFilterStatus($event) {
+      this.filterStatus = $event.target.value;
       this.fetchPoints();
     },
     changeSearch: function changeSearch($event) {
-      this.search = $event.target.value;
-      this.status = "Semua";
-      this.fetchPoints();
-    },
-    fetchPoints: function fetchPoints() {
       var _this = this;
 
+      this.search = $event.target.value;
+      clearTimeout(this.debounceSearch);
+      this.debounceSearch = setTimeout(function () {
+        _this.fetchPoints();
+      }, 700);
+    },
+    deleteClaim: function deleteClaim(id) {
+      var _this2 = this;
+
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var _yield$axios$get, data;
+        var _yield$axios$delete, data;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
                 _context.prev = 0;
-                _this.is_fetching = true;
-                _context.next = 4;
-                return axios.get("/api/point", {
-                  params: {
-                    dxpoint: _this.$page.user.id
-                  }
-                });
+                _context.next = 3;
+                return axios["delete"]("/api/point/".concat(id));
 
-              case 4:
-                _yield$axios$get = _context.sent;
-                data = _yield$axios$get.data.data;
-                _this.points = data;
-                _this.is_fetching = false;
-                _context.next = 14;
+              case 3:
+                _yield$axios$delete = _context.sent;
+                data = _yield$axios$delete.data.data;
+
+                _this2.fetchPoints();
+
+                _this2.$swal("Berhasil!", "Klaim telah terhapus", "success");
+
+                _context.next = 13;
                 break;
 
-              case 10:
-                _context.prev = 10;
+              case 9:
+                _context.prev = 9;
                 _context.t0 = _context["catch"](0);
                 console.log(_context.t0);
-                _this.is_fetching = false;
 
-              case 14:
+                _this2.$swal("Terjadi Kesalahan!", "", "error");
+
+              case 13:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 10]]);
+        }, _callee, null, [[0, 9]]);
+      }))();
+    },
+    verifyPoint: function verifyPoint(id, is_verified) {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var _yield$axios$put, data;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.prev = 0;
+                _context2.next = 3;
+                return axios.put("/api/point/verify/".concat(id), {
+                  is_verified: is_verified
+                });
+
+              case 3:
+                _yield$axios$put = _context2.sent;
+                data = _yield$axios$put.data.data;
+
+                _this3.fetchPoints();
+
+                _this3.$swal("Berhasil!", "Klaim berhasil diverifikasi", "success");
+
+                _context2.next = 13;
+                break;
+
+              case 9:
+                _context2.prev = 9;
+                _context2.t0 = _context2["catch"](0);
+                console.log(_context2.t0);
+
+                _this3.$swal("Terjadi Kesalahan!", "", "error");
+
+              case 13:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, null, [[0, 9]]);
+      }))();
+    },
+    fetchPoints: function fetchPoints() {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var _yield$axios$get, data;
+
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.prev = 0;
+                _this4.is_fetching = true;
+                _context3.next = 4;
+                return axios.get("/api/point", {
+                  params: {
+                    dxpoint: _this4.$page.user.type === "ADMIN" ? undefined : _this4.$page.user.id,
+                    type: _this4.filterUserType,
+                    status: _this4.filterStatus,
+                    search: _this4.search
+                  }
+                });
+
+              case 4:
+                _yield$axios$get = _context3.sent;
+                data = _yield$axios$get.data.data;
+                _this4.points = data;
+                _this4.is_fetching = false;
+                _context3.next = 14;
+                break;
+
+              case 10:
+                _context3.prev = 10;
+                _context3.t0 = _context3["catch"](0);
+                console.log(_context3.t0);
+                _this4.is_fetching = false;
+
+              case 14:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, null, [[0, 10]]);
       }))();
     }
   }
@@ -7572,9 +7774,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Jetstream_ApplicationLogo__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../Jetstream/ApplicationLogo */ "./resources/js/Jetstream/ApplicationLogo.vue");
 /* harmony import */ var _Jetstream_UserStatus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../Jetstream/UserStatus */ "./resources/js/Jetstream/UserStatus.vue");
 /* harmony import */ var _Jetstream_ChipLabel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../Jetstream/ChipLabel */ "./resources/js/Jetstream/ChipLabel.vue");
-//
-//
-//
 //
 //
 //
@@ -40762,6 +40961,53 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Icons/Trash.vue?vue&type=template&id=95a47196&":
+/*!***************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Icons/Trash.vue?vue&type=template&id=95a47196& ***!
+  \***************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "svg",
+    {
+      attrs: {
+        xmlns: "http://www.w3.org/2000/svg",
+        fill: "none",
+        viewBox: "0 0 24 24",
+        stroke: "currentColor",
+        height: "20",
+        width: "20"
+      }
+    },
+    [
+      _c("path", {
+        attrs: {
+          "stroke-linecap": "round",
+          "stroke-linejoin": "round",
+          "stroke-width": "2",
+          d:
+            "M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+        }
+      })
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Icons/Whatsapp.vue?vue&type=template&id=6ac960b6&":
 /*!******************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Icons/Whatsapp.vue?vue&type=template&id=6ac960b6& ***!
@@ -41215,6 +41461,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
+    { staticClass: "grid sm:grid-cols-2 lg:grid-cols-3" },
     _vm._l(Array(_vm.total), function(x) {
       return _c(
         "div",
@@ -43983,58 +44230,57 @@ var render = function() {
     },
     [
       _vm._v(" "),
-      _c("div", { staticClass: "flex" }, [
-        _c("div", { staticClass: "bg-white pl-4 py-3 border-t" }, [
-          _vm._v("Filter:")
-        ]),
-        _vm._v(" "),
-        _c(
-          "select",
-          {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.filter,
-                expression: "filter"
-              }
-            ],
-            staticClass:
-              "form-input focus-none w-full rounded border-0 border-t",
-            on: {
-              change: [
-                function($event) {
-                  var $$selectedVal = Array.prototype.filter
-                    .call($event.target.options, function(o) {
-                      return o.selected
-                    })
-                    .map(function(o) {
-                      var val = "_value" in o ? o._value : o.value
-                      return val
-                    })
-                  _vm.filter = $event.target.multiple
-                    ? $$selectedVal
-                    : $$selectedVal[0]
-                },
-                function($event) {
-                  return _vm.changeFilter($event)
+      _c("div", { staticClass: "bg-white border-t" }, [
+        _c("div", { staticClass: "flex max-w-7xl mx-auto sm:px-4 px-0" }, [
+          _c("div", { staticClass: "bg-white pl-4 py-3" }, [_vm._v("Filter:")]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.filter,
+                  expression: "filter"
                 }
-              ]
-            }
-          },
-          [
-            _c("option", [_vm._v("Semua")]),
-            _vm._v(" "),
-            _c("option", [_vm._v("Sedang Diverifikasi")]),
-            _vm._v(" "),
-            _c("option", [_vm._v("Aktif")]),
-            _vm._v(" "),
-            _c("option", [_vm._v("Gagal Verifikasi")])
-          ]
-        )
+              ],
+              staticClass: "form-input focus-none w-full rounded border-0",
+              on: {
+                change: [
+                  function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.filter = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  },
+                  function($event) {
+                    return _vm.changeFilter($event)
+                  }
+                ]
+              }
+            },
+            [
+              _c("option", [_vm._v("Semua")]),
+              _vm._v(" "),
+              _c("option", [_vm._v("Sedang Diverifikasi")]),
+              _vm._v(" "),
+              _c("option", [_vm._v("Aktif")]),
+              _vm._v(" "),
+              _c("option", [_vm._v("Gagal Verifikasi")])
+            ]
+          )
+        ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "pt-6 px-3" }, [
+      _c("div", { staticClass: "max-w-7xl mx-auto pt-6 sm:px-8 px-4" }, [
         _c("input", {
           directives: [
             {
@@ -44075,22 +44321,18 @@ var render = function() {
           _c("div", { staticClass: "max-w-7xl mx-auto sm:px-6 lg:px-8" }, [
             _c("div", { staticClass: "overflow-hidden sm:rounded-lg" }, [
               _vm.is_fetching
-                ? _c(
-                    "div",
-                    { staticClass: "max-w-sm w-full lg:max-w-full lg:flex" },
-                    [_c("card-loader", { attrs: { total: 2 } })],
-                    1
-                  )
+                ? _c("div", [_c("card-loader", { attrs: { total: 3 } })], 1)
                 : _c(
                     "div",
-                    { staticClass: "max-w-sm w-full md:max-w-full md:flex" },
+                    { staticClass: "grid sm:grid-cols-2 lg:grid-cols-3" },
                     _vm._l(_vm.agents, function(agent) {
                       return _c(
                         "div",
                         {
                           key: agent.id,
                           staticClass:
-                            "bg-white mb-6 md:ml-6 shadow rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal"
+                            "bg-white mb-6 md:mr-6 shadow rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal",
+                          class: { "mx-auto": _vm.agents.length > 2 }
                         },
                         [
                           _c(
@@ -44638,21 +44880,25 @@ var render = function() {
                 },
                 [
                   _vm._v("\n      Klaim Poin\n      "),
-                  _c(
-                    "inertia-link",
-                    { attrs: { href: _vm.route("admin.claim-points-view") } },
-                    [
-                      _c(
-                        "button",
+                  _vm.$page.user.type !== "ADMIN"
+                    ? _c(
+                        "inertia-link",
                         {
-                          staticClass:
-                            "bg-green-500 text-white px-2 py-1 rounded"
+                          attrs: { href: _vm.route("admin.claim-points-view") }
                         },
-                        [_c("plus-icon")],
-                        1
+                        [
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "bg-green-500 text-white px-2 py-1 rounded"
+                            },
+                            [_c("plus-icon")],
+                            1
+                          )
+                        ]
                       )
-                    ]
-                  )
+                    : _vm._e()
                 ],
                 1
               )
@@ -44664,59 +44910,116 @@ var render = function() {
     },
     [
       _vm._v(" "),
-      _vm.$page.user.type === "ADMIN"
-        ? _c("div", { staticClass: "flex" }, [
-            _c("div", { staticClass: "bg-white pl-4 py-3 border-t" }, [
-              _vm._v("Filter:")
-            ]),
-            _vm._v(" "),
-            _c(
-              "select",
-              {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.filter,
-                    expression: "filter"
-                  }
-                ],
-                staticClass:
-                  "form-input focus-none w-full rounded border-0 border-t",
-                on: {
-                  change: [
-                    function($event) {
-                      var $$selectedVal = Array.prototype.filter
-                        .call($event.target.options, function(o) {
-                          return o.selected
-                        })
-                        .map(function(o) {
-                          var val = "_value" in o ? o._value : o.value
-                          return val
-                        })
-                      _vm.filter = $event.target.multiple
-                        ? $$selectedVal
-                        : $$selectedVal[0]
-                    },
-                    function($event) {
-                      return _vm.changeFilter($event)
+      _c("div", { staticClass: "bg-white border-t" }, [
+        _vm.$page.user.type === "ADMIN"
+          ? _c("div", { staticClass: "flex max-w-7xl mx-auto sm:px-4 px-0" }, [
+              _c("div", { staticClass: "bg-white pl-4 py-3" }, [
+                _vm._v("Tipe:")
+              ]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.filterUserType,
+                      expression: "filterUserType"
                     }
-                  ]
-                }
-              },
-              [
-                _c("option", [_vm._v("Semua")]),
-                _vm._v(" "),
-                _c("option", [_vm._v("Agen")]),
-                _vm._v(" "),
-                _c("option", [_vm._v("Reseller")])
-              ]
-            )
-          ])
-        : _vm._e(),
+                  ],
+                  staticClass: "form-input focus-none w-full rounded border-0",
+                  on: {
+                    change: [
+                      function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.filterUserType = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      },
+                      function($event) {
+                        return _vm.changeUserType($event)
+                      }
+                    ]
+                  }
+                },
+                [
+                  _c("option", [_vm._v("Semua")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Agent")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Reseller")])
+                ]
+              )
+            ])
+          : _vm._e()
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "bg-white" }, [
+        _vm.$page.user.type === "ADMIN"
+          ? _c("div", { staticClass: "flex max-w-7xl mx-auto sm:px-4 px-0" }, [
+              _c("div", { staticClass: "bg-white pl-4 py-3" }, [
+                _vm._v("Filter:")
+              ]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.filterStatus,
+                      expression: "filterStatus"
+                    }
+                  ],
+                  staticClass: "form-input focus-none w-full rounded border-0",
+                  on: {
+                    change: [
+                      function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.filterStatus = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      },
+                      function($event) {
+                        return _vm.changeFilterStatus($event)
+                      }
+                    ]
+                  }
+                },
+                [
+                  _c("option", [_vm._v("Semua")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Menunggu Verifikasi")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Klaim Diterima")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Sudah Dicairkan")]),
+                  _vm._v(" "),
+                  _c("option", [_vm._v("Gagal Verifikasi")])
+                ]
+              )
+            ])
+          : _vm._e()
+      ]),
       _vm._v(" "),
       _vm.$page.user.type === "ADMIN"
-        ? _c("div", { staticClass: "pt-6 px-3" }, [
+        ? _c("div", { staticClass: "max-w-7xl mx-auto pt-6 sm:px-8 px-4" }, [
             _c("input", {
               directives: [
                 {
@@ -44758,188 +45061,208 @@ var render = function() {
           _c("div", { staticClass: "max-w-7xl mx-auto sm:px-6 lg:px-8" }, [
             _c("div", { staticClass: "overflow-hidden sm:rounded-lg" }, [
               _vm.is_fetching
-                ? _c(
-                    "div",
-                    { staticClass: "max-w-sm w-full lg:max-w-full lg:flex" },
-                    [_c("card-loader", { attrs: { total: 2 } })],
-                    1
-                  )
+                ? _c("div", [_c("card-loader", { attrs: { total: 3 } })], 1)
                 : _c(
                     "div",
+                    { staticClass: "grid sm:grid-cols-2 lg:grid-cols-3" },
                     _vm._l(_vm.points, function(point) {
-                      return _c("div", { key: point.id, staticClass: "my-4" }, [
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "max-w-sm rounded overflow-hidden shadow-lg bg-white"
-                          },
-                          [
-                            _c(
-                              "a",
-                              {
-                                attrs: {
-                                  href: point.payment_file_url,
-                                  target: "_blank"
-                                }
-                              },
-                              [
-                                _c("img", {
-                                  staticClass: "w-full",
-                                  attrs: { src: point.payment_file_url }
-                                })
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "div",
-                              { staticClass: "px-6 py-4" },
-                              [
-                                _c(
-                                  "div",
-                                  { staticClass: "font-bold text-xl mb-2" },
-                                  [
+                      return _c(
+                        "div",
+                        {
+                          key: point.id,
+                          staticClass: "my-4 sm:mr-2",
+                          class: { "mx-auto": _vm.points.length > 2 }
+                        },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "max-w-sm rounded overflow-hidden shadow-lg bg-white"
+                            },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  attrs: {
+                                    href: point.payment_file_url,
+                                    target: "_blank"
+                                  }
+                                },
+                                [
+                                  _c("img", {
+                                    staticClass: "w-full",
+                                    attrs: { src: point.payment_file_url }
+                                  })
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "px-6 py-4" },
+                                [
+                                  _c(
+                                    "div",
+                                    { staticClass: "font-bold text-xl mb-2" },
+                                    [
+                                      _vm._v(
+                                        "\n                  " +
+                                          _vm._s(point.name) +
+                                          "\n                "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "chip-label",
+                                    {
+                                      attrs: {
+                                        bgColor: _vm.chipColor(point.type)
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "ID: " +
+                                          _vm._s(point.identifier) +
+                                          "\n                "
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("p", { staticClass: "mt-3" }, [
+                                    _vm._v(_vm._s(point.email))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("p", { staticClass: "text-sm" }, [
                                     _vm._v(
                                       "\n                  " +
-                                        _vm._s(point.user.name) +
+                                        _vm._s(
+                                          _vm._f("luxon:format")(
+                                            point.created_at,
+                                            "E LLLL y, HH:mm:ss"
+                                          )
+                                        ) +
                                         "\n                "
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "chip-label",
-                                  {
-                                    attrs: {
-                                      bgColor: _vm.chipColor(point.user.type)
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "ID: " +
-                                        _vm._s(point.user_detail.identifier) +
-                                        "\n                "
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c("p", { staticClass: "mt-3" }, [
-                                  _vm._v(_vm._s(point.user.email))
-                                ]),
-                                _vm._v(" "),
-                                _c("p", { staticClass: "text-sm" }, [
-                                  _vm._v(
-                                    "\n                  " +
-                                      _vm._s(
-                                        _vm._f("luxon:format")(
-                                          point.created_at,
-                                          "E LLLL y, HH:mm:ss"
-                                        )
-                                      ) +
-                                      "\n                "
-                                  )
-                                ])
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "div",
-                              { staticClass: "px-6 pb-2 flex justify-between" },
-                              [
-                                _c(
-                                  "span",
-                                  {
-                                    staticClass:
-                                      "inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-                                  },
-                                  [
-                                    _vm._v(
-                                      "Total Pcs: " + _vm._s(point.total_pcs)
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c("div", [
-                                  _c("div", { staticClass: "flex" }, [
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass:
-                                          "inline-flex items-center px-2 py-1 bg-green-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-600 transition ease-in-out duration-150",
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.verifyPoint(
-                                              point.id,
-                                              true
-                                            )
-                                          }
-                                        }
-                                      },
-                                      [_c("check-mark-icon")],
-                                      1
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass:
-                                          "inline-flex items-center px-2 py-1 ml-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 transition ease-in-out duration-150",
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.verifyPoint(
-                                              point.id,
-                                              false
-                                            )
-                                          }
-                                        }
-                                      },
-                                      [_c("cross-mark-icon")],
-                                      1
                                     )
                                   ])
-                                ])
-                              ]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "flex justify-end" }, [
-                          point.status === "SEDANG DIVERIFIKASI"
-                            ? _c("div", { staticClass: "flex" }, [
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass:
-                                      "inline-flex items-center px-2 py-1 bg-green-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-600 transition ease-in-out duration-150",
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.verifyAgent(point.id, true)
-                                      }
-                                    }
-                                  },
-                                  [_c("check-mark-icon")],
-                                  1
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "button",
-                                  {
-                                    staticClass:
-                                      "inline-flex items-center px-2 py-1 ml-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 transition ease-in-out duration-150",
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.verifyAgent(point.id, false)
-                                      }
-                                    }
-                                  },
-                                  [_c("cross-mark-icon")],
-                                  1
-                                )
-                              ])
-                            : _vm._e()
-                        ])
-                      ])
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "px-6 pb-2 flex justify-between"
+                                },
+                                [
+                                  _c(
+                                    "span",
+                                    {
+                                      staticClass:
+                                        "inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                                    },
+                                    [
+                                      _vm._v(
+                                        "Total Pcs: " + _vm._s(point.total_pcs)
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("div", [
+                                    _vm.canVerifyPoint(
+                                      point.type,
+                                      point.upline_identifier,
+                                      point.status
+                                    )
+                                      ? _c("div", { staticClass: "flex" }, [
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "inline-flex items-center px-2 py-1 bg-green-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-600 transition ease-in-out duration-150",
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.verifyPoint(
+                                                    point.id,
+                                                    true
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [_c("check-mark-icon")],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "inline-flex items-center px-2 py-1 ml-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 transition ease-in-out duration-150",
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.verifyPoint(
+                                                    point.id,
+                                                    false
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [_c("cross-mark-icon")],
+                                            1
+                                          )
+                                        ])
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    _vm.canDeleteClaim(
+                                      point.user_id,
+                                      point.status
+                                    )
+                                      ? _c("div", [
+                                          _c(
+                                            "button",
+                                            {
+                                              staticClass:
+                                                "inline-flex items-center px-2 py-1 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-600 transition ease-in-out duration-150",
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.deleteClaim(
+                                                    point.id
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [_c("trash-icon")],
+                                            1
+                                          )
+                                        ])
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    point.status !== "MENUNGGU VERIFIKASI"
+                                      ? _c(
+                                          "div",
+                                          [
+                                            _c(
+                                              "chip-label",
+                                              {
+                                                attrs: {
+                                                  bgColor: _vm.chipClaimStatus(
+                                                    point.status
+                                                  )
+                                                }
+                                              },
+                                              [_vm._v(_vm._s(point.status))]
+                                            )
+                                          ],
+                                          1
+                                        )
+                                      : _vm._e()
+                                  ])
+                                ]
+                              )
+                            ]
+                          )
+                        ]
+                      )
                     }),
                     0
                   )
@@ -49012,14 +49335,7 @@ var render = function() {
             _vm._v(" "),
             _c(
               "div",
-              {
-                staticClass: "mt-4",
-                class: {
-                  "flex flex-col":
-                    _vm.$page.user.type === "RESELLER" &&
-                    _vm.$page.data.status === "AKTIF"
-                }
-              },
+              { staticClass: "mt-4" },
               [
                 _vm.$page.data.status === "AKTIF"
                   ? _c(
@@ -49030,8 +49346,15 @@ var render = function() {
                       },
                       [_vm._v("ID Kamu: " + _vm._s(_vm.$page.data.identifier))]
                     )
-                  : _vm._e(),
-                _vm._v(" "),
+                  : _vm._e()
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "mt-2" },
+              [
                 _vm.$page.user.type === "RESELLER"
                   ? _c("chip-label", { attrs: { bgColor: "bg-purple-500" } }, [
                       _vm._v(
@@ -62593,6 +62916,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Shopee_vue_vue_type_template_id_3efae8e9___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Shopee_vue_vue_type_template_id_3efae8e9___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/Icons/Trash.vue":
+/*!**************************************!*\
+  !*** ./resources/js/Icons/Trash.vue ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Trash_vue_vue_type_template_id_95a47196___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Trash.vue?vue&type=template&id=95a47196& */ "./resources/js/Icons/Trash.vue?vue&type=template&id=95a47196&");
+/* harmony import */ var _Trash_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Trash.vue?vue&type=script&lang=js& */ "./resources/js/Icons/Trash.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Trash_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Trash_vue_vue_type_template_id_95a47196___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Trash_vue_vue_type_template_id_95a47196___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Icons/Trash.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Icons/Trash.vue?vue&type=script&lang=js&":
+/*!***************************************************************!*\
+  !*** ./resources/js/Icons/Trash.vue?vue&type=script&lang=js& ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Trash_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Trash.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Icons/Trash.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Trash_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/Icons/Trash.vue?vue&type=template&id=95a47196&":
+/*!*********************************************************************!*\
+  !*** ./resources/js/Icons/Trash.vue?vue&type=template&id=95a47196& ***!
+  \*********************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Trash_vue_vue_type_template_id_95a47196___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Trash.vue?vue&type=template&id=95a47196& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Icons/Trash.vue?vue&type=template&id=95a47196&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Trash_vue_vue_type_template_id_95a47196___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Trash_vue_vue_type_template_id_95a47196___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

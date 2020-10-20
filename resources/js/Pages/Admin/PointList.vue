@@ -5,7 +5,10 @@
         class="flex justify-between items-center font-semibold text-xl text-gray-800 leading-tight"
       >
         Klaim Poin
-        <inertia-link :href="route('admin.claim-points-view')">
+        <inertia-link
+          :href="route('admin.claim-points-view')"
+          v-if="$page.user.type !== 'ADMIN'"
+        >
           <button class="bg-green-500 text-white px-2 py-1 rounded">
             <plus-icon />
           </button>
@@ -13,20 +16,47 @@
       </h2>
     </template>
 
-    <div class="flex" v-if="$page.user.type === 'ADMIN'">
-      <div class="bg-white pl-4 py-3 border-t">Filter:</div>
-      <select
-        v-model="filter"
-        @change="changeFilter($event)"
-        class="form-input focus-none w-full rounded border-0 border-t"
+    <div class="bg-white border-t">
+      <div
+        class="flex max-w-7xl mx-auto sm:px-4 px-0"
+        v-if="$page.user.type === 'ADMIN'"
       >
-        <option>Semua</option>
-        <option>Agen</option>
-        <option>Reseller</option>
-      </select>
+        <div class="bg-white pl-4 py-3">Tipe:</div>
+        <select
+          v-model="filterUserType"
+          @change="changeUserType($event)"
+          class="form-input focus-none w-full rounded border-0"
+        >
+          <option>Semua</option>
+          <option>Agent</option>
+          <option>Reseller</option>
+        </select>
+      </div>
+    </div>
+    <div class="bg-white">
+      <div
+        class="flex max-w-7xl mx-auto sm:px-4 px-0"
+        v-if="$page.user.type === 'ADMIN'"
+      >
+        <div class="bg-white pl-4 py-3">Filter:</div>
+        <select
+          v-model="filterStatus"
+          @change="changeFilterStatus($event)"
+          class="form-input focus-none w-full rounded border-0"
+        >
+          <option>Semua</option>
+          <option>Menunggu Verifikasi</option>
+          <option>Klaim Diterima</option>
+          <option>Sudah Dicairkan</option>
+          <option>Gagal Verifikasi</option>
+        </select>
+      </div>
     </div>
 
-    <div class="pt-6 px-3" v-if="$page.user.type === 'ADMIN'">
+    <div
+      class="max-w-7xl mx-auto pt-6 sm:px-8 px-4"
+      v-if="$page.user.type === 'ADMIN'"
+    >
       <input
         v-model="search"
         @input="changeSearch($event)"
@@ -40,23 +70,28 @@
     <div class="py-6">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="overflow-hidden sm:rounded-lg">
-          <div v-if="is_fetching" class="max-w-sm w-full lg:max-w-full lg:flex">
-            <card-loader :total="2" />
+          <div v-if="is_fetching">
+            <card-loader :total="3" />
           </div>
-          <div v-else>
-            <div v-for="point in points" :key="point.id" class="my-4">
+          <div v-else class="grid sm:grid-cols-2 lg:grid-cols-3">
+            <div
+              v-for="point in points"
+              :key="point.id"
+              class="my-4 sm:mr-2"
+              :class="{ 'mx-auto': points.length > 2 }"
+            >
               <div class="max-w-sm rounded overflow-hidden shadow-lg bg-white">
                 <a :href="point.payment_file_url" target="_blank">
                   <img class="w-full" :src="point.payment_file_url" />
                 </a>
                 <div class="px-6 py-4">
                   <div class="font-bold text-xl mb-2">
-                    {{ point.user.name }}
+                    {{ point.name }}
                   </div>
-                  <chip-label :bgColor="chipColor(point.user.type)"
-                    >ID: {{ point.user_detail.identifier }}
+                  <chip-label :bgColor="chipColor(point.type)"
+                    >ID: {{ point.identifier }}
                   </chip-label>
-                  <p class="mt-3">{{ point.user.email }}</p>
+                  <p class="mt-3">{{ point.email }}</p>
                   <p class="text-sm">
                     {{ point.created_at | luxon:format('E LLLL y, HH:mm:ss') }}
                   </p>
@@ -67,7 +102,16 @@
                     >Total Pcs: {{ point.total_pcs }}</span
                   >
                   <div>
-                    <div class="flex">
+                    <div
+                      class="flex"
+                      v-if="
+                        canVerifyPoint(
+                          point.type,
+                          point.upline_identifier,
+                          point.status
+                        )
+                      "
+                    >
                       <button
                         @click="verifyPoint(point.id, true)"
                         class="inline-flex items-center px-2 py-1 bg-green-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-600 transition ease-in-out duration-150"
@@ -81,24 +125,20 @@
                         <cross-mark-icon />
                       </button>
                     </div>
+                    <div v-if="canDeleteClaim(point.user_id, point.status)">
+                      <button
+                        @click="deleteClaim(point.id)"
+                        class="inline-flex items-center px-2 py-1 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-600 transition ease-in-out duration-150"
+                      >
+                        <trash-icon />
+                      </button>
+                    </div>
+                    <div v-if="point.status !== 'MENUNGGU VERIFIKASI'">
+                      <chip-label :bgColor="chipClaimStatus(point.status)">{{
+                        point.status
+                      }}</chip-label>
+                    </div>
                   </div>
-                </div>
-              </div>
-
-              <div class="flex justify-end">
-                <div v-if="point.status === 'SEDANG DIVERIFIKASI'" class="flex">
-                  <button
-                    @click="verifyAgent(point.id, true)"
-                    class="inline-flex items-center px-2 py-1 bg-green-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-600 transition ease-in-out duration-150"
-                  >
-                    <check-mark-icon />
-                  </button>
-                  <button
-                    @click="verifyAgent(point.id, false)"
-                    class="inline-flex items-center px-2 py-1 ml-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 transition ease-in-out duration-150"
-                  >
-                    <cross-mark-icon />
-                  </button>
                 </div>
               </div>
             </div>
@@ -125,6 +165,7 @@ import InstagramIcon from "./../../Icons/Instagram";
 import CardIcon from "./../../Icons/Card";
 import DollarIcon from "./../../Icons/Dollar";
 import PlusIcon from "./../../Icons/Plus";
+import TrashIcon from "./../../Icons/Trash";
 
 export default {
   components: {
@@ -142,11 +183,14 @@ export default {
     CardIcon,
     DollarIcon,
     PlusIcon,
+    TrashIcon,
   },
 
   data() {
     return {
-      filter: "Semua",
+      debounceSearch: null,
+      filterUserType: "Semua",
+      filterStatus: "Semua",
       points: [],
       is_fetching: true,
       search: "",
@@ -158,6 +202,33 @@ export default {
   },
 
   methods: {
+    canVerifyPoint(targetType, uplineIdentifier, status) {
+      const {
+        user: { type },
+        user_detail: { identifier },
+      } = this.$page;
+      return (
+        (type === "ADMIN" && status === "MENUNGGU VERIFIKASI") ||
+        (targetType === "RESELLER" && uplineIdentifier === identifier)
+      );
+    },
+    canDeleteClaim(targetUserId, status) {
+      return (
+        targetUserId === this.$page.user.id && status === "MENUNGGU VERIFIKASI"
+      );
+    },
+    chipClaimStatus(status) {
+      switch (status) {
+        case "KLAIM DITERIMA":
+          return "bg-green-500";
+        case "GAGAL VERIFIKASI":
+          return "bg-red-600";
+        case "KLAIM DICAIRKAN":
+          return "bg-blue-500";
+        default:
+          return "bg-black";
+      }
+    },
     chipColor(type) {
       switch (type) {
         case "AGENT":
@@ -173,14 +244,47 @@ export default {
           return "";
       }
     },
-    changeFilter($event) {
-      this.filter = $event.target.value;
+    changeUserType($event) {
+      this.filterUserType = $event.target.value;
+      this.fetchPoints();
+    },
+    changeFilterStatus($event) {
+      this.filterStatus = $event.target.value;
       this.fetchPoints();
     },
     changeSearch($event) {
       this.search = $event.target.value;
-      this.status = "Semua";
-      this.fetchPoints();
+      clearTimeout(this.debounceSearch);
+      this.debounceSearch = setTimeout(() => {
+        this.fetchPoints();
+      }, 700);
+    },
+    async deleteClaim(id) {
+      try {
+        const {
+          data: { data },
+        } = await axios.delete(`/api/point/${id}`);
+        this.fetchPoints();
+        this.$swal("Berhasil!", "Klaim telah terhapus", "success");
+      } catch (e) {
+        console.log(e);
+        this.$swal("Terjadi Kesalahan!", "", "error");
+      }
+    },
+    async verifyPoint(id, is_verified) {
+      try {
+        const {
+          data: { data },
+        } = await axios.put(`/api/point/verify/${id}`, {
+          is_verified,
+        });
+
+        this.fetchPoints();
+        this.$swal("Berhasil!", "Klaim berhasil diverifikasi", "success");
+      } catch (e) {
+        console.log(e);
+        this.$swal("Terjadi Kesalahan!", "", "error");
+      }
     },
     async fetchPoints() {
       try {
@@ -188,7 +292,13 @@ export default {
         const {
           data: { data },
         } = await axios.get("/api/point", {
-          params: { dxpoint: this.$page.user.id },
+          params: {
+            dxpoint:
+              this.$page.user.type === "ADMIN" ? undefined : this.$page.user.id,
+            type: this.filterUserType,
+            status: this.filterStatus,
+            search: this.search,
+          },
         });
         this.points = data;
         this.is_fetching = false;

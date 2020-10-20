@@ -11,19 +11,16 @@
         <p class="mb-2">Status Akun Kamu:</p>
         <user-status :status="$page.data.status" />
 
-        <div
-          class="mt-4"
-          :class="{
-            'flex flex-col':
-              $page.user.type === 'RESELLER' && $page.data.status === 'AKTIF',
-          }"
-        >
+        <div class="mt-4">
           <chip-label
             v-if="$page.data.status === 'AKTIF'"
             :bgColor="chipIdColor"
             class="mb-2"
             >ID Kamu: {{ $page.data.identifier }}</chip-label
           >
+        </div>
+
+        <div class="mt-2">
           <chip-label
             v-if="$page.user.type === 'RESELLER'"
             :bgColor="'bg-purple-500'"

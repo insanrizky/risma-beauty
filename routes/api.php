@@ -32,3 +32,4 @@ Route::get('/city/{provinceId}', [ReferenceController::class, 'getCitiesByProvin
 Route::get('/point', [PointController::class, 'getPoints'])->name('admin.get-points');
 Route::post('/point/claim', [PointController::class, 'claimPoints'])->name('admin.claim-points');
 Route::put('/point/verify/{id}', [PointController::class, 'verifyPoint'])->name('admin.verify-point');
+Route::delete('/point/{id}', [PointController::class, 'deleteClaim'])->name('admin.delete-claim');

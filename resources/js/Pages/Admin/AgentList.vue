@@ -4,21 +4,23 @@
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">Agen</h2>
     </template>
 
-    <div class="flex">
-      <div class="bg-white pl-4 py-3 border-t">Filter:</div>
-      <select
-        v-model="filter"
-        @change="changeFilter($event)"
-        class="form-input focus-none w-full rounded border-0 border-t"
-      >
-        <option>Semua</option>
-        <option>Sedang Diverifikasi</option>
-        <option>Aktif</option>
-        <option>Gagal Verifikasi</option>
-      </select>
+    <div class="bg-white border-t">
+      <div class="flex max-w-7xl mx-auto sm:px-4 px-0">
+        <div class="bg-white pl-4 py-3">Filter:</div>
+        <select
+          v-model="filter"
+          @change="changeFilter($event)"
+          class="form-input focus-none w-full rounded border-0"
+        >
+          <option>Semua</option>
+          <option>Sedang Diverifikasi</option>
+          <option>Aktif</option>
+          <option>Gagal Verifikasi</option>
+        </select>
+      </div>
     </div>
 
-    <div class="pt-6 px-3">
+    <div class="max-w-7xl mx-auto pt-6 sm:px-8 px-4">
       <input
         v-model="search"
         @input="changeSearch($event)"
@@ -32,14 +34,15 @@
     <div class="py-6">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="overflow-hidden sm:rounded-lg">
-          <div v-if="is_fetching" class="max-w-sm w-full lg:max-w-full lg:flex">
-            <card-loader :total="2" />
+          <div v-if="is_fetching">
+            <card-loader :total="3" />
           </div>
-          <div v-else class="max-w-sm w-full md:max-w-full md:flex">
+          <div v-else class="grid sm:grid-cols-2 lg:grid-cols-3">
             <div
               v-for="agent in agents"
               :key="agent.id"
-              class="bg-white mb-6 md:ml-6 shadow rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal"
+              class="bg-white mb-6 md:mr-6 shadow rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal"
+              :class="{ 'mx-auto': agents.length > 2 }"
             >
               <div class="flex justify-between items-center mb-4">
                 <user-status :status="agent.status" class="text-sm" />
@@ -184,6 +187,7 @@ export default {
 
   data() {
     return {
+      debounceSearch: null,
       base_url: "",
       agents: [],
       filter: "Semua",
@@ -203,7 +207,11 @@ export default {
     changeSearch($event) {
       this.search = $event.target.value;
       this.status = "Semua";
-      this.fetchAgents();
+
+      clearTimeout(this.debounceSearch)
+      this.debounceSearch = setTimeout(() => {
+        this.fetchAgents();
+      }, 700);
     },
     changeFilter($event) {
       this.filter = $event.target.value;
