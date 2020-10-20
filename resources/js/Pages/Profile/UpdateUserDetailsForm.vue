@@ -221,7 +221,7 @@
       </jet-button>
 
       <inertia-link :href="route('dashboard')" class="ml-3">
-        <jet-button class="bg-orange-400">Kembali</jet-button>
+        <jet-secondary-button>Kembali</jet-secondary-button>
       </inertia-link>
     </template>
   </jet-form-section>

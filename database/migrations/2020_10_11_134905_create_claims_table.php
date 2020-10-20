@@ -17,7 +17,7 @@ class CreateClaimsTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->integer('total_pcs');
-            $table->string('payment_file');
+            $table->string('payment_file')->nullable();
             $table->integer('point_added')->nullable();
             $table->integer('amount_added')->nullable();
             $table->string('status');

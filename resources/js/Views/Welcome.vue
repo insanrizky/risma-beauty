@@ -11,7 +11,13 @@
         <p class="mb-2">Status Akun Kamu:</p>
         <user-status :status="$page.data.status" />
 
-        <div class="mt-4 flex flex-col">
+        <div
+          class="mt-4"
+          :class="{
+            'flex flex-col':
+              $page.user.type === 'RESELLER' && $page.data.status === 'AKTIF',
+          }"
+        >
           <chip-label
             v-if="$page.data.status === 'AKTIF'"
             :bgColor="chipIdColor"
@@ -135,7 +141,9 @@
             </g>
           </svg>
           <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold">
-            <inertia-link :href="route('admin.show-points')">Klaim dan Tukar Poin</inertia-link>
+            <inertia-link :href="route('admin.show-points')"
+              >Klaim dan Tukar Poin</inertia-link
+            >
           </div>
         </div>
 

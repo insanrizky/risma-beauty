@@ -4,7 +4,7 @@
       <h2
         class="flex justify-between items-center font-semibold text-xl text-gray-800 leading-tight"
       >
-        Klaim dan Poin
+        Klaim Poin
         <inertia-link :href="route('admin.claim-points-view')">
           <button class="bg-green-500 text-white px-2 py-1 rounded">
             <plus-icon />
@@ -43,51 +43,48 @@
           <div v-if="is_fetching" class="max-w-sm w-full lg:max-w-full lg:flex">
             <card-loader :total="2" />
           </div>
-          <div v-else class="max-w-sm w-full md:max-w-full md:flex">
-            <div
-              v-for="point in points"
-              :key="point.id"
-              class="bg-white mb-6 md:ml-6 shadow rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal"
-            >
-              <div class="flex justify-between items-center mb-4">
-                <span
-                  class="flex rounded-full py-1 px-2 bg-green-500 text-white"
-                >
-                  <dollar-icon />
-                  <span class="mx-1">{{ point.total_pcs }}</span>
-                </span>
-              </div>
-              <hr class="mb-3" />
-              <div class="flex items-center mb-4">
-                <img
-                  v-if="!point.profile_photo_path"
-                  class="w-10 h-10 rounded-full mr-4"
-                  :src="`https://ui-avatars.com/api/?name=${point.name}&color=7F9CF5&background=EBF4FF`"
-                  alt="Avatar"
-                />
-                <img
-                  v-if="point.profile_photo_path"
-                  class="w-10 h-10 rounded-full mr-4"
-                  :src="`${base_url}/storage/${point.profile_photo_path}`"
-                  alt="Avatar"
-                />
-                <div class="text-sm">
-                  <p class="text-gray-900 leading-none">{{ point.name }}</p>
-                  <p class="text-gray-600">{{ point.email }}</p>
-                  <chip-label :bgColor="'bg-purple-500'">
-                    ID Agen: {{ point.identifier }}
+          <div v-else>
+            <div v-for="point in points" :key="point.id" class="my-4">
+              <div class="max-w-sm rounded overflow-hidden shadow-lg bg-white">
+                <a :href="point.payment_file_url" target="_blank">
+                  <img class="w-full" :src="point.payment_file_url" />
+                </a>
+                <div class="px-6 py-4">
+                  <div class="font-bold text-xl mb-2">
+                    {{ point.user.name }}
+                  </div>
+                  <chip-label :bgColor="chipColor(point.user.type)"
+                    >ID: {{ point.user_detail.identifier }}
                   </chip-label>
+                  <p class="mt-3">{{ point.user.email }}</p>
+                  <p class="text-sm">
+                    {{ point.created_at | luxon:format('E LLLL y, HH:mm:ss') }}
+                  </p>
+                </div>
+                <div class="px-6 pb-2 flex justify-between">
+                  <span
+                    class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+                    >Total Pcs: {{ point.total_pcs }}</span
+                  >
+                  <div>
+                    <div class="flex">
+                      <button
+                        @click="verifyPoint(point.id, true)"
+                        class="inline-flex items-center px-2 py-1 bg-green-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-600 transition ease-in-out duration-150"
+                      >
+                        <check-mark-icon />
+                      </button>
+                      <button
+                        @click="verifyPoint(point.id, false)"
+                        class="inline-flex items-center px-2 py-1 ml-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 transition ease-in-out duration-150"
+                      >
+                        <cross-mark-icon />
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <div class="mb-5 mt-1 flex">
-                <chip-label :bgColor="'bg-gray-800'" class="ml-2">
-                  <a :href="point.payment_file_url" target="_blank"
-                    >Bukti Pembayaran</a
-                  >
-                </chip-label>
-              </div>
-              <hr class="my-3" />
               <div class="flex justify-end">
                 <div v-if="point.status === 'SEDANG DIVERIFIKASI'" class="flex">
                   <button
@@ -161,6 +158,21 @@ export default {
   },
 
   methods: {
+    chipColor(type) {
+      switch (type) {
+        case "AGENT":
+          return "bg-purple-500";
+
+        case "RESELLER":
+          return "bg-blue-500";
+
+        case "ADMIN":
+          return "bg-green-500";
+
+        default:
+          return "";
+      }
+    },
     changeFilter($event) {
       this.filter = $event.target.value;
       this.fetchPoints();
@@ -175,8 +187,10 @@ export default {
         this.is_fetching = true;
         const {
           data: { data },
-        } = await axios.get("/api/point");
-        console.log(data);
+        } = await axios.get("/api/point", {
+          params: { dxpoint: this.$page.user.id },
+        });
+        this.points = data;
         this.is_fetching = false;
       } catch (e) {
         console.log(e);
