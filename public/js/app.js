@@ -4937,15 +4937,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _JetStream_ChipLabel__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../JetStream/ChipLabel */ "./resources/js/JetStream/ChipLabel.vue");
 /* harmony import */ var _JetStream_NoData__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../JetStream/NoData */ "./resources/js/JetStream/NoData.vue");
 /* harmony import */ var _Jetstream_CardLoader__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../../Jetstream/CardLoader */ "./resources/js/Jetstream/CardLoader.vue");
-/* harmony import */ var _Icons_Whatsapp__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../../Icons/Whatsapp */ "./resources/js/Icons/Whatsapp.vue");
-/* harmony import */ var _Icons_CrossMark__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../../Icons/CrossMark */ "./resources/js/Icons/CrossMark.vue");
-/* harmony import */ var _Icons_CheckMark__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./../../Icons/CheckMark */ "./resources/js/Icons/CheckMark.vue");
-/* harmony import */ var _Icons_Shopee__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./../../Icons/Shopee */ "./resources/js/Icons/Shopee.vue");
-/* harmony import */ var _Icons_Instagram__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./../../Icons/Instagram */ "./resources/js/Icons/Instagram.vue");
-/* harmony import */ var _Icons_Card__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./../../Icons/Card */ "./resources/js/Icons/Card.vue");
-/* harmony import */ var _Icons_Dollar__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./../../Icons/Dollar */ "./resources/js/Icons/Dollar.vue");
-/* harmony import */ var _Icons_Plus__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./../../Icons/Plus */ "./resources/js/Icons/Plus.vue");
-/* harmony import */ var _Icons_Trash__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./../../Icons/Trash */ "./resources/js/Icons/Trash.vue");
+/* harmony import */ var _Icons_CrossMark__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../../Icons/CrossMark */ "./resources/js/Icons/CrossMark.vue");
+/* harmony import */ var _Icons_CheckMark__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../../Icons/CheckMark */ "./resources/js/Icons/CheckMark.vue");
+/* harmony import */ var _Icons_Card__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./../../Icons/Card */ "./resources/js/Icons/Card.vue");
+/* harmony import */ var _Icons_Dollar__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./../../Icons/Dollar */ "./resources/js/Icons/Dollar.vue");
+/* harmony import */ var _Icons_Plus__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./../../Icons/Plus */ "./resources/js/Icons/Plus.vue");
+/* harmony import */ var _Icons_Trash__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./../../Icons/Trash */ "./resources/js/Icons/Trash.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -5104,9 +5101,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-
-
-
+//
+//
+//
+//
+//
 
 
 
@@ -5127,15 +5126,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     ChipLabel: _JetStream_ChipLabel__WEBPACK_IMPORTED_MODULE_4__["default"],
     NoData: _JetStream_NoData__WEBPACK_IMPORTED_MODULE_5__["default"],
     CardLoader: _Jetstream_CardLoader__WEBPACK_IMPORTED_MODULE_6__["default"],
-    WhatsappIcon: _Icons_Whatsapp__WEBPACK_IMPORTED_MODULE_7__["default"],
-    CrossMarkIcon: _Icons_CrossMark__WEBPACK_IMPORTED_MODULE_8__["default"],
-    CheckMarkIcon: _Icons_CheckMark__WEBPACK_IMPORTED_MODULE_9__["default"],
-    ShopeeIcon: _Icons_Shopee__WEBPACK_IMPORTED_MODULE_10__["default"],
-    InstagramIcon: _Icons_Instagram__WEBPACK_IMPORTED_MODULE_11__["default"],
-    CardIcon: _Icons_Card__WEBPACK_IMPORTED_MODULE_12__["default"],
-    DollarIcon: _Icons_Dollar__WEBPACK_IMPORTED_MODULE_13__["default"],
-    PlusIcon: _Icons_Plus__WEBPACK_IMPORTED_MODULE_14__["default"],
-    TrashIcon: _Icons_Trash__WEBPACK_IMPORTED_MODULE_15__["default"]
+    CrossMarkIcon: _Icons_CrossMark__WEBPACK_IMPORTED_MODULE_7__["default"],
+    CheckMarkIcon: _Icons_CheckMark__WEBPACK_IMPORTED_MODULE_8__["default"],
+    CardIcon: _Icons_Card__WEBPACK_IMPORTED_MODULE_9__["default"],
+    DollarIcon: _Icons_Dollar__WEBPACK_IMPORTED_MODULE_10__["default"],
+    PlusIcon: _Icons_Plus__WEBPACK_IMPORTED_MODULE_11__["default"],
+    TrashIcon: _Icons_Trash__WEBPACK_IMPORTED_MODULE_12__["default"]
   },
   data: function data() {
     return {
@@ -5155,13 +5151,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this$$page = this.$page,
           type = _this$$page.user.type,
           identifier = _this$$page.user_detail.identifier;
-      return type === "ADMIN" && status === "MENUNGGU VERIFIKASI" || targetType === "RESELLER" && uplineIdentifier === identifier;
+      return type === "ADMIN" && status === "MENUNGGU DIVERIFIKASI" || targetType === "RESELLER" && uplineIdentifier === identifier;
     },
     canDeleteClaim: function canDeleteClaim(targetUserId, status) {
-      return targetUserId === this.$page.user.id && status === "MENUNGGU VERIFIKASI";
+      return targetUserId === this.$page.user.id && status === "MENUNGGU DIVERIFIKASI";
     },
     chipClaimStatus: function chipClaimStatus(status) {
       switch (status) {
+        case "MENUNGGU DIVERIFIKASI":
+          return "bg-orange-500";
+
         case "KLAIM DITERIMA":
           return "bg-green-500";
 
@@ -5332,6 +5331,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee3, null, [[0, 10]]);
       }))();
+    },
+    formatRupiah: function formatRupiah(number) {
+      if (number === null) {
+        number = 0;
+      }
+
+      var number_string = number.toString(),
+          sisa = number_string.length % 3,
+          rupiah = number_string.substr(0, sisa),
+          ribuan = number_string.substr(sisa).match(/\d{3}/g);
+
+      if (ribuan) {
+        var separator = sisa ? "." : "";
+        rupiah += separator + ribuan.join(".");
+      }
+
+      return "Rp ".concat(rupiah);
     }
   }
 });
@@ -40700,8 +40716,8 @@ var render = function() {
         fill: "none",
         viewBox: "0 0 24 24",
         stroke: "currentColor",
-        height: "24",
-        width: "24"
+        height: "20",
+        width: "20"
       }
     },
     [
@@ -44963,59 +44979,55 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "bg-white" }, [
-        _vm.$page.user.type === "ADMIN"
-          ? _c("div", { staticClass: "flex max-w-7xl mx-auto sm:px-4 px-0" }, [
-              _c("div", { staticClass: "bg-white pl-4 py-3" }, [
-                _vm._v("Filter:")
-              ]),
-              _vm._v(" "),
-              _c(
-                "select",
+        _c("div", { staticClass: "flex max-w-7xl mx-auto sm:px-4 px-0" }, [
+          _c("div", { staticClass: "bg-white pl-4 py-3" }, [_vm._v("Filter:")]),
+          _vm._v(" "),
+          _c(
+            "select",
+            {
+              directives: [
                 {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.filterStatus,
-                      expression: "filterStatus"
-                    }
-                  ],
-                  staticClass: "form-input focus-none w-full rounded border-0",
-                  on: {
-                    change: [
-                      function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.filterStatus = $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      },
-                      function($event) {
-                        return _vm.changeFilterStatus($event)
-                      }
-                    ]
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.filterStatus,
+                  expression: "filterStatus"
+                }
+              ],
+              staticClass: "form-input focus-none w-full rounded border-0",
+              on: {
+                change: [
+                  function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.filterStatus = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  },
+                  function($event) {
+                    return _vm.changeFilterStatus($event)
                   }
-                },
-                [
-                  _c("option", [_vm._v("Semua")]),
-                  _vm._v(" "),
-                  _c("option", [_vm._v("Menunggu Verifikasi")]),
-                  _vm._v(" "),
-                  _c("option", [_vm._v("Klaim Diterima")]),
-                  _vm._v(" "),
-                  _c("option", [_vm._v("Sudah Dicairkan")]),
-                  _vm._v(" "),
-                  _c("option", [_vm._v("Gagal Verifikasi")])
                 ]
-              )
-            ])
-          : _vm._e()
+              }
+            },
+            [
+              _c("option", [_vm._v("Semua")]),
+              _vm._v(" "),
+              _c("option", [_vm._v("Menunggu Diverifikasi")]),
+              _vm._v(" "),
+              _c("option", [_vm._v("Klaim Diterima")]),
+              _vm._v(" "),
+              _c("option", [_vm._v("Sudah Dicairkan")]),
+              _vm._v(" "),
+              _c("option", [_vm._v("Gagal Verifikasi")])
+            ]
+          )
+        ])
       ]),
       _vm._v(" "),
       _vm.$page.user.type === "ADMIN"
@@ -45129,6 +45141,28 @@ var render = function() {
                                     ]
                                   ),
                                   _vm._v(" "),
+                                  _c(
+                                    "chip-label",
+                                    {
+                                      staticClass: "mt-2 flex items-center",
+                                      attrs: { bgColor: "bg-green-500" }
+                                    },
+                                    [
+                                      _c("dollar-icon"),
+                                      _vm._v(" "),
+                                      _c("span", { staticClass: "ml-1" }, [
+                                        _vm._v(
+                                          "\n                    Nominal Klaim: " +
+                                            _vm._s(
+                                              _vm.formatRupiah(point.amount)
+                                            ) +
+                                            "\n                  "
+                                        )
+                                      ])
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
                                   _c("p", { staticClass: "mt-3" }, [
                                     _vm._v(_vm._s(point.email))
                                   ]),
@@ -45237,7 +45271,7 @@ var render = function() {
                                         ])
                                       : _vm._e(),
                                     _vm._v(" "),
-                                    point.status !== "MENUNGGU VERIFIKASI"
+                                    point.status !== "MENUNGGU DIVERIFIKASI"
                                       ? _c(
                                           "div",
                                           [

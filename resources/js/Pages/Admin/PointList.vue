@@ -36,7 +36,6 @@
     <div class="bg-white">
       <div
         class="flex max-w-7xl mx-auto sm:px-4 px-0"
-        v-if="$page.user.type === 'ADMIN'"
       >
         <div class="bg-white pl-4 py-3">Filter:</div>
         <select
@@ -45,7 +44,7 @@
           class="form-input focus-none w-full rounded border-0"
         >
           <option>Semua</option>
-          <option>Menunggu Verifikasi</option>
+          <option>Menunggu Diverifikasi</option>
           <option>Klaim Diterima</option>
           <option>Sudah Dicairkan</option>
           <option>Gagal Verifikasi</option>
@@ -91,6 +90,12 @@
                   <chip-label :bgColor="chipColor(point.type)"
                     >ID: {{ point.identifier }}
                   </chip-label>
+                  <chip-label :bgColor="'bg-green-500'" class="mt-2 flex items-center">
+                    <dollar-icon />
+                    <span class="ml-1">
+                      Nominal Klaim: {{ formatRupiah(point.amount) }}
+                    </span>
+                  </chip-label>
                   <p class="mt-3">{{ point.email }}</p>
                   <p class="text-sm">
                     {{ point.created_at | luxon:format('E LLLL y, HH:mm:ss') }}
@@ -133,7 +138,7 @@
                         <trash-icon />
                       </button>
                     </div>
-                    <div v-if="point.status !== 'MENUNGGU VERIFIKASI'">
+                    <div v-if="point.status !== 'MENUNGGU DIVERIFIKASI'">
                       <chip-label :bgColor="chipClaimStatus(point.status)">{{
                         point.status
                       }}</chip-label>
@@ -157,11 +162,8 @@ import UserStatus from "./../../JetStream/UserStatus";
 import ChipLabel from "./../../JetStream/ChipLabel";
 import NoData from "./../../JetStream/NoData";
 import CardLoader from "./../../Jetstream/CardLoader";
-import WhatsappIcon from "./../../Icons/Whatsapp";
 import CrossMarkIcon from "./../../Icons/CrossMark";
 import CheckMarkIcon from "./../../Icons/CheckMark";
-import ShopeeIcon from "./../../Icons/Shopee";
-import InstagramIcon from "./../../Icons/Instagram";
 import CardIcon from "./../../Icons/Card";
 import DollarIcon from "./../../Icons/Dollar";
 import PlusIcon from "./../../Icons/Plus";
@@ -175,11 +177,8 @@ export default {
     ChipLabel,
     NoData,
     CardLoader,
-    WhatsappIcon,
     CrossMarkIcon,
     CheckMarkIcon,
-    ShopeeIcon,
-    InstagramIcon,
     CardIcon,
     DollarIcon,
     PlusIcon,
@@ -208,17 +207,19 @@ export default {
         user_detail: { identifier },
       } = this.$page;
       return (
-        (type === "ADMIN" && status === "MENUNGGU VERIFIKASI") ||
+        (type === "ADMIN" && status === "MENUNGGU DIVERIFIKASI") ||
         (targetType === "RESELLER" && uplineIdentifier === identifier)
       );
     },
     canDeleteClaim(targetUserId, status) {
       return (
-        targetUserId === this.$page.user.id && status === "MENUNGGU VERIFIKASI"
+        targetUserId === this.$page.user.id && status === "MENUNGGU DIVERIFIKASI"
       );
     },
     chipClaimStatus(status) {
       switch (status) {
+        case "MENUNGGU DIVERIFIKASI":
+          return "bg-orange-500";
         case "KLAIM DITERIMA":
           return "bg-green-500";
         case "GAGAL VERIFIKASI":
@@ -306,6 +307,22 @@ export default {
         console.log(e);
         this.is_fetching = false;
       }
+    },
+    formatRupiah(number) {
+      if (number === null) {
+        number = 0;
+      }
+
+      let number_string = number.toString(),
+        sisa = number_string.length % 3,
+        rupiah = number_string.substr(0, sisa),
+        ribuan = number_string.substr(sisa).match(/\d{3}/g);
+
+      if (ribuan) {
+        const separator = sisa ? "." : "";
+        rupiah += separator + ribuan.join(".");
+      }
+      return `Rp ${rupiah}`;
     },
   },
 };

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Claim;
 use App\Models\PointSetting;
+use App\Models\User;
 use App\Models\UserDetail;
 use Exception;
 use Illuminate\Http\Request;
@@ -27,7 +28,7 @@ class PointController extends Controller
                     ->leftJoin('user_details', 'claims.user_id', '=', 'user_details.id');
 
         if ($dxpoint = $request->input('dxpoint')) {
-            $builder->where('user_id', $dxpoint);
+            $builder->where('claims.user_id', $dxpoint);
         }
 
         if ($request->input('status') !== 'Semua') {
@@ -62,9 +63,16 @@ class PointController extends Controller
     {
         try {
             $userId = $request->input('id');
+
+            $pointAdded = $request->input('total_item');
+            $user = User::where('id', $userId)->first();
+            $pointSetting = PointSetting::where('type', $user->type)->first();
+            $amount = $pointAdded * $pointSetting->amount;
+
             $inserted = Claim::create([
                 'user_id' => $userId,
-                'total_pcs' => $request->input('total_item'),
+                'total_pcs' => $pointAdded,
+                'amount' => $amount,
                 'status' => config('global.claim_status.in_review'),
             ]);
 
@@ -79,7 +87,7 @@ class PointController extends Controller
             return response()->json([
                 'error' => true,
                 'message' => $e->getMessage(),
-            ]);
+            ], 422);
         }
     }
 
@@ -101,29 +109,16 @@ class PointController extends Controller
         $input = $request->all();
 
         $status = config('global.claim_status.rejected');
-        $pointAdded = 0;
-        $amountAdded = 0;
         if ($input['is_verified']) {
             $status = config('global.claim_status.claimed');
-
-            $claim = Claim::with('user')->where('id', $id)->first();
-            $pointAdded = $claim->total_pcs;
-
-            $pointSetting = PointSetting::where('type', $claim->user->type)->first();
-            $amountAdded = $pointAdded * $pointSetting->amount;
         }
-        $payload = [
+        Claim::where('id', $id)->update([
             'status' => $status,
-            'point_added' => $pointAdded,
-            'amount_added' => $amountAdded,
-        ];
-        Claim::where('id', $id)->update($payload);
+        ]);
 
         return response()->json(['data' => [
             'is_verified' => $input['is_verified'],
             'status' => $status,
-            'point_added' => $pointAdded,
-            'amount_added' => $amountAdded,
         ]]);
     }
 }

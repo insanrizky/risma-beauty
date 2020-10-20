@@ -8,7 +8,7 @@ return [
         'rejected' => 'GAGAL VERIFIKASI',
     ],
     'claim_status' => [
-        'in_review' => 'SEDANG DIVERIFIKASI',
+        'in_review' => 'MENUNGGU DIVERIFIKASI',
         'claimed' => 'KLAIM DITERIMA',
         'rejected' => 'GAGAL VERIFIKASI',
         'withdrawn' => 'KLAIM DICAIRKAN',
