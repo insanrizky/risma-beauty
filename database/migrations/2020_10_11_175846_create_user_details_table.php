@@ -30,6 +30,7 @@ class CreateUserDetailsTable extends Migration
             $table->string('payment_file')->nullable();
             $table->string('status');
             $table->integer('total_point')->nullable();
+            $table->integer('total_amount')->nullable();
             $table->timestamps();
         });
     }

@@ -21,10 +21,32 @@
                 Dashboard
               </jet-nav-link>
               <jet-nav-link
+                v-if="$page.user.type === 'ADMIN'"
                 :href="route('admin.show-agents')"
                 :active="$page.currentRouteName == 'admin.show-agents'"
               >
                 Agen
+              </jet-nav-link>
+              <!-- <jet-nav-link
+                v-if="$page.user.type === 'AGENT'"
+                :href="route('admin.show-resellers', {
+                  identifier: 
+                })"
+                :active="$page.currentRouteName == 'admin.show-resellers'"
+              >
+                Reseller
+              </jet-nav-link> -->
+              <jet-nav-link
+                :href="route('admin.show-points')"
+                :active="$page.currentRouteName == 'admin.show-points'"
+              >
+                Klaim Poin
+              </jet-nav-link>
+              <jet-nav-link
+                :href="route('admin.show-ranks')"
+                :active="$page.currentRouteName == 'admin.show-ranks'"
+              >
+                Peringkat
               </jet-nav-link>
             </div>
           </div>
@@ -212,12 +234,28 @@
             Dashboard
           </jet-responsive-nav-link>
         </div>
-        <div class="pt-2 pb-3 space-y-1">
+        <div v-if="$page.user.type === 'ADMIN'" class="pt-2 pb-3 space-y-1">
           <jet-responsive-nav-link
             :href="route('admin.show-agents')"
             :active="$page.currentRouteName == 'admin.show-agents'"
           >
             Agen
+          </jet-responsive-nav-link>
+        </div>
+        <div class="pt-2 pb-3 space-y-1">
+          <jet-responsive-nav-link
+            :href="route('admin.show-points')"
+            :active="$page.currentRouteName == 'admin.show-points'"
+          >
+            Klaim Poin
+          </jet-responsive-nav-link>
+        </div>
+        <div class="pt-2 pb-3 space-y-1">
+          <jet-responsive-nav-link
+            :href="route('admin.show-ranks')"
+            :active="$page.currentRouteName == 'admin.show-ranks'"
+          >
+            Peringkat
           </jet-responsive-nav-link>
         </div>
 
@@ -401,7 +439,10 @@ export default {
       });
     },
   },
-
+  
+  mounted(){ 
+    console.log(this.$page);
+  },
   computed: {
     path() {
       return window.location.pathname;

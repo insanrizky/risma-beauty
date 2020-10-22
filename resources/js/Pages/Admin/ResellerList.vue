@@ -1,9 +1,13 @@
 <template>
   <app-layout>
     <template #header>
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight flex items-center">
+      <h2
+        class="font-semibold text-xl text-gray-800 leading-tight flex items-center"
+      >
         Reseller
-        <chip-label :bgColor="'bg-purple-500'" class="ml-2">{{ $page.identifier }}</chip-label>
+        <chip-label :bgColor="'bg-purple-500'" class="ml-2">{{
+          $page.identifier
+        }}</chip-label>
       </h2>
     </template>
 
@@ -19,6 +23,14 @@
         <option>Aktif</option>
         <option>Gagal Verifikasi</option>
       </select>
+    </div>
+
+    <div class="px-4 py-2 mt-2 mb-0 bg-green-500 text-white rounded">
+      <div class="font-bold text-xl">Total Reseller: {{ total_member }}</div>
+      <div class="font-bold">Total Poin: {{ total_point }}</div>
+      <div class="text-sm">
+        x {{ formatRupiah(multiplier) }} = {{ formatRupiah(total_point * multiplier) }}
+      </div>
     </div>
 
     <div class="pt-6 px-3">
@@ -88,7 +100,8 @@
                 <div class="flex">
                   <card-icon />
                   <p class="ml-2 text-gray-700 text-base">
-                    Bank {{ reseller.bank.name }} - {{ reseller.account_number }}
+                    Bank {{ reseller.bank.name }} -
+                    {{ reseller.account_number }}
                   </p>
                 </div>
                 <p class="mt-3 text-gray-700 text-base">
@@ -117,7 +130,10 @@
                   </a>
                 </div>
 
-                <div v-if="reseller.status === 'SEDANG DIVERIFIKASI'" class="flex">
+                <div
+                  v-if="reseller.status === 'SEDANG DIVERIFIKASI'"
+                  class="flex"
+                >
                   <button
                     @click="verifyReseller(reseller.id, true)"
                     class="inline-flex items-center px-2 py-1 bg-green-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-600 transition ease-in-out duration-150"
@@ -155,6 +171,7 @@ import ShopeeIcon from "./../../Icons/Shopee";
 import InstagramIcon from "./../../Icons/Instagram";
 import CardIcon from "./../../Icons/Card";
 import DollarIcon from "./../../Icons/Dollar";
+import { formatRupiah } from "./../../helpers";
 
 export default {
   components: {
@@ -180,6 +197,9 @@ export default {
       filter: "Semua",
       is_fetching: false,
       search: "",
+      total_member: 0,
+      total_point: 0,
+      multiplier: 0,
     };
   },
 
@@ -188,6 +208,7 @@ export default {
   },
 
   methods: {
+    formatRupiah,
     chipIdColor(type) {
       switch (type) {
         case "AGENT":
@@ -214,7 +235,7 @@ export default {
       this.is_fetching = true;
       try {
         const {
-          data: { data, base_url },
+          data: { data, base_url, total_member, total_point, multiplier },
         } = await axios.get("/api/admin/user", {
           params: {
             type: "RESELLER",
@@ -225,6 +246,10 @@ export default {
         });
         this.base_url = base_url;
         this.resellers = data;
+        this.total_member = total_member;
+        this.total_point = total_point;
+        this.multiplier = multiplier;
+
         this.is_fetching = false;
       } catch (e) {
         console.log(e);

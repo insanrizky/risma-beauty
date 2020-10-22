@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PointController;
+use App\Http\Controllers\RankController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
@@ -35,4 +36,6 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
     
     Route::get('/point', [PointController::class, 'showPoints'])->name('admin.show-points');
     Route::get('/point/claim', [PointController::class, 'claimPointsView'])->name('admin.claim-points-view');
+    
+    Route::get('/rank', [RankController::class, 'showRanks'])->name('admin.show-ranks');
 });

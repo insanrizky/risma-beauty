@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PointController;
+use App\Http\Controllers\RankController;
 use App\Http\Controllers\ReferenceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -33,3 +34,5 @@ Route::get('/point', [PointController::class, 'getPoints'])->name('admin.get-poi
 Route::post('/point/claim', [PointController::class, 'claimPoints'])->name('admin.claim-points');
 Route::put('/point/verify/{id}', [PointController::class, 'verifyPoint'])->name('admin.verify-point');
 Route::delete('/point/{id}', [PointController::class, 'deleteClaim'])->name('admin.delete-claim');
+
+Route::get('/rank', [RankController::class, 'getRanks'])->name('admin.get-ranks');

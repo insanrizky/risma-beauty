@@ -9,6 +9,7 @@ use App\Models\UserDetail;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class PointController extends Controller
@@ -106,19 +107,42 @@ class PointController extends Controller
 
     public function verifyPoint(Request $request, $id)
     {
-        $input = $request->all();
+        DB::beginTransaction();
+        try {
+            $input = $request->all();
 
-        $status = config('global.claim_status.rejected');
-        if ($input['is_verified']) {
-            $status = config('global.claim_status.claimed');
+            $status = config('global.claim_status.rejected');
+            if ($input['is_verified']) {
+                $status = config('global.claim_status.claimed');
+            }
+            Claim::where('id', $id)->update([
+                'status' => $status,
+            ]);
+
+            $claim = Claim::where('id', $id)->first();
+            $user = User::where('id', $claim->user_id)->first();
+
+            $totalPoint = Claim::where('user_id', $claim->user_id)
+                            ->where('status', '=', config('global.claim_status.claimed'))
+                            ->sum('total_pcs');
+            $pointSetting = PointSetting::where('type', $user->type)->first();
+            $totalAmount = $totalPoint * $pointSetting->amount;
+            UserDetail::where('user_id', $claim->user_id)->update([
+                'total_point' => $totalPoint,
+                'total_amount' => $totalAmount,
+            ]);
+
+            DB::commit();
+            return response()->json(['data' => [
+                'is_verified' => $input['is_verified'],
+                'status' => $status,
+            ]]);
+        } catch (Exception $e) {
+            DB::rollBack();
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+            ], 422);
         }
-        Claim::where('id', $id)->update([
-            'status' => $status,
-        ]);
-
-        return response()->json(['data' => [
-            'is_verified' => $input['is_verified'],
-            'status' => $status,
-        ]]);
     }
 }

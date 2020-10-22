@@ -1,7 +1,7 @@
 <template>
     <jet-form-section @submitted="updateProfileInformation">
         <template #title>
-            Informasi Akun Anda
+            Informasi Akun
         </template>
 
         <template #description>

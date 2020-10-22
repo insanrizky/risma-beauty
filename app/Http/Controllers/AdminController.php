@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PointSetting;
 use App\Models\UserDetail;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -24,7 +25,8 @@ class AdminController extends Controller
     {
         $builder = UserDetail::with(['bank', 'province', 'city'])
                             ->where('users.type', $request->input('type'))
-                            ->where('status', '<>', config('global.status.in_registration'));
+                            ->where('status', '<>', config('global.status.in_registration'))
+                            ->leftJoin('users', 'user_details.user_id', '=', 'users.id');
 
         if ($status = $request->input('status')) {
             $builder->where('status', $status);
@@ -38,13 +40,22 @@ class AdminController extends Controller
             });
         }
 
-        $data = $builder->leftJoin('users', 'user_details.user_id', '=', 'users.id')
-                    ->selectRaw('users.profile_photo_path, users.type, users.name, users.email, user_details.*')
+        $totalMember = $builder->count();
+        $totalPoint = $builder->sum('user_details.total_point');
+        $pointSetting = PointSetting::where('type', $request->input('type'))->first();
+
+        $data = $builder->selectRaw('users.profile_photo_path, users.type, users.name, users.email, user_details.*')
                     ->orderBy('users.created_at', 'desc')
                     ->get()
                     ->toArray();
 
-        return response()->json(['data' => $data, 'base_url' => url('/')]);
+        return response()->json([
+            'data' => $data,
+            'base_url' => url('/'),
+            'total_member' => $totalMember,
+            'total_point' => $totalPoint,
+            'multiplier' => $pointSetting ? $pointSetting->amount : 0,
+        ]);
     }
 
     public function verify(Request $request, $userId)
