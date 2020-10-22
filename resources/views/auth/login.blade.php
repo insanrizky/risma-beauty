@@ -42,7 +42,7 @@
                     {{ __('Masuk') }}
                 </x-jet-button>
 
-                <a href="/register" class="ml-2 inline-flex items-center px-4 py-2 bg-orange-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-orange-400 active:bg-orange-900 focus:outline-none focus:border-orange-900 focus:shadow-outline-orange disabled:opacity-25 transition ease-in-out duration-150">
+                <a href="/register" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150 ml-2">
                     {{ __('Daftar') }}
                 </a>
             </div>
