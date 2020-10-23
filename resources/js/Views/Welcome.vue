@@ -9,7 +9,12 @@
 
       <div class="mt-6 text-gray-500">
         <p class="mb-2">Status Akun Kamu:</p>
-        <user-status :status="$page.data.status" />
+        <div class="flex">
+          <user-status :status="$page.data.status" />
+          <chip-label :bgColor="'bg-green-500'" class="ml-2">
+            Poin: {{ $page.data.total_point }}
+          </chip-label>
+        </div>
 
         <div class="mt-4">
           <chip-label

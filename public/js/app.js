@@ -8985,6 +8985,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -64215,7 +64220,7 @@ var render = function() {
                           },
                           [
                             _c("span", {
-                              staticClass: "block rounded-full w-20 h-20",
+                              staticClass: "block h-20",
                               style:
                                 "background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url('" +
                                 _vm.filePreview +
@@ -64609,7 +64614,7 @@ var render = function() {
               _vm._v(" "),
               _c("option", [_vm._v("Klaim Diterima")]),
               _vm._v(" "),
-              _c("option", [_vm._v("Sudah Dicairkan")]),
+              _c("option", [_vm._v("Klaim Dicairkan")]),
               _vm._v(" "),
               _c("option", [_vm._v("Gagal Verifikasi")])
             ]
@@ -67620,7 +67625,7 @@ var render = function() {
                   },
                   [
                     _c("span", {
-                      staticClass: "block rounded-full w-20 h-20",
+                      staticClass: "block h-20",
                       style:
                         "background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url('" +
                         _vm.ktpPreview +
@@ -67711,7 +67716,7 @@ var render = function() {
                   },
                   [
                     _c("span", {
-                      staticClass: "block rounded-full w-20 h-20",
+                      staticClass: "block h-20",
                       style:
                         "background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url('" +
                         _vm.paymentPreview +
@@ -69473,70 +69478,84 @@ var render = function() {
           _vm._v("Selamat Datang, " + _vm._s(_vm.$page.user.name) + "! 👋🏻")
         ]),
         _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "mt-6 text-gray-500" },
-          [
-            _c("p", { staticClass: "mb-2" }, [_vm._v("Status Akun Kamu:")]),
-            _vm._v(" "),
-            _c("user-status", { attrs: { status: _vm.$page.data.status } }),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "mt-4" },
-              [
-                _vm.$page.data.status === "AKTIF"
-                  ? _c(
-                      "chip-label",
-                      {
-                        staticClass: "mb-2",
-                        attrs: { bgColor: _vm.chipIdColor }
-                      },
-                      [_vm._v("ID Kamu: " + _vm._s(_vm.$page.data.identifier))]
-                    )
-                  : _vm._e()
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _vm.isInRegistration
-              ? _c("p", { staticClass: "mt-6 border-t pt-4" }, [
+        _c("div", { staticClass: "mt-6 text-gray-500" }, [
+          _c("p", { staticClass: "mb-2" }, [_vm._v("Status Akun Kamu:")]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "flex" },
+            [
+              _c("user-status", { attrs: { status: _vm.$page.data.status } }),
+              _vm._v(" "),
+              _c(
+                "chip-label",
+                { staticClass: "ml-2", attrs: { bgColor: "bg-green-500" } },
+                [
                   _vm._v(
-                    "\n        Lengkapi dulu data kamu supaya bisa diverifikasi admin dan mulai\n        jualan! 😉\n      "
+                    "\n          Poin: " +
+                      _vm._s(_vm.$page.data.total_point) +
+                      "\n        "
                   )
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.isInVerification
-              ? _c("p", { staticClass: "mt-6 border-t pt-4" }, [
-                  _vm._v(
-                    "\n        Mohon bersabar ya! Insya Allah admin bakal verifikasi akun kamu\n        secepatnya kok! 😉\n      "
+                ]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "mt-4" },
+            [
+              _vm.$page.data.status === "AKTIF"
+                ? _c(
+                    "chip-label",
+                    {
+                      staticClass: "mb-2",
+                      attrs: { bgColor: _vm.chipIdColor }
+                    },
+                    [_vm._v("ID Kamu: " + _vm._s(_vm.$page.data.identifier))]
                   )
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.isActive
-              ? _c("p", { staticClass: "mt-6 border-t pt-4" }, [
-                  _vm._v("\n        Yeay! 🎉"),
-                  _c("br"),
-                  _vm._v(
-                    "Akun kamu sudah aktif. Kamu bisa jualan sekarang! 💰💰💰\n      "
-                  )
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.isVerificatonFailed
-              ? _c("p", { staticClass: "mt-6 border-t pt-4" }, [
-                  _vm._v("\n        Yah.. 😭"),
-                  _c("br"),
-                  _vm._v(
-                    "Kamu belum bisa jualan nih! Tapi kamu bisa hubungin\n        admin kok untuk informasi lebih lanjut.\n      "
-                  )
-                ])
-              : _vm._e()
-          ],
-          1
-        )
+                : _vm._e()
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _vm.isInRegistration
+            ? _c("p", { staticClass: "mt-6 border-t pt-4" }, [
+                _vm._v(
+                  "\n        Lengkapi dulu data kamu supaya bisa diverifikasi admin dan mulai\n        jualan! 😉\n      "
+                )
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.isInVerification
+            ? _c("p", { staticClass: "mt-6 border-t pt-4" }, [
+                _vm._v(
+                  "\n        Mohon bersabar ya! Insya Allah admin bakal verifikasi akun kamu\n        secepatnya kok! 😉\n      "
+                )
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.isActive
+            ? _c("p", { staticClass: "mt-6 border-t pt-4" }, [
+                _vm._v("\n        Yeay! 🎉"),
+                _c("br"),
+                _vm._v(
+                  "Akun kamu sudah aktif. Kamu bisa jualan sekarang! 💰💰💰\n      "
+                )
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.isVerificatonFailed
+            ? _c("p", { staticClass: "mt-6 border-t pt-4" }, [
+                _vm._v("\n        Yah.. 😭"),
+                _c("br"),
+                _vm._v(
+                  "Kamu belum bisa jualan nih! Tapi kamu bisa hubungin\n        admin kok untuk informasi lebih lanjut.\n      "
+                )
+              ])
+            : _vm._e()
+        ])
       ]
     ),
     _vm._v(" "),

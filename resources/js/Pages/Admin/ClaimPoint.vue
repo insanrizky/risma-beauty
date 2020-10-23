@@ -41,7 +41,7 @@
 
             <div class="mt-2" v-show="filePreview">
               <span
-                class="block rounded-full w-20 h-20"
+                class="block h-20"
                 :style="
                   'background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url(\'' +
                   filePreview +

@@ -46,7 +46,7 @@
           <option>Semua</option>
           <option>Menunggu Diverifikasi</option>
           <option>Klaim Diterima</option>
-          <option>Sudah Dicairkan</option>
+          <option>Klaim Dicairkan</option>
           <option>Gagal Verifikasi</option>
         </select>
       </div>
