@@ -16,6 +16,7 @@ class CreateClaimsTable extends Migration
         Schema::create('claims', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
+            $table->string('type');
             $table->integer('total_pcs');
             $table->integer('amount');
             $table->string('payment_file')->nullable();

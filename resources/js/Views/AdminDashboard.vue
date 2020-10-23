@@ -96,6 +96,35 @@
           </inertia-link>
         </div>
       </div>
+
+      <div class="p-6 border-t border-gray-200 md:border-t-0 md:border-l">
+        <div class="flex items-center">
+          <setting-icon />
+          <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold">
+            <inertia-link :href="route('admin.show-settings')"
+              >Pengaturan</inertia-link
+            >
+          </div>
+        </div>
+
+        <div class="ml-12">
+          <div class="mt-2 text-sm text-gray-500">
+            Rekapitulasi data, pencairan klaim, dan pengaturan lanjutan ada di sini.
+          </div>
+
+          <inertia-link :href="route('admin.show-settings')">
+            <div
+              class="mt-3 flex items-center text-sm font-semibold text-indigo-700"
+            >
+              <div>Pengaturan Lebih Lanjut</div>
+
+              <div class="ml-1 text-indigo-500">
+                <arrow-right-icon />
+              </div>
+            </div>
+          </inertia-link>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -106,6 +135,7 @@ import AgentSearchIcon from "./../Icons/AgentSearch";
 import CoinIcon from "./../Icons/Coin";
 import ArrowRightIcon from "./../Icons/ArrowRight";
 import RankIcon from "./../Icons/Rank";
+import SettingIcon from "./../Icons/Setting";
 
 export default {
   components: {
@@ -114,6 +144,7 @@ export default {
     CoinIcon,
     ArrowRightIcon,
     RankIcon,
+    SettingIcon,
   },
 };
 </script>

@@ -72,6 +72,7 @@ class PointController extends Controller
 
             $inserted = Claim::create([
                 'user_id' => $userId,
+                'type' => $user->type,
                 'total_pcs' => $pointAdded,
                 'amount' => $amount,
                 'status' => config('global.claim_status.in_review'),
@@ -133,16 +134,86 @@ class PointController extends Controller
             ]);
 
             DB::commit();
+
             return response()->json(['data' => [
                 'is_verified' => $input['is_verified'],
                 'status' => $status,
             ]]);
         } catch (Exception $e) {
             DB::rollBack();
+
             return response()->json([
                 'error' => true,
                 'message' => $e->getMessage(),
             ], 422);
+        }
+    }
+
+    public function calculatePoint(Request $request)
+    {
+        $input = $request->all();
+        $builder = Claim::where('created_at', '>=', $input['start_date'])
+                        ->where('created_at', '<=', $input['end_date'])
+                        ->where('status', config('global.claim_status.claimed'));
+
+        $agent_builder = clone $builder;
+        $total_point_agent = $agent_builder->where('type', config('global.type.agent'))->sum('total_pcs');
+
+        $reseller_builder = clone $builder;
+        $total_point_reseller = $reseller_builder->where('type', config('global.type.reseller'))->sum('total_pcs');
+        $claims = $builder->get();
+
+        $agent_setting = PointSetting::where('type', config('global.type.agent'))->first();
+        $reseller_setting = PointSetting::where('type', config('global.type.reseller'))->first();
+
+        return response()->json([
+            'data' => $claims,
+            'meta' => [
+                'total_point_agent' => (int) $total_point_agent,
+                'total_point_reseller' => (int) $total_point_reseller,
+                'agent_multiplier' => (int) $agent_setting->amount,
+                'reseller_multiplier' => (int) $reseller_setting->amount,
+            ],
+        ]);
+    }
+
+    public function withdrawal(Request $request)
+    {
+        $input = $request->all();
+
+        DB::beginTransaction();
+        try {
+            $builder = Claim::where('created_at', '>=', $input['start_date'])
+                            ->where('created_at', '<=', $input['end_date']);
+            $fetcher = clone $builder;
+
+            $builder->where('status', config('global.claim_status.claimed'))
+                    ->update([
+                        'status' => config('global.claim_status.withdrawn'),
+                    ]);
+
+            $result = $fetcher->where('status', config('global.claim_status.withdrawn'))
+                        ->get();
+            $userIds = $result->pluck('user_id');
+            UserDetail::whereIn('user_id', $userIds)
+                ->update([
+                    'total_point' => 0,
+                    'total_amount' => 0,
+                ]);
+
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+                'data' => $result,
+            ]);
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+            ]);
         }
     }
 }

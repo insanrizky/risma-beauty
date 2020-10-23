@@ -439,10 +439,7 @@ export default {
       });
     },
   },
-  
-  mounted(){ 
-    console.log(this.$page);
-  },
+
   computed: {
     path() {
       return window.location.pathname;

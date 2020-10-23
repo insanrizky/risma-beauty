@@ -34,5 +34,9 @@ Route::get('/point', [PointController::class, 'getPoints'])->name('admin.get-poi
 Route::post('/point/claim', [PointController::class, 'claimPoints'])->name('admin.claim-points');
 Route::put('/point/verify/{id}', [PointController::class, 'verifyPoint'])->name('admin.verify-point');
 Route::delete('/point/{id}', [PointController::class, 'deleteClaim'])->name('admin.delete-claim');
+Route::get('/point/calculate', [PointController::class, 'calculatePoint'])->name('admin.calculate-point');
+Route::post('/point/withdrawal', [PointController::class, 'withdrawal'])->name('admin.withdrawal');
 
 Route::get('/rank', [RankController::class, 'getRanks'])->name('admin.get-ranks');
+
+Route::get('/export', [AdminController::class, 'export'])->name('admin.export');

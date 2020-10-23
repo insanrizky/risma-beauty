@@ -1,7 +1,8 @@
 <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
-            <x-jet-authentication-card-logo />
+            <!-- <x-jet-authentication-card-logo /> -->
+            <img src="{{ asset('/img/risma_logo.png') }}" width="400" />
         </x-slot>
 
         <div class="mb-4 text-sm text-gray-600">
@@ -24,10 +25,15 @@
                 <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
             </div>
 
-            <div class="flex items-center justify-end mt-4">
+            <div class="flex items-center md:flex-row flex-col justify-end mt-4">
                 <x-jet-button>
                     {{ __('Atur ulang kata sandi saya') }}
                 </x-jet-button>
+                <a href="/" class="ml-0 md:ml-2 mt-2 md:mt-0">
+                    <x-jet-secondary-button>
+                        {{ __('Kembali') }}
+                    </x-jet-secondary-button>
+                </a>
             </div>
         </form>
     </x-jet-authentication-card>

@@ -14,6 +14,7 @@ class Claim extends Model
     protected $fillable = [
         'total_pcs',
         'user_id',
+        'type',
         'payment_file',
         'amount',
         'status',

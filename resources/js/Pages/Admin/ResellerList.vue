@@ -11,29 +11,40 @@
       </h2>
     </template>
 
-    <div class="flex">
-      <div class="bg-white pl-4 py-3 border-t">Filter:</div>
-      <select
-        v-model="filter"
-        @change="changeFilter($event)"
-        class="form-input focus-none w-full rounded border-0 border-t"
-      >
-        <option>Semua</option>
-        <option>Sedang Diverifikasi</option>
-        <option>Aktif</option>
-        <option>Gagal Verifikasi</option>
-      </select>
-    </div>
-
-    <div class="px-4 py-2 mt-2 mb-0 bg-green-500 text-white rounded">
-      <div class="font-bold text-xl">Total Reseller: {{ total_member }}</div>
-      <div class="font-bold">Total Poin: {{ total_point }}</div>
-      <div class="text-sm">
-        x {{ formatRupiah(multiplier) }} = {{ formatRupiah(total_point * multiplier) }}
+    <div class="bg-white border-t">
+      <div class="flex max-w-7xl mx-auto sm:px-4 px-0">
+        <div class="bg-white pl-4 py-3 border-t">Filter:</div>
+        <select
+          v-model="filter"
+          @change="changeFilter($event)"
+          class="form-input focus-none w-full rounded border-0 border-t"
+        >
+          <option>Semua</option>
+          <option>Sedang Diverifikasi</option>
+          <option>Aktif</option>
+          <option>Gagal Verifikasi</option>
+        </select>
       </div>
     </div>
 
-    <div class="pt-6 px-3">
+    <div class="py-4">
+      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="overflow-hidden sm:rounded-lg">
+          <div class="px-4 py-2 mt-2 mb-0 bg-green-500 text-white rounded">
+            <div class="font-bold text-xl">
+              Total Reseller: {{ total_member }}
+            </div>
+            <div class="font-bold">Total Poin: {{ total_point }}</div>
+            <div class="text-sm">
+              x {{ formatRupiah(multiplier) }} =
+              {{ formatRupiah(total_point * multiplier) }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto pt-6 sm:px-8 px-4">
       <input
         v-model="search"
         @input="changeSearch($event)"

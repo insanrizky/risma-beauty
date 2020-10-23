@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\DataExport;
 use App\Models\PointSetting;
 use App\Models\UserDetail;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminController extends Controller
 {
@@ -79,5 +82,15 @@ class AdminController extends Controller
             'status' => $status,
             'identifier' => $identifier,
         ]]);
+    }
+
+    public function export(Request $request)
+    {
+        $input = $request->all();
+        $start_date = $input['start_date'];
+        $end_date = $input['end_date'];
+
+        $file_name = "Rekapitulasi $start_date - $end_date.xlsx";
+        return Excel::download(new DataExport($start_date, $end_date), $file_name);
     }
 }
