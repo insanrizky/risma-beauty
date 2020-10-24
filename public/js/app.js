@@ -65721,12 +65721,7 @@ var render = function() {
           [
             _c("div", { staticClass: "overflow-hidden sm:rounded-lg" }, [
               _vm.is_fetching
-                ? _c(
-                    "div",
-                    { staticClass: "max-w-sm w-full lg:max-w-full lg:flex" },
-                    [_c("card-loader", { attrs: { total: 2 } })],
-                    1
-                  )
+                ? _c("div", [_c("card-loader", { attrs: { total: 3 } })], 1)
                 : _c(
                     "div",
                     { staticClass: "max-w-sm w-full md:max-w-full md:flex" },

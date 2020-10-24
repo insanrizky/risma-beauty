@@ -58,8 +58,8 @@
     <div class="py-6">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="overflow-hidden sm:rounded-lg">
-          <div v-if="is_fetching" class="max-w-sm w-full lg:max-w-full lg:flex">
-            <card-loader :total="2" />
+          <div v-if="is_fetching">
+            <card-loader :total="3" />
           </div>
           <div v-else class="max-w-sm w-full md:max-w-full md:flex">
             <div
