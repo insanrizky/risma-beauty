@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Exports\DataExport;
 use App\Models\PointSetting;
 use App\Models\UserDetail;
-use App\Transformers\PaginationTransformer;
-use Cyvelnet\Laravel5Fractal\Facades\Fractal;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -74,24 +74,35 @@ class AdminController extends Controller
     public function verify(Request $request, $userId)
     {
         $input = $request->all();
+        DB::beginTransaction();
+        try {
+            $status = config('global.status.rejected');
+            $identifier = null;
+            if ($input['is_verified']) {
+                $status = config('global.status.active');
+                $identifier = strtoupper(uniqid());
+            }
 
-        $status = config('global.status.rejected');
-        $identifier = null;
-        if ($input['is_verified']) {
-            $status = config('global.status.active');
-            $identifier = strtoupper(uniqid());
+            UserDetail::where('user_id', $userId)->update([
+                'status' => $status,
+                'identifier' => $identifier,
+            ]);
+
+            DB::commit();
+
+            return response()->json(['data' => [
+                'is_verified' => $input['is_verified'],
+                'status' => $status,
+                'identifier' => $identifier,
+            ]]);
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+            ]);
         }
-
-        UserDetail::where('user_id', $userId)->update([
-            'status' => $status,
-            'identifier' => $identifier,
-        ]);
-
-        return response()->json(['data' => [
-            'is_verified' => $input['is_verified'],
-            'status' => $status,
-            'identifier' => $identifier,
-        ]]);
     }
 
     public function export(Request $request)

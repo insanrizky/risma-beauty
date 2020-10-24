@@ -59,6 +59,7 @@ class CreateNewUser implements CreatesNewUsers
         ];
         if ($user->type === config('global.type.reseller')) {
             $payload['upline_identifier'] = $input['upline_identifier'];
+            $payload['status'] = config('global.status.active');
         }
         UserDetail::create($payload);
     }

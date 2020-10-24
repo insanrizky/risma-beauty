@@ -165,7 +165,11 @@
         <div class="mb-4">
           <no-data :isShow="!is_fetching && resellers.length === 0" />
         </div>
-        <pagination :pagination="pagination" @event="fetchResellers" />
+        <pagination
+          v-if="resellers.length > 0"
+          :pagination="pagination"
+          @event="fetchResellers"
+        />
       </div>
     </div>
   </app-layout>
@@ -254,7 +258,13 @@ export default {
         const {
           data: {
             data,
-            meta: { base_url, total_member, total_point, multiplier, pagination },
+            meta: {
+              base_url,
+              total_member,
+              total_point,
+              multiplier,
+              pagination,
+            },
           },
         } = await axios.get("/api/admin/user", {
           params: {

@@ -48,7 +48,7 @@
                 <user-status :status="agent.status" class="text-sm" />
                 <span
                   v-if="agent.status === 'AKTIF'"
-                  class="flex rounded-full py-1 px-2 bg-green-500 text-white"
+                  class="flex rounded-full py-1 px-2 bg-green-500 text-white items-center"
                 >
                   <dollar-icon />
                   <span class="mx-1">{{ agent.total_point || 0 }}</span>
@@ -119,13 +119,13 @@
 
                 <div v-if="agent.status === 'SEDANG DIVERIFIKASI'" class="flex">
                   <button
-                    @click="verifyAgent(agent.id, true)"
+                    @click="verifyAgent(agent.user_id, true)"
                     class="inline-flex items-center px-2 py-1 bg-green-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-600 transition ease-in-out duration-150"
                   >
                     <check-mark-icon />
                   </button>
                   <button
-                    @click="verifyAgent(agent.id, false)"
+                    @click="verifyAgent(agent.user_id, false)"
                     class="inline-flex items-center px-2 py-1 ml-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 transition ease-in-out duration-150"
                   >
                     <cross-mark-icon />
@@ -152,7 +152,11 @@
           <no-data :isShow="!is_fetching && agents.length === 0" />
         </div>
 
-        <pagination :pagination="pagination" @event="fetchAgents" />
+        <pagination
+          v-if="agents.length > 0"
+          :pagination="pagination"
+          @event="fetchAgents"
+        />
       </div>
     </div>
   </app-layout>
@@ -258,7 +262,7 @@ export default {
         } = await axios.put(`/api/admin/verify/${id}`, {
           is_verified,
         });
-        const agent = this.agents.find((agent) => agent.id === id);
+        const agent = this.agents.find((agent) => agent.user_id === id);
         agent.status = data.status;
         agent.identifier = data.identifier;
         if (is_verified) {

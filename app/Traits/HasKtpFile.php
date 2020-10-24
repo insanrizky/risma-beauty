@@ -9,7 +9,7 @@ trait HasKtpFile
     public function getKtpFileUrlAttribute()
     {
         return $this->ktp_file
-                    ? Storage::disk('public')->url($this->ktp_file)
+                    ? Storage::disk('public_uploads')->url($this->ktp_file)
                     : null;
     }
 }

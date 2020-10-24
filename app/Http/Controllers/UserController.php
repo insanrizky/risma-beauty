@@ -6,7 +6,6 @@ use App\Models\UserDetail;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
@@ -19,14 +18,7 @@ class UserController extends Controller
 
     public function showDetail()
     {
-        $userDetail = UserDetail::where('user_id', Auth::user()->id)->first();
-        $result = Arr::collapse([
-            $userDetail->toArray(),
-            [
-                'ktp_file_url' => $userDetail->ktp_file ? url('/storage/'.$userDetail->ktp_file) : null,
-                'payment_file_url' => $userDetail->payment_file ? url('/storage/'.$userDetail->payment_file) : null,
-            ],
-        ]);
+        $result = UserDetail::where('user_id', Auth::user()->id)->first();
 
         return Inertia::render('Profile/Detail', ['user_detail' => $result]);
     }

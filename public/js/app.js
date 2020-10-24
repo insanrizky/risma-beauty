@@ -4918,6 +4918,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -5053,7 +5057,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _yield$axios$put = _context2.sent;
                 data = _yield$axios$put.data.data;
                 agent = _this3.agents.find(function (agent) {
-                  return agent.id === id;
+                  return agent.user_id === id;
                 });
                 agent.status = data.status;
                 agent.identifier = data.identifier;
@@ -5195,6 +5199,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 
 
@@ -5233,6 +5240,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     updateFile: function updateFile() {
       var _this = this;
 
+      this.resetValidation();
       var reader = new FileReader();
 
       reader.onload = function (e) {
@@ -5244,7 +5252,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     selectNewPhoto: function selectNewPhoto() {
       this.$refs.payment_file.click();
     },
+    resetValidation: function resetValidation() {
+      this.error = {
+        total_item: "",
+        payment_file: ""
+      };
+    },
     validateForm: function validateForm() {
+      this.resetValidation();
+
       if (!this.form.total_item) {
         this.error.total_item = "Wajib diisi";
         return false;
@@ -5252,6 +5268,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       if (this.$refs.payment_file.files.length === 0) {
         this.error.payment_file = "Wajib diisi";
+        return false;
+      }
+
+      var _this$$refs$payment_f = this.$refs.payment_file.files[0],
+          size = _this$$refs$payment_f.size,
+          type = _this$$refs$payment_f.type;
+
+      if (size > 2 * 1000 * 1000) {
+        this.error.payment_file = "Ukuran berkas melebihi 2MB!";
+        return false;
+      }
+
+      if (type !== "image/png" && type !== "image/jpeg" && type !== "image/jpg") {
+        this.error.payment_file = "Berkas harus berupa JPG/PNG";
         return false;
       }
 
@@ -5463,6 +5493,12 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -6107,6 +6143,10 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
 //
 //
 //
@@ -8957,6 +8997,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Icons_AgentSearch__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../Icons/AgentSearch */ "./resources/js/Icons/AgentSearch.vue");
 /* harmony import */ var _Icons_ArrowRight__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../Icons/ArrowRight */ "./resources/js/Icons/ArrowRight.vue");
 /* harmony import */ var _Icons_Rank__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../Icons/Rank */ "./resources/js/Icons/Rank.vue");
+//
+//
+//
+//
 //
 //
 //
@@ -60809,11 +60853,11 @@ var render = function() {
             _c("p", { staticClass: "text-sm leading-5 text-gray-700" }, [
               _vm._v("\n        Menampilkan\n        "),
               _c("span", { staticClass: "font-medium" }, [
-                _vm._v(_vm._s(_vm.pagination.from))
+                _vm._v(_vm._s(_vm.pagination.from || 0))
               ]),
               _vm._v("\n        hingga\n        "),
               _c("span", { staticClass: "font-medium" }, [
-                _vm._v(_vm._s(_vm.pagination.to))
+                _vm._v(_vm._s(_vm.pagination.to || 0))
               ]),
               _vm._v("\n        dari\n        "),
               _c("span", { staticClass: "font-medium" }, [
@@ -64118,7 +64162,7 @@ var render = function() {
                                     "span",
                                     {
                                       staticClass:
-                                        "flex rounded-full py-1 px-2 bg-green-500 text-white"
+                                        "flex rounded-full py-1 px-2 bg-green-500 text-white items-center"
                                     },
                                     [
                                       _c("dollar-icon"),
@@ -64342,7 +64386,10 @@ var render = function() {
                                         "inline-flex items-center px-2 py-1 bg-green-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-600 transition ease-in-out duration-150",
                                       on: {
                                         click: function($event) {
-                                          return _vm.verifyAgent(agent.id, true)
+                                          return _vm.verifyAgent(
+                                            agent.user_id,
+                                            true
+                                          )
                                         }
                                       }
                                     },
@@ -64358,7 +64405,7 @@ var render = function() {
                                       on: {
                                         click: function($event) {
                                           return _vm.verifyAgent(
-                                            agent.id,
+                                            agent.user_id,
                                             false
                                           )
                                         }
@@ -64416,10 +64463,12 @@ var render = function() {
               1
             ),
             _vm._v(" "),
-            _c("pagination", {
-              attrs: { pagination: _vm.pagination },
-              on: { event: _vm.fetchAgents }
-            })
+            _vm.agents.length > 0
+              ? _c("pagination", {
+                  attrs: { pagination: _vm.pagination },
+                  on: { event: _vm.fetchAgents }
+                })
+              : _vm._e()
           ],
           1
         )
@@ -64547,7 +64596,10 @@ var render = function() {
                         }),
                         _vm._v(" "),
                         _c("jet-label", {
-                          attrs: { for: "payment_file", value: "Transfer File" }
+                          attrs: {
+                            for: "payment_file",
+                            value: "Bukti Pembayaran (Maksimum: 2 MB)"
+                          }
                         }),
                         _vm._v(" "),
                         _c(
@@ -64565,7 +64617,7 @@ var render = function() {
                           },
                           [
                             _c("span", {
-                              staticClass: "block h-20",
+                              staticClass: "block w-40 h-40",
                               style:
                                 "background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url('" +
                                 _vm.filePreview +
@@ -64833,7 +64885,8 @@ var render = function() {
                 },
                 [
                   _vm._v("\n      Klaim Poin\n      "),
-                  _vm.$page.user.type !== "ADMIN"
+                  _vm.$page.user.type !== "ADMIN" &&
+                  _vm.$page.user_detail.status === "AKTIF"
                     ? _c(
                         "inertia-link",
                         {
@@ -65250,10 +65303,12 @@ var render = function() {
               1
             ),
             _vm._v(" "),
-            _c("pagination", {
-              attrs: { pagination: _vm.pagination },
-              on: { event: _vm.fetchPoints }
-            })
+            _vm.points.length > 0
+              ? _c("pagination", {
+                  attrs: { pagination: _vm.pagination },
+                  on: { event: _vm.fetchPoints }
+                })
+              : _vm._e()
           ],
           1
         )
@@ -65984,10 +66039,12 @@ var render = function() {
               1
             ),
             _vm._v(" "),
-            _c("pagination", {
-              attrs: { pagination: _vm.pagination },
-              on: { event: _vm.fetchResellers }
-            })
+            _vm.resellers.length > 0
+              ? _c("pagination", {
+                  attrs: { pagination: _vm.pagination },
+                  on: { event: _vm.fetchResellers }
+                })
+              : _vm._e()
           ],
           1
         )
@@ -67888,7 +67945,7 @@ var render = function() {
                     id: "instagram_link",
                     type: "text",
                     required: "",
-                    placeholder: "Instagram Link",
+                    placeholder: "https://instagram.com/username",
                     autocomplete: "instagram_link"
                   },
                   model: {
@@ -67922,7 +67979,7 @@ var render = function() {
                     id: "shopee_link",
                     type: "text",
                     required: "",
-                    placeholder: "Shopee Link",
+                    placeholder: "https://shopee.co.id/username",
                     autocomplete: "shopee_link"
                   },
                   model: {
@@ -67972,7 +68029,7 @@ var render = function() {
                   },
                   [
                     _c("img", {
-                      staticClass: "rounded-full h-20 w-20 object-cover",
+                      staticClass: "w-40 h-40 object-cover",
                       attrs: {
                         src: _vm.$page.user_detail.ktp_file_url,
                         alt: "KTP"
@@ -67996,7 +68053,7 @@ var render = function() {
                   },
                   [
                     _c("span", {
-                      staticClass: "block h-20",
+                      staticClass: "block w-40 h-40",
                       style:
                         "background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url('" +
                         _vm.ktpPreview +
@@ -68063,7 +68120,7 @@ var render = function() {
                   },
                   [
                     _c("img", {
-                      staticClass: "rounded-full h-20 w-20 object-cover",
+                      staticClass: "w-40 h-40 object-cover",
                       attrs: {
                         src: _vm.$page.user_detail.payment_file_url,
                         alt: "Bukti Pembayaran"
@@ -68087,7 +68144,7 @@ var render = function() {
                   },
                   [
                     _c("span", {
-                      staticClass: "block h-20",
+                      staticClass: "block w-40 h-40",
                       style:
                         "background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url('" +
                         _vm.paymentPreview +
@@ -69858,17 +69915,19 @@ var render = function() {
             [
               _c("user-status", { attrs: { status: _vm.$page.data.status } }),
               _vm._v(" "),
-              _c(
-                "chip-label",
-                { staticClass: "ml-2", attrs: { bgColor: "bg-green-500" } },
-                [
-                  _vm._v(
-                    "\n          Poin: " +
-                      _vm._s(_vm.$page.data.total_point) +
-                      "\n        "
+              _vm.$page.data.status === "AKTIF"
+                ? _c(
+                    "chip-label",
+                    { staticClass: "ml-2", attrs: { bgColor: "bg-green-500" } },
+                    [
+                      _vm._v(
+                        "\n          Poin: " +
+                          _vm._s(_vm.$page.data.total_point || 0) +
+                          "\n        "
+                      )
+                    ]
                   )
-                ]
-              )
+                : _vm._e()
             ],
             1
           ),

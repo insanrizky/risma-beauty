@@ -37,11 +37,14 @@
               required
             />
 
-            <jet-label for="payment_file" value="Transfer File" />
+            <jet-label
+              for="payment_file"
+              value="Bukti Pembayaran (Maksimum: 2 MB)"
+            />
 
             <div class="mt-2" v-show="filePreview">
               <span
-                class="block h-20"
+                class="block w-40 h-40"
                 :style="
                   'background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url(\'' +
                   filePreview +
@@ -120,6 +123,7 @@ export default {
 
   methods: {
     updateFile() {
+      this.resetValidation();
       const reader = new FileReader();
 
       reader.onload = (e) => {
@@ -131,7 +135,11 @@ export default {
     selectNewPhoto() {
       this.$refs.payment_file.click();
     },
+    resetValidation() {
+      this.error = { total_item: "", payment_file: "" };
+    },
     validateForm() {
+      this.resetValidation();
       if (!this.form.total_item) {
         this.error.total_item = "Wajib diisi";
         return false;
@@ -139,6 +147,21 @@ export default {
 
       if (this.$refs.payment_file.files.length === 0) {
         this.error.payment_file = "Wajib diisi";
+        return false;
+      }
+
+      const { size, type } = this.$refs.payment_file.files[0];
+      if (size > 2 * 1000 * 1000) {
+        this.error.payment_file = "Ukuran berkas melebihi 2MB!";
+        return false;
+      }
+
+      if (
+        type !== "image/png" &&
+        type !== "image/jpeg" &&
+        type !== "image/jpg"
+      ) {
+        this.error.payment_file = "Berkas harus berupa JPG/PNG";
         return false;
       }
 

@@ -11,8 +11,12 @@
         <p class="mb-2">Status Akun Kamu:</p>
         <div class="flex">
           <user-status :status="$page.data.status" />
-          <chip-label :bgColor="'bg-green-500'" class="ml-2">
-            Poin: {{ $page.data.total_point }}
+          <chip-label
+            v-if="$page.data.status === 'AKTIF'"
+            :bgColor="'bg-green-500'"
+            class="ml-2"
+          >
+            Poin: {{ $page.data.total_point || 0 }}
           </chip-label>
         </div>
 

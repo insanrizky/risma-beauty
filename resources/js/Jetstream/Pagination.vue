@@ -99,9 +99,9 @@
 export default {
   props: ["pagination"],
   methods: {
-      goTo(page) {
-          this.$emit('event', page);
-      }
-  }
+    goTo(page) {
+      this.$emit("event", page);
+    },
+  },
 };
 </script>

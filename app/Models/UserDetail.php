@@ -14,6 +14,9 @@ class UserDetail extends Model
     use HasPaymentFile;
 
     protected $fillable = [
+        'user_id',
+        'identifier',
+        'upline_identifier',
         'contact',
         'province_id',
         'city_id',

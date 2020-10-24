@@ -7,7 +7,9 @@
         Klaim Poin
         <inertia-link
           :href="route('admin.claim-points-view')"
-          v-if="$page.user.type !== 'ADMIN'"
+          v-if="
+            $page.user.type !== 'ADMIN' && $page.user_detail.status === 'AKTIF'
+          "
         >
           <button class="bg-green-500 text-white px-2 py-1 rounded">
             <plus-icon />
@@ -153,7 +155,11 @@
         <div class="mb-4">
           <no-data :isShow="!is_fetching && points.length === 0" />
         </div>
-        <pagination :pagination="pagination" @event="fetchPoints" />
+        <pagination
+          v-if="points.length > 0"
+          :pagination="pagination"
+          @event="fetchPoints"
+        />
       </div>
     </div>
   </app-layout>

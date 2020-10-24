@@ -26,7 +26,7 @@ class PointController extends Controller
     public function getPoints(Request $request)
     {
         $builder = Claim::leftJoin('users', 'claims.user_id', '=', 'users.id')
-                    ->leftJoin('user_details', 'claims.user_id', '=', 'user_details.id');
+                    ->leftJoin('user_details', 'claims.user_id', '=', 'user_details.user_id');
 
         if ($dxpoint = $request->input('dxpoint')) {
             $builder->where('claims.user_id', $dxpoint);

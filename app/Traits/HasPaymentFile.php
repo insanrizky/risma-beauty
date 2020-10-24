@@ -9,7 +9,7 @@ trait HasPaymentFile
     public function getPaymentFileUrlAttribute()
     {
         return $this->payment_file
-                    ? Storage::disk('public')->url($this->payment_file)
+                    ? Storage::disk('public_uploads')->url($this->payment_file)
                     : null;
     }
 }

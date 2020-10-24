@@ -87,7 +87,7 @@
           id="instagram_link"
           type="text"
           required
-          placeholder="Instagram Link"
+          placeholder="https://instagram.com/username"
           class="mt-1 block w-full"
           v-model="form.instagram_link"
           autocomplete="instagram_link"
@@ -102,7 +102,7 @@
           id="shopee_link"
           type="text"
           required
-          placeholder="Shopee Link"
+          placeholder="https://shopee.co.id/username"
           class="mt-1 block w-full"
           v-model="form.shopee_link"
           autocomplete="shopee_link"
@@ -129,14 +129,14 @@
           <img
             :src="$page.user_detail.ktp_file_url"
             alt="KTP"
-            class="rounded-full h-20 w-20 object-cover"
+            class="w-40 h-40 object-cover"
           />
         </div>
 
         <!-- New Profile Photo Preview -->
         <div class="mt-2" v-show="ktpPreview">
           <span
-            class="block h-20"
+            class="block w-40 h-40"
             :style="
               'background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url(\'' +
               ktpPreview +
@@ -178,14 +178,14 @@
           <img
             :src="$page.user_detail.payment_file_url"
             alt="Bukti Pembayaran"
-            class="rounded-full h-20 w-20 object-cover"
+            class="w-40 h-40 object-cover"
           />
         </div>
 
         <!-- New Profile Photo Preview -->
         <div class="mt-2" v-show="paymentPreview">
           <span
-            class="block h-20"
+            class="block w-40 h-40"
             :style="
               'background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url(\'' +
               paymentPreview +
