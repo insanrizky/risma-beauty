@@ -105,13 +105,13 @@
                 <div class="flex">
                   <whatsapp-icon />
                   <p class="ml-2 text-gray-700 text-base">
-                    {{ reseller.contact }}
+                    {{ reseller.contact || "-" }}
                   </p>
                 </div>
                 <div class="flex">
                   <card-icon />
                   <p class="ml-2 text-gray-700 text-base">
-                    Bank {{ reseller.bank.name }} -
+                    Bank {{ getBankName(reseller) }} -
                     {{ reseller.account_number }}
                   </p>
                 </div>
@@ -241,7 +241,15 @@ export default {
       }
     },
     getFullAddress(reseller) {
-      return `${reseller.address}, ${reseller.city.name}, ${reseller.province.name}`;
+      return `${reseller.address || "-"}, ${
+        reseller.city ? reseller.city.name : "-"
+      }, ${reseller.province ? reseller.province.name : "-"}`;
+    },
+    getBankName(reseller) {
+      if (!reseller.bank) {
+        return "-";
+      }
+      return reseller.bank.name;
     },
     changeSearch($event) {
       this.search = $event.target.value;

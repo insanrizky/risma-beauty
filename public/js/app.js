@@ -6383,7 +6383,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     },
     getFullAddress: function getFullAddress(reseller) {
-      return "".concat(reseller.address, ", ").concat(reseller.city.name, ", ").concat(reseller.province.name);
+      return "".concat(reseller.address || "-", ", ").concat(reseller.city ? reseller.city.name : "-", ", ").concat(reseller.province ? reseller.province.name : "-");
+    },
+    getBankName: function getBankName(reseller) {
+      if (!reseller.bank) {
+        return "-";
+      }
+
+      return reseller.bank.name;
     },
     changeSearch: function changeSearch($event) {
       this.search = $event.target.value;
@@ -65853,7 +65860,7 @@ var render = function() {
                                   [
                                     _vm._v(
                                       "\n                  " +
-                                        _vm._s(reseller.contact) +
+                                        _vm._s(reseller.contact || "-") +
                                         "\n                "
                                     )
                                   ]
@@ -65876,7 +65883,7 @@ var render = function() {
                                   [
                                     _vm._v(
                                       "\n                  Bank " +
-                                        _vm._s(reseller.bank.name) +
+                                        _vm._s(_vm.getBankName(reseller)) +
                                         " -\n                  " +
                                         _vm._s(reseller.account_number) +
                                         "\n                "
