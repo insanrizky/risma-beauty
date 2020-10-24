@@ -162,8 +162,11 @@
             </div>
           </div>
         </div>
+        <div class="mb-4">
+          <no-data :isShow="!is_fetching && resellers.length === 0" />
+        </div>
+        <pagination :pagination="pagination" @event="fetchResellers" />
       </div>
-      <no-data :isShow="!is_fetching && resellers.length === 0" />
     </div>
   </app-layout>
 </template>
@@ -183,6 +186,7 @@ import InstagramIcon from "./../../Icons/Instagram";
 import CardIcon from "./../../Icons/Card";
 import DollarIcon from "./../../Icons/Dollar";
 import { formatRupiah } from "./../../helpers";
+import Pagination from "./../../JetStream/Pagination";
 
 export default {
   components: {
@@ -199,6 +203,7 @@ export default {
     InstagramIcon,
     CardIcon,
     DollarIcon,
+    Pagination,
   },
 
   data() {
@@ -211,6 +216,7 @@ export default {
       total_member: 0,
       total_point: 0,
       multiplier: 0,
+      pagination: {},
     };
   },
 
@@ -242,17 +248,21 @@ export default {
       this.filter = $event.target.value;
       this.fetchResellers();
     },
-    async fetchResellers() {
+    async fetchResellers(page = 1) {
       this.is_fetching = true;
       try {
         const {
-          data: { data, base_url, total_member, total_point, multiplier },
+          data: {
+            data,
+            meta: { base_url, total_member, total_point, multiplier, pagination },
+          },
         } = await axios.get("/api/admin/user", {
           params: {
             type: "RESELLER",
             status:
               this.filter === "Semua" ? undefined : this.filter.toUpperCase(),
             search: this.search,
+            page,
           },
         });
         this.base_url = base_url;
@@ -260,6 +270,7 @@ export default {
         this.total_member = total_member;
         this.total_point = total_point;
         this.multiplier = multiplier;
+        this.pagination = pagination;
 
         this.is_fetching = false;
       } catch (e) {

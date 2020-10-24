@@ -17,4 +17,7 @@ return [
         'agent' => 'AGENT',
         'reseller' => 'RESELLER',
     ],
+    'pagination' => [
+        'limit' => 5,
+    ],
 ];

@@ -48,11 +48,25 @@ class PointController extends Controller
             });
         }
 
+        // Pagination
+        $page = $this->getCurrentPage($request->input('page'));
+        $limit = $this->getCurrentLimit($request->input('limit'));
+        $skip = $this->getOffsetFromPage($page, $limit);
+
         $data = $builder->selectRaw('users.*, user_details.*, claims.*, claims.created_at as created_at')
                         ->orderBy('claims.id', 'desc')
-                        ->get();
+                        ->skip($skip)
+                        ->take($limit)
+                        ->paginate($limit);
+        $pagination = $data->toArray();
+        unset($pagination['data']);
 
-        return response()->json(['data' => $data]);
+        return response()->json([
+            'data' => $data->items(),
+            'meta' => [
+                'pagination' => $pagination,
+            ]
+        ]);
     }
 
     public function claimPointsView()

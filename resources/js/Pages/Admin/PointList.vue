@@ -34,9 +34,7 @@
       </div>
     </div>
     <div class="bg-white">
-      <div
-        class="flex max-w-7xl mx-auto sm:px-4 px-0"
-      >
+      <div class="flex max-w-7xl mx-auto sm:px-4 px-0">
         <div class="bg-white pl-4 py-3">Filter:</div>
         <select
           v-model="filterStatus"
@@ -90,7 +88,10 @@
                   <chip-label :bgColor="chipColor(point.type)"
                     >ID: {{ point.identifier }}
                   </chip-label>
-                  <chip-label :bgColor="'bg-green-500'" class="mt-2 flex items-center">
+                  <chip-label
+                    :bgColor="'bg-green-500'"
+                    class="mt-2 flex items-center"
+                  >
                     <dollar-icon />
                     <span class="ml-1">
                       Nominal Klaim: {{ formatRupiah(point.amount) }}
@@ -149,8 +150,11 @@
             </div>
           </div>
         </div>
+        <div class="mb-4">
+          <no-data :isShow="!is_fetching && points.length === 0" />
+        </div>
+        <pagination :pagination="pagination" @event="fetchPoints" />
       </div>
-      <no-data :isShow="!is_fetching && points.length === 0" />
     </div>
   </app-layout>
 </template>
@@ -169,6 +173,7 @@ import DollarIcon from "./../../Icons/Dollar";
 import PlusIcon from "./../../Icons/Plus";
 import TrashIcon from "./../../Icons/Trash";
 import { formatRupiah } from "../../helpers";
+import Pagination from "./../../JetStream/Pagination";
 
 export default {
   components: {
@@ -184,6 +189,7 @@ export default {
     DollarIcon,
     PlusIcon,
     TrashIcon,
+    Pagination,
   },
 
   data() {
@@ -194,6 +200,7 @@ export default {
       points: [],
       is_fetching: true,
       search: "",
+      pagination: {},
     };
   },
 
@@ -214,7 +221,8 @@ export default {
     },
     canDeleteClaim(targetUserId, status) {
       return (
-        targetUserId === this.$page.user.id && status === "MENUNGGU DIVERIFIKASI"
+        targetUserId === this.$page.user.id &&
+        status === "MENUNGGU DIVERIFIKASI"
       );
     },
     chipClaimStatus(status) {
@@ -288,11 +296,14 @@ export default {
         this.$swal("Terjadi Kesalahan!", "", "error");
       }
     },
-    async fetchPoints() {
+    async fetchPoints(page = 1) {
+      this.is_fetching = true;
       try {
-        this.is_fetching = true;
         const {
-          data: { data },
+          data: {
+            data,
+            meta: { pagination },
+          },
         } = await axios.get("/api/point", {
           params: {
             dxpoint:
@@ -300,9 +311,11 @@ export default {
             type: this.filterUserType,
             status: this.filterStatus,
             search: this.search,
+            page,
           },
         });
         this.points = data;
+        this.pagination = pagination;
         this.is_fetching = false;
       } catch (e) {
         console.log(e);

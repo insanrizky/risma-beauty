@@ -35,4 +35,30 @@ class Controller extends BaseController
     {
         Storage::disk($disk)->delete($old);
     }
+
+    public function getOffsetFromPage($page, $limit)
+    {
+        return ($page - 1) * $limit;
+    }
+
+    public function getTotalPage($total, $limit)
+    {
+        return ceil($total / $limit);
+    }
+
+    public function getCurrentPage($page)
+    {
+        if (!$page) {
+            return 1;
+        }
+        return $page;
+    }
+
+    public function getCurrentLimit($limit)
+    {
+        if (!$limit) {
+            return config('global.pagination.limit');
+        }
+        return $limit;
+    }
 }

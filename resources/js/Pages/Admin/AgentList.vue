@@ -147,8 +147,13 @@
             </div>
           </div>
         </div>
+
+        <div class="mb-4">
+          <no-data :isShow="!is_fetching && agents.length === 0" />
+        </div>
+
+        <pagination :pagination="pagination" @event="fetchAgents" />
       </div>
-      <no-data :isShow="!is_fetching && agents.length === 0" />
     </div>
   </app-layout>
 </template>
@@ -167,6 +172,7 @@ import ShopeeIcon from "./../../Icons/Shopee";
 import InstagramIcon from "./../../Icons/Instagram";
 import CardIcon from "./../../Icons/Card";
 import DollarIcon from "./../../Icons/Dollar";
+import Pagination from "./../../JetStream/Pagination";
 
 export default {
   components: {
@@ -183,6 +189,7 @@ export default {
     InstagramIcon,
     CardIcon,
     DollarIcon,
+    Pagination,
   },
 
   data() {
@@ -193,6 +200,7 @@ export default {
       filter: "Semua",
       is_fetching: false,
       search: "",
+      pagination: {},
     };
   },
 
@@ -208,7 +216,7 @@ export default {
       this.search = $event.target.value;
       this.status = "Semua";
 
-      clearTimeout(this.debounceSearch)
+      clearTimeout(this.debounceSearch);
       this.debounceSearch = setTimeout(() => {
         this.fetchAgents();
       }, 700);
@@ -217,21 +225,26 @@ export default {
       this.filter = $event.target.value;
       this.fetchAgents();
     },
-    async fetchAgents() {
+    async fetchAgents(page = 1) {
       this.is_fetching = true;
       try {
         const {
-          data: { data, base_url },
+          data: {
+            data,
+            meta: { base_url, pagination },
+          },
         } = await axios.get("/api/admin/user", {
           params: {
             type: "AGENT",
             status:
               this.filter === "Semua" ? undefined : this.filter.toUpperCase(),
             search: this.search,
+            page,
           },
         });
         this.base_url = base_url;
         this.agents = data;
+        this.pagination = pagination;
         this.is_fetching = false;
       } catch (e) {
         console.log(e);
