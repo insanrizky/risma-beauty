@@ -18,25 +18,41 @@ class RankController extends Controller
     {
         $builder = UserDetail::leftJoin('users', 'user_details.user_id', '=', 'users.id');
 
-        $pointSetting = null;
+        $requestor = UserDetail::with('user')
+                            ->where('user_id', $request->input('self_id'))
+                            ->first();
+        if ($requestor->user->type === config('global.type.reseller')) {
+            $builder->where('user_details.upline_identifier', $requestor->upline_identifier);
+        }
+
         if ($request->input('filter') !== 'Semua') {
             $builder->where('users.type', $request->input('filter'));
-            $pointSetting = PointSetting::where('type', $request->input('filter'))->first();
         } else {
-            $builder->where('users.type', '<>', 'ADMIN');
+            $builder->where('users.type', '<>', config('global.type.admin'));
+        }
+
+        $self_rank = $requestor;
+        if ($requestor->type === config('global.type.admin')) {
+            $self_rank = null;
         }
 
         $total_point = $builder->sum('total_point');
         $total_member = $builder->count();
-        $ranks = $builder->orderBy('total_point', 'desc')
+
+        $data = $builder->orderBy('total_point', 'desc')
                         ->take(10)
-                        ->get();
+                        ->paginate();
+        $pagination = $data->toArray();
+        unset($pagination['data']);
 
         return response()->json([
-            'data' => $ranks,
-            'total_point' => $total_point,
-            'total_member' => $total_member,
-            'multiplier' => $pointSetting ? $pointSetting->amount : null,
+            'data' => $data->items(),
+            'meta' => [
+                'self_rank' => $self_rank,
+                'pagination' => $pagination,
+                'total_point' => $total_point,
+                'total_member' => $total_member,
+            ],
         ]);
     }
 }

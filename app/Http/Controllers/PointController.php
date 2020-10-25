@@ -28,16 +28,32 @@ class PointController extends Controller
         $builder = Claim::leftJoin('users', 'claims.user_id', '=', 'users.id')
                     ->leftJoin('user_details', 'claims.user_id', '=', 'user_details.user_id');
 
-        if ($dxpoint = $request->input('dxpoint')) {
-            $builder->where('claims.user_id', $dxpoint);
-        }
-
         if ($request->input('status') !== 'Semua') {
             $builder->where('claims.status', strtoupper($request->input('status')));
         }
 
         if ($request->input('type') !== 'Semua') {
             $builder->where('users.type', strtoupper($request->input('type')));
+        }
+
+        // Handle Agent for Verify Reseller's Claims
+        if ($dxpoint = $request->input('dxpoint')) {
+            $userDetail = UserDetail::with('user')->where('user_id', $dxpoint)->first();
+            if ($request->input('type') !== 'Semua') {
+                if (
+                    $userDetail->user->type === config('global.type.agent') &&
+                    strtoupper($request->input('type')) === config('global.type.reseller')
+                ) {
+                    $builder->where('user_details.upline_identifier', $userDetail->identifier);
+                } else {
+                    $builder->where('claims.user_id', $dxpoint);
+                }
+            } else {
+                $builder->where(function ($query) use ($dxpoint, $userDetail) {
+                    $query->orWhere('user_details.upline_identifier', $userDetail->identifier)
+                            ->orWhere('claims.user_id', $dxpoint);
+                });
+            }
         }
 
         if ($search = $request->input('search')) {
@@ -65,7 +81,7 @@ class PointController extends Controller
             'data' => $data->items(),
             'meta' => [
                 'pagination' => $pagination,
-            ]
+            ],
         ]);
     }
 
@@ -81,10 +97,13 @@ class PointController extends Controller
 
             $pointAdded = $request->input('total_item');
             $user = User::where('id', $userId)->first();
-            $pointSetting = PointSetting::where('type', $user->type)->first();
+            $pointSetting = PointSetting::where('type', $user->type)
+                                ->orderBy('id', 'desc')
+                                ->first();
             $amount = $pointAdded * $pointSetting->amount;
 
             $inserted = Claim::create([
+                'pointsetting_id' => $pointSetting->id,
                 'user_id' => $userId,
                 'type' => $user->type,
                 'total_pcs' => $pointAdded,
@@ -125,22 +144,34 @@ class PointController extends Controller
         DB::beginTransaction();
         try {
             $input = $request->all();
+            
+            $claim = Claim::where('id', $id)->first();
+            $user = User::where('id', $claim->user_id)->first();
 
             $status = config('global.claim_status.rejected');
             if ($input['is_verified']) {
+                // Compare total poin agen dan reseller
+                if ($user->type === config('global.type.reseller')) {
+                    $reseller = UserDetail::where('user_id', $user->id)->first();
+                    $upliner = UserDetail::where('identifier', $reseller->upline_identifier)->first();
+                    $total_point_reseller = (int) UserDetail::leftJoin('claims', 'user_details.user_id', '=', 'claims.user_id')
+                                                ->where('upline_identifier', $upliner->identifier)
+                                                ->where('claims.status', config('global.claim_status.claimed'))
+                                                ->sum('total_point');
+                    if ($total_point_reseller + $claim->total_pcs > $upliner->total_point) {
+                        throw new Exception('Total pcs klaim akan melebihi total poin agen');
+                    }
+                }
                 $status = config('global.claim_status.claimed');
             }
             Claim::where('id', $id)->update([
                 'status' => $status,
             ]);
 
-            $claim = Claim::where('id', $id)->first();
-            $user = User::where('id', $claim->user_id)->first();
-
             $totalPoint = Claim::where('user_id', $claim->user_id)
                             ->where('status', '=', config('global.claim_status.claimed'))
                             ->sum('total_pcs');
-            $pointSetting = PointSetting::where('type', $user->type)->first();
+            $pointSetting = PointSetting::where('id', $claim->pointsetting_id)->first();
             $totalAmount = $totalPoint * $pointSetting->amount;
             UserDetail::where('user_id', $claim->user_id)->update([
                 'total_point' => $totalPoint,
@@ -171,22 +202,24 @@ class PointController extends Controller
                         ->where('status', config('global.claim_status.claimed'));
 
         $agent_builder = clone $builder;
-        $total_point_agent = $agent_builder->where('type', config('global.type.agent'))->sum('total_pcs');
+        $agent_builder->where('type', config('global.type.agent'));
+        $total_point_agent = $agent_builder->sum('total_pcs');
+        $total_amount_agent = $agent_builder->sum('amount');
 
         $reseller_builder = clone $builder;
-        $total_point_reseller = $reseller_builder->where('type', config('global.type.reseller'))->sum('total_pcs');
-        $claims = $builder->get();
+        $reseller_builder->where('type', config('global.type.reseller'));
+        $total_point_reseller = $reseller_builder->sum('total_pcs');
+        $total_amount_reseller = $reseller_builder->sum('amount');
 
-        $agent_setting = PointSetting::where('type', config('global.type.agent'))->first();
-        $reseller_setting = PointSetting::where('type', config('global.type.reseller'))->first();
+        $claims = $builder->get();
 
         return response()->json([
             'data' => $claims,
             'meta' => [
                 'total_point_agent' => (int) $total_point_agent,
                 'total_point_reseller' => (int) $total_point_reseller,
-                'agent_multiplier' => (int) $agent_setting->amount,
-                'reseller_multiplier' => (int) $reseller_setting->amount,
+                'total_amount_agent' => (int) $total_amount_agent,
+                'total_amount_reseller' => (int) $total_amount_reseller,
             ],
         ]);
     }

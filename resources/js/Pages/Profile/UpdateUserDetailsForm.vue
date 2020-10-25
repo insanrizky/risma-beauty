@@ -62,6 +62,12 @@
       <div class="col-span-6 sm:col-span-4">
         <jet-label for="bank_id" value="Bank" />
         <jet-select-bank id="bank_id" required v-model="form.bank_id" />
+        <div class="mt-2 bg-orange-100 text-orange-700 px-4 py-2" role="alert">
+          <p>
+            Diwajibkan memiliki rekening
+            <span class="font-bold">Bank BRI</span>.
+          </p>
+        </div>
         <jet-input-error :message="form.error('bank_id')" class="mt-2" />
       </div>
 
@@ -97,11 +103,10 @@
 
       <!-- Shopee Link -->
       <div class="col-span-6 sm:col-span-4">
-        <jet-label for="shopee_link" value="Shopee Link" />
+        <jet-label for="shopee_link" value="Shopee Link (Opsional)" />
         <jet-input
           id="shopee_link"
           type="text"
-          required
           placeholder="https://shopee.co.id/username"
           class="mt-1 block w-full"
           v-model="form.shopee_link"
@@ -109,9 +114,9 @@
         />
         <jet-input-error :message="form.error('shopee_link')" class="mt-2" />
       </div>
+
       <!-- KTP -->
       <div class="col-span-6 sm:col-span-4">
-        <!-- Profile Photo File Input -->
         <input
           type="file"
           class="hidden"
@@ -119,9 +124,8 @@
           @change="updateKtpPreview"
         />
 
-        <jet-label for="ktp_file" value="KTP" />
+        <jet-label for="ktp_file" value="KTP (Maksimum: 2 MB)" />
 
-        <!-- Current Profile Photo -->
         <div
           class="mt-2"
           v-show="!ktpPreview && $page.user_detail.ktp_file_url"
@@ -133,7 +137,6 @@
           />
         </div>
 
-        <!-- New Profile Photo Preview -->
         <div class="mt-2" v-show="ktpPreview">
           <span
             class="block w-40 h-40"
@@ -147,7 +150,7 @@
         </div>
 
         <jet-secondary-button
-          v-if="isEditable"
+          v-if="!$page.user_detail.ktp_file || isEditable"
           class="mt-2 mr-2"
           type="button"
           @click.native.prevent="selectNewKtp"
@@ -155,12 +158,11 @@
           Unggah KTP
         </jet-secondary-button>
 
-        <jet-input-error :message="form.error('ktp_file')" class="mt-2" />
+        <jet-input-error :message="errors.ktp_file" class="mt-2" />
       </div>
 
       <!-- Bukti Pembayaran -->
-      <div class="col-span-6 sm:col-span-4">
-        <!-- Profile Photo File Input -->
+      <div v-if="$page.user.type === 'AGENT'" class="col-span-6 sm:col-span-4">
         <input
           type="file"
           class="hidden"
@@ -168,9 +170,8 @@
           @change="updatePaymentPreview"
         />
 
-        <jet-label for="payment_file" value="Bukti Pembayaran" />
+        <jet-label for="payment_file" value="Bukti Pembayaran (Maksimum: 2 MB)" />
 
-        <!-- Current Profile Photo -->
         <div
           class="mt-2"
           v-show="!paymentPreview && $page.user_detail.payment_file_url"
@@ -182,7 +183,6 @@
           />
         </div>
 
-        <!-- New Profile Photo Preview -->
         <div class="mt-2" v-show="paymentPreview">
           <span
             class="block w-40 h-40"
@@ -204,15 +204,11 @@
           Unggah Bukti Pembayaran
         </jet-secondary-button>
 
-        <jet-input-error :message="form.error('paymentPreview')" class="mt-2" />
+        <jet-input-error :message="errors.payment_file" class="mt-2" />
       </div>
     </template>
 
     <template #actions>
-      <jet-action-message :on="form.recentlySuccessful" class="mr-3">
-        Tersimpan.
-      </jet-action-message>
-
       <jet-button
         :class="{ 'opacity-25': form.processing }"
         :disabled="form.processing"
@@ -220,7 +216,7 @@
         Simpan
       </jet-button>
 
-      <inertia-link :href="route('dashboard')" class="ml-3">
+      <inertia-link :href="route('dashboard')" ref="back" class="ml-3">
         <jet-secondary-button>Kembali</jet-secondary-button>
       </inertia-link>
     </template>
@@ -275,6 +271,10 @@ export default {
           resetOnSuccess: false,
         }
       ),
+      errors: {
+        ktp_file: null,
+        payment_file: null,
+      },
 
       ktpPreview: null,
       paymentPreview: null,
@@ -295,7 +295,56 @@ export default {
   },
 
   methods: {
+    resetValidation() {
+      this.errors = {
+        ktp_file: null,
+        payment_file: null,
+      };
+    },
+    validateFile(attribute) {
+      if (this.$refs[attribute].files.length === 0) {
+        this.errors[attribute] = "Wajib diisi";
+        return false;
+      }
+
+      const { size, type } = this.$refs[attribute].files[0];
+      if (size > 2 * 1000 * 1000) {
+        this.errors[attribute] = "Ukuran berkas melebihi 2MB!";
+        return false;
+      }
+
+      if (
+        type !== "image/png" &&
+        type !== "image/jpeg" &&
+        type !== "image/jpg"
+      ) {
+        this.errors[attribute] = "Berkas harus berupa JPG/PNG";
+        return false;
+      }
+
+      return true;
+    },
+    validateForm() {
+      this.resetValidation();
+      if (this.$page.user.type === "AGENT") {
+        const isValidPaymentFile = this.validateFile("payment_file");
+        if (!isValidPaymentFile) {
+          return false;
+        }
+      }
+
+      const isValidKtpFile = this.validateFile("ktp_file");
+      if (!isValidKtpFile) {
+        return false;
+      }
+
+      return true;
+    },
     updateUserDetail() {
+      if (!this.validateForm()) {
+        return false;
+      }
+
       if (this.$refs.ktp_file) {
         this.form.ktp_file = this.$refs.ktp_file.files[0];
       }
@@ -304,14 +353,22 @@ export default {
         this.form.payment_file = this.$refs.payment_file.files[0];
       }
 
-      this.form.post(route("user-detail.update"), {
-        preserveScroll: true,
-      });
+      this.form
+        .post(route("user-detail.update"), {
+          preserveScroll: true,
+        })
+        .then(() => {
+          this.is_processed = true;
+          if (this.$page.errors.failed) {
+            this.$swal("Terjadi Kesalahan!", "", "error");
+            return;
+          }
 
-      this.ktpPreview = null;
-      this.paymentPreview = null;
-
-      this.is_processed = true;
+          this.ktpPreview = null;
+          this.paymentPreview = null;
+          this.$swal("Berhasil!", "Profil sudah disimpan", "success");
+          this.$refs.back.click();
+        });
     },
 
     selectNewKtp() {
@@ -323,6 +380,7 @@ export default {
     },
 
     updateKtpPreview() {
+      this.resetValidation();
       const reader = new FileReader();
 
       reader.onload = (e) => {
@@ -333,6 +391,7 @@ export default {
     },
 
     updatePaymentPreview() {
+      this.resetValidation();
       const reader = new FileReader();
 
       reader.onload = (e) => {

@@ -2,12 +2,10 @@
   <app-layout>
     <template #header>
       <h2
-        class="font-semibold text-xl text-gray-800 leading-tight flex items-center"
+        class="flex items-baseline font-semibold text-xl text-gray-800 leading-tight flex items-center"
       >
-        Reseller
-        <chip-label :bgColor="'bg-purple-500'" class="ml-2">{{
-          $page.identifier
-        }}</chip-label>
+        <span>Reseller</span>
+        <span class="text-sm ml-2">dari Agen: {{ $page.agent_name }}</span>
       </h2>
     </template>
 
@@ -31,13 +29,9 @@
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="overflow-hidden sm:rounded-lg">
           <div class="px-4 py-2 mt-2 mb-0 bg-green-500 text-white rounded">
-            <div class="font-bold text-xl">
-              Total Reseller: {{ total_member }}
-            </div>
-            <div class="font-bold">Total Poin: {{ total_point }}</div>
-            <div class="text-sm">
-              x {{ formatRupiah(multiplier) }} =
-              {{ formatRupiah(total_point * multiplier) }}
+            <div class="font-bold text-xl">Total Poin: {{ total_point }}</div>
+            <div class="font-bold">
+              Total Reseller: {{ total_member || 0 }}
             </div>
           </div>
         </div>
@@ -71,10 +65,12 @@
                 <user-status :status="reseller.status" class="text-sm" />
                 <span
                   v-if="reseller.status === 'AKTIF'"
-                  class="flex rounded-full py-1 px-2 bg-green-500 text-white"
+                  class="flex rounded py-1 px-2 bg-green-500 text-white items-center"
                 >
-                  <dollar-icon />
-                  <span class="mx-1">{{ reseller.total_point || 0 }}</span>
+                  <coin-icon />
+                  <span class="ml-2 mr-1 text-sm">{{
+                    reseller.total_point || 0
+                  }}</span>
                 </span>
               </div>
               <hr class="mb-3" />
@@ -88,7 +84,7 @@
                 <img
                   v-if="reseller.profile_photo_path"
                   class="w-10 h-10 rounded-full mr-4"
-                  :src="`${base_url}/storage/${reseller.profile_photo_path}`"
+                  :src="`${base_url}${reseller.profile_photo_path}`"
                   alt="Avatar"
                 />
                 <div class="text-sm">
@@ -188,7 +184,7 @@ import CheckMarkIcon from "./../../Icons/CheckMark";
 import ShopeeIcon from "./../../Icons/Shopee";
 import InstagramIcon from "./../../Icons/Instagram";
 import CardIcon from "./../../Icons/Card";
-import DollarIcon from "./../../Icons/Dollar";
+import CoinIcon from "./../../Icons/Coin";
 import { formatRupiah } from "./../../helpers";
 import Pagination from "./../../JetStream/Pagination";
 
@@ -206,7 +202,7 @@ export default {
     ShopeeIcon,
     InstagramIcon,
     CardIcon,
-    DollarIcon,
+    CoinIcon,
     Pagination,
   },
 
@@ -219,7 +215,6 @@ export default {
       search: "",
       total_member: 0,
       total_point: 0,
-      multiplier: 0,
       pagination: {},
     };
   },
@@ -266,13 +261,7 @@ export default {
         const {
           data: {
             data,
-            meta: {
-              base_url,
-              total_member,
-              total_point,
-              multiplier,
-              pagination,
-            },
+            meta: { base_url, total_point, pagination },
           },
         } = await axios.get("/api/admin/user", {
           params: {
@@ -281,13 +270,13 @@ export default {
               this.filter === "Semua" ? undefined : this.filter.toUpperCase(),
             search: this.search,
             page,
+            upline: this.$page.identifier,
           },
         });
         this.base_url = base_url;
         this.resellers = data;
-        this.total_member = total_member;
+        this.total_member = pagination.total;
         this.total_point = total_point;
-        this.multiplier = multiplier;
         this.pagination = pagination;
 
         this.is_fetching = false;

@@ -2136,6 +2136,46 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -2730,7 +2770,33 @@ __webpack_require__.r(__webpack_exports__);
   props: ["pagination"],
   methods: {
     goTo: function goTo(page) {
-      this.$emit('event', page);
+      this.$emit("event", page);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/JetStream/SecondaryButton.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/JetStream/SecondaryButton.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    type: {
+      type: String,
+      "default": 'button'
     }
   }
 });
@@ -4740,18 +4806,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../../Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
 /* harmony import */ var _JetStream_Button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./../../JetStream/Button */ "./resources/js/JetStream/Button.vue");
-/* harmony import */ var _JetStream_UserStatus__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../JetStream/UserStatus */ "./resources/js/JetStream/UserStatus.vue");
-/* harmony import */ var _JetStream_ChipLabel__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../JetStream/ChipLabel */ "./resources/js/JetStream/ChipLabel.vue");
-/* harmony import */ var _JetStream_NoData__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../JetStream/NoData */ "./resources/js/JetStream/NoData.vue");
-/* harmony import */ var _Jetstream_CardLoader__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../../Jetstream/CardLoader */ "./resources/js/Jetstream/CardLoader.vue");
-/* harmony import */ var _Icons_Whatsapp__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../../Icons/Whatsapp */ "./resources/js/Icons/Whatsapp.vue");
-/* harmony import */ var _Icons_CrossMark__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../../Icons/CrossMark */ "./resources/js/Icons/CrossMark.vue");
-/* harmony import */ var _Icons_CheckMark__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./../../Icons/CheckMark */ "./resources/js/Icons/CheckMark.vue");
-/* harmony import */ var _Icons_Shopee__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./../../Icons/Shopee */ "./resources/js/Icons/Shopee.vue");
-/* harmony import */ var _Icons_Instagram__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./../../Icons/Instagram */ "./resources/js/Icons/Instagram.vue");
-/* harmony import */ var _Icons_Card__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./../../Icons/Card */ "./resources/js/Icons/Card.vue");
-/* harmony import */ var _Icons_Dollar__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./../../Icons/Dollar */ "./resources/js/Icons/Dollar.vue");
-/* harmony import */ var _JetStream_Pagination__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./../../JetStream/Pagination */ "./resources/js/JetStream/Pagination.vue");
+/* harmony import */ var _JetStream_SecondaryButton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../../JetStream/SecondaryButton */ "./resources/js/JetStream/SecondaryButton.vue");
+/* harmony import */ var _JetStream_UserStatus__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../../JetStream/UserStatus */ "./resources/js/JetStream/UserStatus.vue");
+/* harmony import */ var _JetStream_ChipLabel__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../../JetStream/ChipLabel */ "./resources/js/JetStream/ChipLabel.vue");
+/* harmony import */ var _JetStream_NoData__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../../JetStream/NoData */ "./resources/js/JetStream/NoData.vue");
+/* harmony import */ var _Jetstream_CardLoader__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../../Jetstream/CardLoader */ "./resources/js/Jetstream/CardLoader.vue");
+/* harmony import */ var _Icons_Whatsapp__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../../Icons/Whatsapp */ "./resources/js/Icons/Whatsapp.vue");
+/* harmony import */ var _Icons_CrossMark__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./../../Icons/CrossMark */ "./resources/js/Icons/CrossMark.vue");
+/* harmony import */ var _Icons_CheckMark__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./../../Icons/CheckMark */ "./resources/js/Icons/CheckMark.vue");
+/* harmony import */ var _Icons_Shopee__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./../../Icons/Shopee */ "./resources/js/Icons/Shopee.vue");
+/* harmony import */ var _Icons_Instagram__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./../../Icons/Instagram */ "./resources/js/Icons/Instagram.vue");
+/* harmony import */ var _Icons_Card__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./../../Icons/Card */ "./resources/js/Icons/Card.vue");
+/* harmony import */ var _Icons_Coin__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./../../Icons/Coin */ "./resources/js/Icons/Coin.vue");
+/* harmony import */ var _JetStream_Pagination__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./../../JetStream/Pagination */ "./resources/js/JetStream/Pagination.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -4922,6 +4989,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+
 
 
 
@@ -4939,19 +5008,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_1__["default"],
-    UserStatus: _JetStream_UserStatus__WEBPACK_IMPORTED_MODULE_3__["default"],
+    UserStatus: _JetStream_UserStatus__WEBPACK_IMPORTED_MODULE_4__["default"],
     JetButton: _JetStream_Button__WEBPACK_IMPORTED_MODULE_2__["default"],
-    ChipLabel: _JetStream_ChipLabel__WEBPACK_IMPORTED_MODULE_4__["default"],
-    NoData: _JetStream_NoData__WEBPACK_IMPORTED_MODULE_5__["default"],
-    CardLoader: _Jetstream_CardLoader__WEBPACK_IMPORTED_MODULE_6__["default"],
-    WhatsappIcon: _Icons_Whatsapp__WEBPACK_IMPORTED_MODULE_7__["default"],
-    CrossMarkIcon: _Icons_CrossMark__WEBPACK_IMPORTED_MODULE_8__["default"],
-    CheckMarkIcon: _Icons_CheckMark__WEBPACK_IMPORTED_MODULE_9__["default"],
-    ShopeeIcon: _Icons_Shopee__WEBPACK_IMPORTED_MODULE_10__["default"],
-    InstagramIcon: _Icons_Instagram__WEBPACK_IMPORTED_MODULE_11__["default"],
-    CardIcon: _Icons_Card__WEBPACK_IMPORTED_MODULE_12__["default"],
-    DollarIcon: _Icons_Dollar__WEBPACK_IMPORTED_MODULE_13__["default"],
-    Pagination: _JetStream_Pagination__WEBPACK_IMPORTED_MODULE_14__["default"]
+    JetSecondaryButton: _JetStream_SecondaryButton__WEBPACK_IMPORTED_MODULE_3__["default"],
+    ChipLabel: _JetStream_ChipLabel__WEBPACK_IMPORTED_MODULE_5__["default"],
+    NoData: _JetStream_NoData__WEBPACK_IMPORTED_MODULE_6__["default"],
+    CardLoader: _Jetstream_CardLoader__WEBPACK_IMPORTED_MODULE_7__["default"],
+    WhatsappIcon: _Icons_Whatsapp__WEBPACK_IMPORTED_MODULE_8__["default"],
+    CrossMarkIcon: _Icons_CrossMark__WEBPACK_IMPORTED_MODULE_9__["default"],
+    CheckMarkIcon: _Icons_CheckMark__WEBPACK_IMPORTED_MODULE_10__["default"],
+    ShopeeIcon: _Icons_Shopee__WEBPACK_IMPORTED_MODULE_11__["default"],
+    InstagramIcon: _Icons_Instagram__WEBPACK_IMPORTED_MODULE_12__["default"],
+    CardIcon: _Icons_Card__WEBPACK_IMPORTED_MODULE_13__["default"],
+    CoinIcon: _Icons_Coin__WEBPACK_IMPORTED_MODULE_14__["default"],
+    Pagination: _JetStream_Pagination__WEBPACK_IMPORTED_MODULE_15__["default"]
   },
   data: function data() {
     return {
@@ -4968,6 +5038,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.fetchAgents();
   },
   methods: {
+    pointComparisonColor: function pointComparisonColor(agent) {
+      var total_point = agent.total_point,
+          total_point_reseller = agent.total_point_reseller;
+
+      if (total_point_reseller > total_point) {
+        return 'bg-orange-500';
+      }
+
+      return 'bg-green-500';
+    },
     getFullAddress: function getFullAddress(agent) {
       return "".concat(agent.address, ", ").concat(agent.city.name, ", ").concat(agent.province.name);
     },
@@ -5453,8 +5533,18 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     updatePointSetting: function updatePointSetting() {
+      var _this = this;
+
       this.form.post(route("admin.update-point-setting"), {
         preserveScroll: true
+      }).then(function () {
+        if (_this.$page.errors.message) {
+          _this.$swal("Terjadi Kesalahan!", "", "error");
+
+          return;
+        }
+
+        _this.$swal("Berhasil!", "Konversi poin berhasil diperbarui", "success");
       });
     }
   }
@@ -5493,6 +5583,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
 //
 //
 //
@@ -5709,7 +5800,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this$$page = this.$page,
           type = _this$$page.user.type,
           identifier = _this$$page.user_detail.identifier;
-      return type === "ADMIN" && status === "MENUNGGU DIVERIFIKASI" || targetType === "RESELLER" && uplineIdentifier === identifier;
+      return status === "MENUNGGU DIVERIFIKASI" && (targetType === "AGENT" && type === "ADMIN" || targetType === "RESELLER" && uplineIdentifier === identifier);
     },
     canDeleteClaim: function canDeleteClaim(targetUserId, status) {
       return targetUserId === this.$page.user.id && status === "MENUNGGU DIVERIFIKASI";
@@ -5808,7 +5899,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var _yield$axios$put, data;
+        var _yield$axios$put, data, error_message;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
@@ -5834,9 +5925,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 9:
                 _context2.prev = 9;
                 _context2.t0 = _context2["catch"](0);
-                console.log(_context2.t0);
+                error_message = _context2.t0.response && _context2.t0.response.data && _context2.t0.response.data.message || "";
 
-                _this3.$swal("Terjadi Kesalahan!", "", "error");
+                _this3.$swal("Terjadi Kesalahan!", error_message, "error");
 
               case 13:
               case "end":
@@ -5914,7 +6005,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../Layouts/AppLayout */ "./resources/js/Layouts/AppLayout.vue");
-/* harmony import */ var _Icons_Dollar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Icons/Dollar */ "./resources/js/Icons/Dollar.vue");
+/* harmony import */ var _Icons_Coin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Icons/Coin */ "./resources/js/Icons/Coin.vue");
 /* harmony import */ var _Jetstream_ChipLabel__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Jetstream/ChipLabel */ "./resources/js/Jetstream/ChipLabel.vue");
 /* harmony import */ var _Jetstream_CardLoader__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../Jetstream/CardLoader */ "./resources/js/Jetstream/CardLoader.vue");
 /* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../helpers */ "./resources/js/helpers.js");
@@ -6000,6 +6091,47 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -6008,16 +6140,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     AppLayout: _Layouts_AppLayout__WEBPACK_IMPORTED_MODULE_1__["default"],
-    DollarIcon: _Icons_Dollar__WEBPACK_IMPORTED_MODULE_2__["default"],
+    CoinIcon: _Icons_Coin__WEBPACK_IMPORTED_MODULE_2__["default"],
     ChipLabel: _Jetstream_ChipLabel__WEBPACK_IMPORTED_MODULE_3__["default"],
     CardLoader: _Jetstream_CardLoader__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
   data: function data() {
     return {
       ranks: [],
+      self_rank: null,
       total_point: 0,
       total_member: 0,
-      multiplier: null,
       filter: "Semua",
       is_fetching: false
     };
@@ -6028,6 +6160,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   computed: {
     getFilter: function getFilter() {
       return this.$page.user.type === "ADMIN" ? this.filter : this.$page.user.type.toUpperCase();
+    },
+    isAdmin: function isAdmin() {
+      return this.$page.user.type === "ADMIN";
+    },
+    isInTopTen: function isInTopTen() {
+      var _this = this;
+
+      return this.ranks.find(function (rank) {
+        return rank.user_id === _this.$page.user.id;
+      });
     }
   },
   methods: {
@@ -6059,21 +6201,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return false;
     },
     fetchRanks: function fetchRanks() {
-      var _this = this;
+      var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var _yield$axios$get, _yield$axios$get$data, data, total_point, total_member, multiplier;
+        var _yield$axios$get, _yield$axios$get$data, data, _yield$axios$get$data2, self_rank, total_point, total_member;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this.is_fetching = true;
+                _this2.is_fetching = true;
                 _context.prev = 1;
                 _context.next = 4;
                 return axios.get("/api/rank", {
                   params: {
-                    filter: _this.getFilter
+                    filter: _this2.getFilter,
+                    self_id: _this2.$page.user.id
                   }
                 });
 
@@ -6081,29 +6224,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _yield$axios$get = _context.sent;
                 _yield$axios$get$data = _yield$axios$get.data;
                 data = _yield$axios$get$data.data;
-                total_point = _yield$axios$get$data.total_point;
-                total_member = _yield$axios$get$data.total_member;
-                multiplier = _yield$axios$get$data.multiplier;
-                _this.ranks = data;
-                _this.total_point = total_point;
-                _this.total_member = total_member;
-                _this.multiplier = multiplier;
-                _this.is_fetching = false;
-                _context.next = 21;
+                _yield$axios$get$data2 = _yield$axios$get$data.meta;
+                self_rank = _yield$axios$get$data2.self_rank;
+                total_point = _yield$axios$get$data2.total_point;
+                total_member = _yield$axios$get$data2.total_member;
+                _this2.ranks = data;
+                _this2.self_rank = self_rank;
+                _this2.total_point = total_point;
+                _this2.total_member = total_member;
+                _this2.is_fetching = false;
+                _context.next = 22;
                 break;
 
-              case 17:
-                _context.prev = 17;
+              case 18:
+                _context.prev = 18;
                 _context.t0 = _context["catch"](1);
                 console.log(_context.t0);
-                _this.is_fetching = false;
+                _this2.is_fetching = false;
 
-              case 21:
+              case 22:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[1, 17]]);
+        }, _callee, null, [[1, 18]]);
       }))();
     }
   }
@@ -6134,7 +6278,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Icons_Shopee__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./../../Icons/Shopee */ "./resources/js/Icons/Shopee.vue");
 /* harmony import */ var _Icons_Instagram__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./../../Icons/Instagram */ "./resources/js/Icons/Instagram.vue");
 /* harmony import */ var _Icons_Card__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./../../Icons/Card */ "./resources/js/Icons/Card.vue");
-/* harmony import */ var _Icons_Dollar__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./../../Icons/Dollar */ "./resources/js/Icons/Dollar.vue");
+/* harmony import */ var _Icons_Coin__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./../../Icons/Coin */ "./resources/js/Icons/Coin.vue");
 /* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./../../helpers */ "./resources/js/helpers.js");
 /* harmony import */ var _JetStream_Pagination__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./../../JetStream/Pagination */ "./resources/js/JetStream/Pagination.vue");
 
@@ -6143,10 +6287,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
-//
-//
-//
 //
 //
 //
@@ -6349,7 +6489,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     ShopeeIcon: _Icons_Shopee__WEBPACK_IMPORTED_MODULE_10__["default"],
     InstagramIcon: _Icons_Instagram__WEBPACK_IMPORTED_MODULE_11__["default"],
     CardIcon: _Icons_Card__WEBPACK_IMPORTED_MODULE_12__["default"],
-    DollarIcon: _Icons_Dollar__WEBPACK_IMPORTED_MODULE_13__["default"],
+    CoinIcon: _Icons_Coin__WEBPACK_IMPORTED_MODULE_13__["default"],
     Pagination: _JetStream_Pagination__WEBPACK_IMPORTED_MODULE_15__["default"]
   },
   data: function data() {
@@ -6361,7 +6501,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       search: "",
       total_member: 0,
       total_point: 0,
-      multiplier: 0,
       pagination: {}
     };
   },
@@ -6406,7 +6545,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var page, _yield$axios$get, _yield$axios$get$data, data, _yield$axios$get$data2, base_url, total_member, total_point, multiplier, pagination;
+        var page, _yield$axios$get, _yield$axios$get$data, data, _yield$axios$get$data2, base_url, total_point, pagination;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
@@ -6421,7 +6560,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     type: "RESELLER",
                     status: _this.filter === "Semua" ? undefined : _this.filter.toUpperCase(),
                     search: _this.search,
-                    page: page
+                    page: page,
+                    upline: _this.$page.identifier
                   }
                 });
 
@@ -6431,32 +6571,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 data = _yield$axios$get$data.data;
                 _yield$axios$get$data2 = _yield$axios$get$data.meta;
                 base_url = _yield$axios$get$data2.base_url;
-                total_member = _yield$axios$get$data2.total_member;
                 total_point = _yield$axios$get$data2.total_point;
-                multiplier = _yield$axios$get$data2.multiplier;
                 pagination = _yield$axios$get$data2.pagination;
                 _this.base_url = base_url;
                 _this.resellers = data;
-                _this.total_member = total_member;
+                _this.total_member = pagination.total;
                 _this.total_point = total_point;
-                _this.multiplier = multiplier;
                 _this.pagination = pagination;
                 _this.is_fetching = false;
-                _context.next = 27;
+                _context.next = 24;
                 break;
 
-              case 23:
-                _context.prev = 23;
+              case 20:
+                _context.prev = 20;
                 _context.t0 = _context["catch"](2);
                 console.log(_context.t0);
                 _this.is_fetching = false;
 
-              case 27:
+              case 24:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[2, 23]]);
+        }, _callee, null, [[2, 20]]);
       }))();
     },
     verifyReseller: function verifyReseller(id, is_verified) {
@@ -6654,6 +6791,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -6680,23 +6821,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       date_range: [],
+      is_fetched: false,
       is_processing: false,
-      agent_multiplier: 0,
-      reseller_multiplier: 0,
+      total_amount_agent: 0,
+      total_amount_reseller: 0,
       total_point_agent: 0,
       total_point_reseller: 0
     };
   },
   computed: {
-    totalAmountToWithDraw: function totalAmountToWithDraw() {
-      return this.totalAmountAgent + this.totalAmountReseller;
-    },
-    totalAmountReseller: function totalAmountReseller() {
-      return this.total_point_reseller * this.reseller_multiplier;
-    },
-    totalAmountAgent: function totalAmountAgent() {
-      return this.total_point_agent * this.agent_multiplier;
-    },
     isExportable: function isExportable() {
       return this.exportUrl !== "#";
     },
@@ -6706,9 +6839,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       return "/api/export?start_date=".concat(this.date_range[0], "&end_date=").concat(this.date_range[1]);
-    },
-    hasCompleteCalculations: function hasCompleteCalculations() {
-      return this.agent_multiplier && this.reseller_multiplier;
     }
   },
   methods: {
@@ -6721,7 +6851,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var _yield$axios$get, _yield$axios$get$data, total_point_agent, total_point_reseller, agent_multiplier, reseller_multiplier;
+        var _yield$axios$get, _yield$axios$get$data, total_point_agent, total_point_reseller, total_amount_agent, total_amount_reseller;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
@@ -6741,28 +6871,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _yield$axios$get$data = _yield$axios$get.data.meta;
                 total_point_agent = _yield$axios$get$data.total_point_agent;
                 total_point_reseller = _yield$axios$get$data.total_point_reseller;
-                agent_multiplier = _yield$axios$get$data.agent_multiplier;
-                reseller_multiplier = _yield$axios$get$data.reseller_multiplier;
+                total_amount_agent = _yield$axios$get$data.total_amount_agent;
+                total_amount_reseller = _yield$axios$get$data.total_amount_reseller;
                 _this.total_point_agent = total_point_agent;
                 _this.total_point_reseller = total_point_reseller;
-                _this.agent_multiplier = agent_multiplier;
-                _this.reseller_multiplier = reseller_multiplier;
-                _context.next = 19;
+                _this.total_amount_agent = total_amount_agent;
+                _this.total_amount_reseller = total_amount_reseller;
+                _this.is_fetched = true;
+                _context.next = 20;
                 break;
 
-              case 15:
-                _context.prev = 15;
+              case 16:
+                _context.prev = 16;
                 _context.t0 = _context["catch"](0);
                 console.log(_context.t0);
 
                 _this.$swal("Terjadi Kesalahan!", "", "error");
 
-              case 19:
+              case 20:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 15]]);
+        }, _callee, null, [[0, 16]]);
       }))();
     },
     withDrawal: function withDrawal() {
@@ -6776,23 +6907,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context2.prev = 0;
                 _this2.is_processing = true;
                 _context2.next = 4;
-                return axios.post('/api/point/withdrawal', {
+                return axios.post("/api/point/withdrawal", {
                   start_date: _this2.date_range[0],
                   end_date: _this2.date_range[1]
                 });
 
               case 4:
                 _this2.is_processing = false;
+                _this2.is_fetched = false;
 
                 _this2.resetData();
 
                 _this2.$swal("Berhasil!", "Klaim telah dicairkan", "success");
 
-                _context2.next = 14;
+                _context2.next = 15;
                 break;
 
-              case 9:
-                _context2.prev = 9;
+              case 10:
+                _context2.prev = 10;
                 _context2.t0 = _context2["catch"](0);
                 console.log(_context2.t0);
 
@@ -6800,12 +6932,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _this2.is_processing = false;
 
-              case 14:
+              case 15:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[0, 9]]);
+        }, _callee2, null, [[0, 10]]);
       }))();
     },
     resetData: function resetData() {
@@ -7977,10 +8109,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -8023,6 +8151,10 @@ __webpack_require__.r(__webpack_exports__);
         bag: "updateUserDetail",
         resetOnSuccess: false
       }),
+      errors: {
+        ktp_file: null,
+        payment_file: null
+      },
       ktpPreview: null,
       paymentPreview: null
     };
@@ -8034,7 +8166,60 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    resetValidation: function resetValidation() {
+      this.errors = {
+        ktp_file: null,
+        payment_file: null
+      };
+    },
+    validateFile: function validateFile(attribute) {
+      if (this.$refs[attribute].files.length === 0) {
+        this.errors[attribute] = "Wajib diisi";
+        return false;
+      }
+
+      var _this$$refs$attribute = this.$refs[attribute].files[0],
+          size = _this$$refs$attribute.size,
+          type = _this$$refs$attribute.type;
+
+      if (size > 2 * 1000 * 1000) {
+        this.errors[attribute] = "Ukuran berkas melebihi 2MB!";
+        return false;
+      }
+
+      if (type !== "image/png" && type !== "image/jpeg" && type !== "image/jpg") {
+        this.errors[attribute] = "Berkas harus berupa JPG/PNG";
+        return false;
+      }
+
+      return true;
+    },
+    validateForm: function validateForm() {
+      this.resetValidation();
+
+      if (this.$page.user.type === "AGENT") {
+        var isValidPaymentFile = this.validateFile("payment_file");
+
+        if (!isValidPaymentFile) {
+          return false;
+        }
+      }
+
+      var isValidKtpFile = this.validateFile("ktp_file");
+
+      if (!isValidKtpFile) {
+        return false;
+      }
+
+      return true;
+    },
     updateUserDetail: function updateUserDetail() {
+      var _this = this;
+
+      if (!this.validateForm()) {
+        return false;
+      }
+
       if (this.$refs.ktp_file) {
         this.form.ktp_file = this.$refs.ktp_file.files[0];
       }
@@ -8045,10 +8230,22 @@ __webpack_require__.r(__webpack_exports__);
 
       this.form.post(route("user-detail.update"), {
         preserveScroll: true
+      }).then(function () {
+        _this.is_processed = true;
+
+        if (_this.$page.errors.failed) {
+          _this.$swal("Terjadi Kesalahan!", "", "error");
+
+          return;
+        }
+
+        _this.ktpPreview = null;
+        _this.paymentPreview = null;
+
+        _this.$swal("Berhasil!", "Profil sudah disimpan", "success");
+
+        _this.$refs.back.click();
       });
-      this.ktpPreview = null;
-      this.paymentPreview = null;
-      this.is_processed = true;
     },
     selectNewKtp: function selectNewKtp() {
       this.$refs.ktp_file.click();
@@ -8057,23 +8254,25 @@ __webpack_require__.r(__webpack_exports__);
       this.$refs.payment_file.click();
     },
     updateKtpPreview: function updateKtpPreview() {
-      var _this = this;
+      var _this2 = this;
 
+      this.resetValidation();
       var reader = new FileReader();
 
       reader.onload = function (e) {
-        _this.ktpPreview = e.target.result;
+        _this2.ktpPreview = e.target.result;
       };
 
       reader.readAsDataURL(this.$refs.ktp_file.files[0]);
     },
     updatePaymentPreview: function updatePaymentPreview() {
-      var _this2 = this;
+      var _this3 = this;
 
+      this.resetValidation();
       var reader = new FileReader();
 
       reader.onload = function (e) {
-        _this2.paymentPreview = e.target.result;
+        _this3.paymentPreview = e.target.result;
       };
 
       reader.readAsDataURL(this.$refs.payment_file.files[0]);
@@ -9004,6 +9203,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Icons_AgentSearch__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../Icons/AgentSearch */ "./resources/js/Icons/AgentSearch.vue");
 /* harmony import */ var _Icons_ArrowRight__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../Icons/ArrowRight */ "./resources/js/Icons/ArrowRight.vue");
 /* harmony import */ var _Icons_Rank__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../Icons/Rank */ "./resources/js/Icons/Rank.vue");
+/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../helpers */ "./resources/js/helpers.js");
 //
 //
 //
@@ -9200,6 +9400,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -9244,6 +9452,9 @@ __webpack_require__.r(__webpack_exports__);
     isInVerification: function isInVerification() {
       return this.$page.data.status === "SEDANG DIVERIFIKASI";
     }
+  },
+  methods: {
+    formatRupiah: _helpers__WEBPACK_IMPORTED_MODULE_8__["formatRupiah"]
   }
 });
 
@@ -60058,31 +60269,75 @@ var render = function() {
   return _c(
     "svg",
     {
+      staticStyle: {
+        "enable-background": "new 0 0 512 512",
+        fill: "currentColor"
+      },
       attrs: {
-        id: "Layer_1",
-        "enable-background": "new 0 0 511.998 511.998",
-        height: "32",
-        viewBox: "0 0 511.998 511.998",
-        width: "32",
-        xmlns: "http://www.w3.org/2000/svg"
+        version: "1.1",
+        id: "Capa_1",
+        xmlns: "http://www.w3.org/2000/svg",
+        "xmlns:xlink": "http://www.w3.org/1999/xlink",
+        x: "0px",
+        y: "0px",
+        height: "16",
+        width: "16",
+        viewBox: "0 0 512 512",
+        "xml:space": "preserve"
       }
     },
     [
       _c("g", [
-        _c("path", {
-          attrs: {
-            d:
-              "m462.232 19.236c-28.114-12.404-65.164-19.236-104.325-19.236s-76.211 6.832-104.326 19.236c-32.017 14.126-49.65 34.398-49.65 57.081v129.269c-14.847-4.675-30.638-7.202-47.008-7.202-86.464 0-156.807 70.343-156.807 156.807 0 86.463 70.343 156.807 156.807 156.807 59.484 0 111.336-33.294 137.905-82.224 19.656 4.149 41.21 6.327 63.079 6.327 39.161 0 76.211-6.831 104.326-19.235 32.018-14.126 49.65-34.398 49.65-57.081v-283.468c0-22.683-17.633-42.955-49.651-57.081zm-196.541 27.447c24.383-10.758 57.133-16.683 92.216-16.683s67.833 5.925 92.216 16.683c19.59 8.643 31.76 19.999 31.76 29.634s-12.17 20.99-31.76 29.634c-24.384 10.758-57.133 16.683-92.216 16.683s-67.833-5.925-92.216-16.683c-19.59-8.644-31.76-19.998-31.76-29.634s12.17-20.991 31.76-29.634zm-108.769 435.315c-69.922 0-126.807-56.885-126.807-126.807s56.885-126.807 126.807-126.807c69.921 0 126.807 56.885 126.807 126.807s-56.885 126.807-126.807 126.807zm293.201-92.58c-24.384 10.758-57.133 16.683-92.216 16.683-17.707 0-35.107-1.558-51.176-4.543 3.886-12.529 6.233-25.727 6.835-39.371 14.245 2.009 29.082 3.047 44.342 3.047 39.161 0 76.211-6.832 104.326-19.236 7.318-3.229 13.874-6.781 19.65-10.607v24.393c-.001 9.636-12.171 20.991-31.761 29.634zm0-70.867c-24.383 10.758-57.133 16.683-92.216 16.683-15.963 0-31.362-1.235-45.952-3.636-2.279-15.039-6.709-29.38-12.954-42.708 18.448 3.584 38.469 5.477 58.906 5.477 39.161 0 76.211-6.831 104.326-19.235 7.318-3.229 13.874-6.782 19.65-10.608v24.393c0 9.636-12.17 20.991-31.76 29.634zm0-70.866c-24.384 10.758-57.133 16.683-92.216 16.683-31.017 0-60.624-4.728-83.876-13.331-11.461-12.872-25.004-23.849-40.1-32.396v-24.983c5.776 3.826 12.333 7.379 19.65 10.607 28.115 12.404 65.165 19.236 104.326 19.236s76.211-6.832 104.326-19.236c7.318-3.229 13.874-6.781 19.65-10.607v24.393c0 9.635-12.17 20.99-31.76 29.634zm0-70.868c-24.383 10.758-57.133 16.683-92.216 16.683s-67.833-5.925-92.216-16.683c-19.59-8.643-31.76-19.998-31.76-29.634v-24.393c5.776 3.826 12.333 7.379 19.65 10.608 28.115 12.404 65.165 19.235 104.326 19.235s76.211-6.831 104.326-19.235c7.318-3.229 13.874-6.782 19.65-10.608v24.393c0 9.636-12.17 20.991-31.76 29.634z"
-          }
-        }),
-        _vm._v(" "),
-        _c("path", {
-          attrs: {
-            d:
-              "m176.952 339.052h-32.175c-7.243 0-13.136-5.893-13.136-13.136s5.893-13.136 13.136-13.136h54.323v-30h-27.177v-20.239h-30v20.344c-22.458 1.476-40.282 20.206-40.282 43.031 0 23.785 19.351 43.136 43.136 43.136h32.175c7.871 0 14.274 6.404 14.274 14.275s-6.403 14.274-14.274 14.274h-69.333v30h34.304v20.239h30v-20.239h5.029c24.413 0 44.274-19.861 44.274-44.274s-19.861-44.275-44.274-44.275z"
-          }
-        })
-      ])
+        _c("g", [
+          _c("path", {
+            attrs: {
+              d:
+                "M336,16c-85.312,0-176,28.032-176,80v64c0,8.832,7.168,16,16,16c8.832,0,16-7.168,16-16v-16.672\n\t\t\tC225.952,164.736,282.016,176,336,176s110.048-11.264,144-32.672V160c0,15.648-39.36,40.608-113.344,46.784\n\t\t\tc-8.768,0.704-15.328,8.48-14.592,17.28c0.672,8.352,7.68,14.656,15.904,14.656c0.48,0,0.896-0.032,1.376-0.064\n\t\t\tc41.664-3.488,83.168-14.272,110.656-31.776V224c0,13.664-28.992,33.312-82.784,42.816c-8.672,1.536-14.496,9.856-12.96,18.528\n\t\t\tc1.376,7.744,8.128,13.216,15.712,13.216c0.928,0,1.888-0.064,2.816-0.256c32.544-5.728,58.592-15.104,77.216-27.008V288\n\t\t\tc0,13.664-28.992,33.312-82.784,42.816c-8.672,1.536-14.496,9.856-12.96,18.528c1.376,7.744,8.128,13.216,15.712,13.216\n\t\t\tc0.928,0,1.888-0.064,2.816-0.256c32.544-5.728,58.592-15.136,77.216-27.008V352c0,13.664-28.992,33.312-82.784,42.816\n\t\t\tc-8.672,1.536-14.496,9.856-12.96,18.528c1.376,7.744,8.128,13.216,15.712,13.216c0.928,0,1.888-0.064,2.816-0.256\n\t\t\tc32.544-5.728,58.592-15.136,77.216-27.008V416c0,15.648-39.36,40.608-113.344,46.784c-8.768,0.704-15.328,8.48-14.592,17.28\n\t\t\tc0.672,8.352,7.68,14.656,15.904,14.656c0.48,0,0.896-0.032,1.376-0.064C440.352,488.704,512,462.112,512,416V96\n\t\t\tC512,44.032,421.312,16,336,16z M336,144c-87.904,0-144-28.448-144-48s56.096-48,144-48s144,28.448,144,48S423.904,144,336,144z"
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("g", [
+        _c("g", [
+          _c("path", {
+            attrs: {
+              d:
+                "M176,208C90.688,208,0,236.032,0,288v128c0,51.968,90.688,80,176,80s176-28.032,176-80V288\n\t\t\tC352,236.032,261.312,208,176,208z M320,416c0,19.552-56.096,48-144,48S32,435.552,32,416v-16.672\n\t\t\tC65.952,420.736,122.016,432,176,432s110.048-11.264,144-32.672V416z M320,352c0,19.552-56.096,48-144,48S32,371.552,32,352\n\t\t\tv-16.672C65.952,356.736,122.016,368,176,368s110.048-11.264,144-32.672V352z M176,336c-87.904,0-144-28.448-144-48\n\t\t\ts56.096-48,144-48s144,28.448,144,48S263.904,336,176,336z"
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("g"),
+      _vm._v(" "),
+      _c("g"),
+      _vm._v(" "),
+      _c("g"),
+      _vm._v(" "),
+      _c("g"),
+      _vm._v(" "),
+      _c("g"),
+      _vm._v(" "),
+      _c("g"),
+      _vm._v(" "),
+      _c("g"),
+      _vm._v(" "),
+      _c("g"),
+      _vm._v(" "),
+      _c("g"),
+      _vm._v(" "),
+      _c("g"),
+      _vm._v(" "),
+      _c("g"),
+      _vm._v(" "),
+      _c("g"),
+      _vm._v(" "),
+      _c("g"),
+      _vm._v(" "),
+      _c("g"),
+      _vm._v(" "),
+      _c("g")
     ]
   )
 }
@@ -60958,6 +61213,39 @@ var render = function() {
         ]
       )
     ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/JetStream/SecondaryButton.vue?vue&type=template&id=7de8da62&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/JetStream/SecondaryButton.vue?vue&type=template&id=7de8da62& ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "button",
+    {
+      staticClass:
+        "inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150",
+      attrs: { type: _vm.type }
+    },
+    [_vm._t("default")],
+    2
   )
 }
 var staticRenderFns = []
@@ -64166,17 +64454,29 @@ var render = function() {
                               _vm._v(" "),
                               agent.status === "AKTIF"
                                 ? _c(
-                                    "span",
+                                    "chip-label",
                                     {
-                                      staticClass:
-                                        "flex rounded-full py-1 px-2 bg-green-500 text-white items-center"
+                                      staticClass: "flex items-center",
+                                      attrs: {
+                                        bgColor: _vm.pointComparisonColor(agent)
+                                      }
                                     },
                                     [
-                                      _c("dollar-icon"),
+                                      _c("coin-icon"),
                                       _vm._v(" "),
-                                      _c("span", { staticClass: "mx-1" }, [
-                                        _vm._v(_vm._s(agent.total_point || 0))
-                                      ])
+                                      _c(
+                                        "span",
+                                        { staticClass: "ml-2 text-sm" },
+                                        [
+                                          _vm._v(
+                                            _vm._s(
+                                              agent.total_point_reseller || 0
+                                            ) +
+                                              " / " +
+                                              _vm._s(agent.total_point || 0)
+                                          )
+                                        ]
+                                      )
                                     ],
                                     1
                                   )
@@ -64441,7 +64741,7 @@ var render = function() {
                                         }
                                       },
                                       [
-                                        _c("jet-button", [
+                                        _c("jet-secondary-button", [
                                           _vm._v("Lihat Reseller")
                                         ])
                                       ],
@@ -64924,7 +65224,7 @@ var render = function() {
     [
       _vm._v(" "),
       _c("div", { staticClass: "bg-white border-t" }, [
-        _vm.$page.user.type === "ADMIN"
+        _vm.$page.user.type === "ADMIN" || _vm.$page.user.type === "AGENT"
           ? _c("div", { staticClass: "flex max-w-7xl mx-auto sm:px-4 px-0" }, [
               _c("div", { staticClass: "bg-white pl-4 py-3" }, [
                 _vm._v("Tipe:")
@@ -65100,7 +65400,7 @@ var render = function() {
                                 },
                                 [
                                   _c("img", {
-                                    staticClass: "w-full",
+                                    staticClass: "w-full object-cover h-48",
                                     attrs: { src: point.payment_file_url }
                                   })
                                 ]
@@ -65112,7 +65412,7 @@ var render = function() {
                                 [
                                   _c(
                                     "div",
-                                    { staticClass: "font-bold text-xl mb-2" },
+                                    { staticClass: "font-bold text-xl" },
                                     [
                                       _vm._v(
                                         "\n                  " +
@@ -65122,20 +65422,31 @@ var render = function() {
                                     ]
                                   ),
                                   _vm._v(" "),
+                                  _c("p", [_vm._v(_vm._s(point.email))]),
+                                  _vm._v(" "),
+                                  _c("p", { staticClass: "text-sm mb-4" }, [
+                                    _vm._v(
+                                      "\n                  " +
+                                        _vm._s(
+                                          _vm._f("luxon:format")(
+                                            point.created_at,
+                                            "E LLLL y, HH:mm:ss"
+                                          )
+                                        ) +
+                                        "\n                "
+                                    )
+                                  ]),
+                                  _vm._v(" "),
                                   _c(
                                     "chip-label",
                                     {
                                       attrs: {
-                                        bgColor: _vm.chipColor(point.type)
+                                        bgColor: _vm.chipClaimStatus(
+                                          point.status
+                                        )
                                       }
                                     },
-                                    [
-                                      _vm._v(
-                                        "ID: " +
-                                          _vm._s(point.identifier) +
-                                          "\n                "
-                                      )
-                                    ]
+                                    [_vm._v(_vm._s(point.status))]
                                   ),
                                   _vm._v(" "),
                                   _c(
@@ -65149,7 +65460,7 @@ var render = function() {
                                       _vm._v(" "),
                                       _c("span", { staticClass: "ml-1" }, [
                                         _vm._v(
-                                          "\n                    Nominal Klaim: " +
+                                          "\n                    Nominal: " +
                                             _vm._s(
                                               _vm.formatRupiah(point.amount)
                                             ) +
@@ -65158,24 +65469,7 @@ var render = function() {
                                       ])
                                     ],
                                     1
-                                  ),
-                                  _vm._v(" "),
-                                  _c("p", { staticClass: "mt-3" }, [
-                                    _vm._v(_vm._s(point.email))
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("p", { staticClass: "text-sm" }, [
-                                    _vm._v(
-                                      "\n                  " +
-                                        _vm._s(
-                                          _vm._f("luxon:format")(
-                                            point.created_at,
-                                            "E LLLL y, HH:mm:ss"
-                                          )
-                                        ) +
-                                        "\n                "
-                                    )
-                                  ])
+                                  )
                                 ],
                                 1
                               ),
@@ -65266,26 +65560,6 @@ var render = function() {
                                             1
                                           )
                                         ])
-                                      : _vm._e(),
-                                    _vm._v(" "),
-                                    point.status !== "MENUNGGU DIVERIFIKASI"
-                                      ? _c(
-                                          "div",
-                                          [
-                                            _c(
-                                              "chip-label",
-                                              {
-                                                attrs: {
-                                                  bgColor: _vm.chipClaimStatus(
-                                                    point.status
-                                                  )
-                                                }
-                                              },
-                                              [_vm._v(_vm._s(point.status))]
-                                            )
-                                          ],
-                                          1
-                                        )
                                       : _vm._e()
                                   ])
                                 ]
@@ -65424,113 +65698,219 @@ var render = function() {
       _c("div", { staticClass: "py-4" }, [
         _c("div", { staticClass: "max-w-7xl mx-auto sm:px-6 lg:px-8" }, [
           _c("div", { staticClass: "overflow-hidden sm:rounded-lg" }, [
-            _c(
-              "div",
-              { staticClass: "px-4 py-2 mb-4 bg-green-500 text-white rounded" },
-              [
-                _c("div", { staticClass: "font-bold text-xl" }, [
-                  _vm._v(
-                    "\n            Total (" +
-                      _vm._s(_vm.filter) +
-                      "): " +
-                      _vm._s(_vm.total_point) +
-                      " Poin\n          "
-                  )
-                ]),
-                _vm._v(" "),
-                _vm.getFilter !== "Semua"
-                  ? _c("div", { staticClass: "font-bold text-l" }, [
+            _vm.$page.user.type === "ADMIN"
+              ? _c(
+                  "div",
+                  {
+                    staticClass:
+                      "px-4 py-2 mb-4 bg-green-500 text-white rounded"
+                  },
+                  [
+                    _c("div", { staticClass: "font-bold text-xl" }, [
                       _vm._v(
-                        "\n            x " +
-                          _vm._s(_vm.formatRupiah(_vm.multiplier)) +
-                          " =\n            " +
-                          _vm._s(
-                            _vm.formatRupiah(_vm.total_point * _vm.multiplier)
-                          ) +
-                          "\n          "
+                        "\n            Total (" +
+                          _vm._s(_vm.filter) +
+                          "): " +
+                          _vm._s(_vm.total_point) +
+                          " Poin\n          "
                       )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "font-bold" }, [
+                      _vm._v("Dari " + _vm._s(_vm.total_member) + " member")
                     ])
-                  : _vm._e(),
-                _vm._v(" "),
-                _c("div", { staticClass: "text-m" }, [
-                  _vm._v("Dari " + _vm._s(_vm.total_member) + " member")
-                ])
-              ]
-            ),
+                  ]
+                )
+              : _vm._e(),
             _vm._v(" "),
             _vm.is_fetching
               ? _c("div", [_c("card-loader", { attrs: { total: 3 } })], 1)
               : _c(
                   "div",
-                  _vm._l(_vm.ranks, function(rank, index) {
-                    return _c(
-                      "div",
-                      {
-                        key: index,
-                        staticClass: "mt-4 px-4 py-4 bg-white mx-auto rounded",
-                        class: _vm.isMyRank(rank) && "border border-green-500"
-                      },
-                      [
-                        _c("div", { staticClass: "mb-2 flex items-center" }, [
-                          _c("img", {
-                            staticClass: "w-10 h-10 rounded-full mr-4",
-                            attrs: {
-                              src:
-                                "https://ui-avatars.com/api/?name=" +
-                                (index + 1) +
-                                "&color=7F9CF5&background=EBF4FF"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("div", [
-                            _c("div", { staticClass: "font-bold" }, [
-                              _vm._v(_vm._s(rank.name))
-                            ]),
+                  [
+                    _vm._l(_vm.ranks, function(rank, index) {
+                      return _c(
+                        "div",
+                        {
+                          key: index,
+                          staticClass:
+                            "mt-4 px-4 py-4 bg-white mx-auto rounded",
+                          class:
+                            _vm.isMyRank(rank) && "border-l-4 border-green-500"
+                        },
+                        [
+                          _c("div", { staticClass: "mb-2 flex items-center" }, [
+                            _c("img", {
+                              staticClass: "w-10 h-10 rounded-full mr-4",
+                              attrs: {
+                                src:
+                                  "https://ui-avatars.com/api/?name=" +
+                                  (index + 1) +
+                                  "&color=7F9CF5&background=EBF4FF"
+                              }
+                            }),
                             _vm._v(" "),
+                            _c("div", [
+                              _c("div", { staticClass: "font-bold" }, [
+                                _c("span", [_vm._v(_vm._s(rank.name))])
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "flex" },
+                                [
+                                  _c(
+                                    "chip-label",
+                                    {
+                                      attrs: {
+                                        bgColor: _vm.chipColor(rank.type)
+                                      }
+                                    },
+                                    [
+                                      _c("span", { staticClass: "text-xs" }, [
+                                        _vm._v(_vm._s(rank.type))
+                                      ])
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "chip-label",
+                                    {
+                                      staticClass: "flex ml-2 items-center",
+                                      attrs: { bgColor: "bg-green-500" }
+                                    },
+                                    [
+                                      _c("coin-icon"),
+                                      _vm._v(" "),
+                                      _c("span", { staticClass: "ml-1" }, [
+                                        _vm._v("Total Poin:")
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("span", { staticClass: "ml-1" }, [
+                                        _vm._v(_vm._s(rank.total_point || 0))
+                                      ])
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ])
+                          ])
+                        ]
+                      )
+                    }),
+                    _vm._v(" "),
+                    _vm.self_rank && !_vm.isAdmin && !_vm.isInTopTen
+                      ? _c(
+                          "div",
+                          { staticClass: "border-t-2 border-gray-200 mt-8" },
+                          [
                             _c(
                               "div",
-                              { staticClass: "flex" },
+                              {
+                                staticClass:
+                                  "mt-4 px-4 py-4 bg-white mx-auto rounded border-l-4 border-red-600"
+                              },
                               [
                                 _c(
-                                  "chip-label",
-                                  {
-                                    attrs: { bgColor: _vm.chipColor(rank.type) }
-                                  },
+                                  "div",
+                                  { staticClass: "mb-2 flex items-center" },
                                   [
-                                    _c("span", { staticClass: "text-xs" }, [
-                                      _vm._v(_vm._s(rank.type))
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "w-10 h-10 rounded-full mr-4 bg-red-100 text-red-400 items-center flex place-content-center"
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                  10+\n                "
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("div", [
+                                      _c("div", { staticClass: "font-bold" }, [
+                                        _c("span", [
+                                          _vm._v(
+                                            _vm._s(_vm.self_rank.user.name)
+                                          )
+                                        ])
+                                      ]),
+                                      _vm._v(" "),
+                                      _c(
+                                        "div",
+                                        { staticClass: "flex" },
+                                        [
+                                          _c(
+                                            "chip-label",
+                                            {
+                                              attrs: {
+                                                bgColor: _vm.chipColor(
+                                                  _vm.self_rank.user.type
+                                                )
+                                              }
+                                            },
+                                            [
+                                              _c(
+                                                "span",
+                                                { staticClass: "text-xs" },
+                                                [
+                                                  _vm._v(
+                                                    _vm._s(
+                                                      _vm.self_rank.user.type
+                                                    )
+                                                  )
+                                                ]
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "chip-label",
+                                            {
+                                              staticClass:
+                                                "flex ml-2 items-center",
+                                              attrs: { bgColor: "bg-green-500" }
+                                            },
+                                            [
+                                              _c("coin-icon"),
+                                              _vm._v(" "),
+                                              _c(
+                                                "span",
+                                                { staticClass: "ml-1" },
+                                                [_vm._v("Total Poin:")]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "span",
+                                                { staticClass: "ml-1" },
+                                                [
+                                                  _vm._v(
+                                                    _vm._s(
+                                                      _vm.self_rank
+                                                        .total_point || 0
+                                                    )
+                                                  )
+                                                ]
+                                              )
+                                            ],
+                                            1
+                                          )
+                                        ],
+                                        1
+                                      )
                                     ])
                                   ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "chip-label",
-                                  {
-                                    staticClass: "flex ml-2",
-                                    attrs: { bgColor: "bg-green-500" }
-                                  },
-                                  [
-                                    _c("dollar-icon"),
-                                    _vm._v(" "),
-                                    _c("span", { staticClass: "ml-1" }, [
-                                      _vm._v("Total Poin:")
-                                    ]),
-                                    _vm._v(" "),
-                                    _c("span", { staticClass: "ml-1" }, [
-                                      _vm._v(_vm._s(rank.total_point || 0))
-                                    ])
-                                  ],
-                                  1
                                 )
-                              ],
-                              1
+                              ]
                             )
-                          ])
-                        ])
-                      ]
-                    )
-                  }),
-                  0
+                          ]
+                        )
+                      : _vm._e()
+                  ],
+                  2
                 )
           ])
         ])
@@ -65572,20 +65952,15 @@ var render = function() {
                 "h2",
                 {
                   staticClass:
-                    "font-semibold text-xl text-gray-800 leading-tight flex items-center"
+                    "flex items-baseline font-semibold text-xl text-gray-800 leading-tight flex items-center"
                 },
                 [
-                  _vm._v("\n      Reseller\n      "),
-                  _c(
-                    "chip-label",
-                    {
-                      staticClass: "ml-2",
-                      attrs: { bgColor: "bg-purple-500" }
-                    },
-                    [_vm._v(_vm._s(_vm.$page.identifier))]
-                  )
-                ],
-                1
+                  _c("span", [_vm._v("Reseller")]),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "text-sm ml-2" }, [
+                    _vm._v("dari Agen: " + _vm._s(_vm.$page.agent_name))
+                  ])
+                ]
               )
             ]
           },
@@ -65659,25 +66034,13 @@ var render = function() {
               },
               [
                 _c("div", { staticClass: "font-bold text-xl" }, [
-                  _vm._v(
-                    "\n            Total Reseller: " +
-                      _vm._s(_vm.total_member) +
-                      "\n          "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "font-bold" }, [
                   _vm._v("Total Poin: " + _vm._s(_vm.total_point))
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "text-sm" }, [
+                _c("div", { staticClass: "font-bold" }, [
                   _vm._v(
-                    "\n            x " +
-                      _vm._s(_vm.formatRupiah(_vm.multiplier)) +
-                      " =\n            " +
-                      _vm._s(
-                        _vm.formatRupiah(_vm.total_point * _vm.multiplier)
-                      ) +
+                    "\n            Total Reseller: " +
+                      _vm._s(_vm.total_member || 0) +
                       "\n          "
                   )
                 ])
@@ -65758,16 +66121,20 @@ var render = function() {
                                     "span",
                                     {
                                       staticClass:
-                                        "flex rounded-full py-1 px-2 bg-green-500 text-white"
+                                        "flex rounded py-1 px-2 bg-green-500 text-white items-center"
                                     },
                                     [
-                                      _c("dollar-icon"),
+                                      _c("coin-icon"),
                                       _vm._v(" "),
-                                      _c("span", { staticClass: "mx-1" }, [
-                                        _vm._v(
-                                          _vm._s(reseller.total_point || 0)
-                                        )
-                                      ])
+                                      _c(
+                                        "span",
+                                        { staticClass: "ml-2 mr-1 text-sm" },
+                                        [
+                                          _vm._v(
+                                            _vm._s(reseller.total_point || 0)
+                                          )
+                                        ]
+                                      )
                                     ],
                                     1
                                   )
@@ -65797,8 +66164,8 @@ var render = function() {
                                   staticClass: "w-10 h-10 rounded-full mr-4",
                                   attrs: {
                                     src:
+                                      "" +
                                       _vm.base_url +
-                                      "/storage/" +
                                       reseller.profile_photo_path,
                                     alt: "Avatar"
                                   }
@@ -66192,7 +66559,7 @@ var render = function() {
               1
             ),
             _vm._v(" "),
-            _vm.hasCompleteCalculations
+            _vm.is_fetched
               ? _c("div", { staticClass: "col-span-6 sm:col-span-4" }, [
                   _c(
                     "div",
@@ -66208,12 +66575,15 @@ var render = function() {
                         _vm._v(
                           "\n          " +
                             _vm._s(_vm.total_point_agent) +
-                            " poin x\n          " +
-                            _vm._s(_vm.formatRupiah(_vm.agent_multiplier)) +
-                            " =\n          " +
-                            _vm._s(_vm.formatRupiah(_vm.totalAmountAgent)) +
-                            "\n        "
-                        )
+                            " Poin\n          "
+                        ),
+                        _c("span", { staticClass: "font-bold" }, [
+                          _vm._v(
+                            "\n            (" +
+                              _vm._s(_vm.formatRupiah(_vm.total_amount_agent)) +
+                              ")\n          "
+                          )
+                        ])
                       ])
                     ],
                     1
@@ -66231,12 +66601,17 @@ var render = function() {
                         _vm._v(
                           "\n          " +
                             _vm._s(_vm.total_point_reseller) +
-                            " poin x\n          " +
-                            _vm._s(_vm.formatRupiah(_vm.reseller_multiplier)) +
-                            " =\n          " +
-                            _vm._s(_vm.formatRupiah(_vm.totalAmountReseller)) +
-                            "\n        "
-                        )
+                            " Poin\n          "
+                        ),
+                        _c("span", { staticClass: "font-bold" }, [
+                          _vm._v(
+                            "\n            (" +
+                              _vm._s(
+                                _vm.formatRupiah(_vm.total_amount_reseller)
+                              ) +
+                              ")\n          "
+                          )
+                        ])
                       ])
                     ],
                     1
@@ -66250,11 +66625,14 @@ var render = function() {
                         _vm._v("Total untuk Dicairkan")
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "mt-2" }, [
+                      _c("div", { staticClass: "mt-2 text-xl" }, [
                         _vm._v(
                           "\n          " +
                             _vm._s(
-                              _vm.formatRupiah(_vm.totalAmountToWithDraw)
+                              _vm.formatRupiah(
+                                _vm.total_amount_agent +
+                                  _vm.total_amount_reseller
+                              )
                             ) +
                             "\n        "
                         )
@@ -67891,6 +68269,25 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "mt-2 bg-orange-100 text-orange-700 px-4 py-2",
+                    attrs: { role: "alert" }
+                  },
+                  [
+                    _c("p", [
+                      _vm._v(
+                        "\n          Diwajibkan memiliki rekening\n          "
+                      ),
+                      _c("span", { staticClass: "font-bold" }, [
+                        _vm._v("Bank BRI")
+                      ]),
+                      _vm._v(".\n        ")
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
                 _c("jet-input-error", {
                   staticClass: "mt-2",
                   attrs: { message: _vm.form.error("bank_id") }
@@ -67972,7 +68369,7 @@ var render = function() {
               { staticClass: "col-span-6 sm:col-span-4" },
               [
                 _c("jet-label", {
-                  attrs: { for: "shopee_link", value: "Shopee Link" }
+                  attrs: { for: "shopee_link", value: "Shopee Link (Opsional)" }
                 }),
                 _vm._v(" "),
                 _c("jet-input", {
@@ -67980,7 +68377,6 @@ var render = function() {
                   attrs: {
                     id: "shopee_link",
                     type: "text",
-                    required: "",
                     placeholder: "https://shopee.co.id/username",
                     autocomplete: "shopee_link"
                   },
@@ -68012,7 +68408,9 @@ var render = function() {
                   on: { change: _vm.updateKtpPreview }
                 }),
                 _vm._v(" "),
-                _c("jet-label", { attrs: { for: "ktp_file", value: "KTP" } }),
+                _c("jet-label", {
+                  attrs: { for: "ktp_file", value: "KTP (Maksimum: 2 MB)" }
+                }),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -68064,7 +68462,7 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _vm.isEditable
+                !_vm.$page.user_detail.ktp_file || _vm.isEditable
                   ? _c(
                       "jet-secondary-button",
                       {
@@ -68083,102 +68481,107 @@ var render = function() {
                 _vm._v(" "),
                 _c("jet-input-error", {
                   staticClass: "mt-2",
-                  attrs: { message: _vm.form.error("ktp_file") }
+                  attrs: { message: _vm.errors.ktp_file }
                 })
               ],
               1
             ),
             _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "col-span-6 sm:col-span-4" },
-              [
-                _c("input", {
-                  ref: "payment_file",
-                  staticClass: "hidden",
-                  attrs: { type: "file" },
-                  on: { change: _vm.updatePaymentPreview }
-                }),
-                _vm._v(" "),
-                _c("jet-label", {
-                  attrs: { for: "payment_file", value: "Bukti Pembayaran" }
-                }),
-                _vm._v(" "),
-                _c(
+            _vm.$page.user.type === "AGENT"
+              ? _c(
                   "div",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value:
-                          !_vm.paymentPreview &&
-                          _vm.$page.user_detail.payment_file_url,
-                        expression:
-                          "!paymentPreview && $page.user_detail.payment_file_url"
-                      }
-                    ],
-                    staticClass: "mt-2"
-                  },
+                  { staticClass: "col-span-6 sm:col-span-4" },
                   [
-                    _c("img", {
-                      staticClass: "w-40 h-40 object-cover",
+                    _c("input", {
+                      ref: "payment_file",
+                      staticClass: "hidden",
+                      attrs: { type: "file" },
+                      on: { change: _vm.updatePaymentPreview }
+                    }),
+                    _vm._v(" "),
+                    _c("jet-label", {
                       attrs: {
-                        src: _vm.$page.user_detail.payment_file_url,
-                        alt: "Bukti Pembayaran"
+                        for: "payment_file",
+                        value: "Bukti Pembayaran (Maksimum: 2 MB)"
                       }
-                    })
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    directives: [
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "div",
                       {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.paymentPreview,
-                        expression: "paymentPreview"
-                      }
-                    ],
-                    staticClass: "mt-2"
-                  },
-                  [
-                    _c("span", {
-                      staticClass: "block w-40 h-40",
-                      style:
-                        "background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url('" +
-                        _vm.paymentPreview +
-                        "');"
-                    })
-                  ]
-                ),
-                _vm._v(" "),
-                _vm.isEditable
-                  ? _c(
-                      "jet-secondary-button",
-                      {
-                        staticClass: "mt-2 mr-2",
-                        attrs: { type: "button" },
-                        nativeOn: {
-                          click: function($event) {
-                            $event.preventDefault()
-                            return _vm.selectNewPayment($event)
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value:
+                              !_vm.paymentPreview &&
+                              _vm.$page.user_detail.payment_file_url,
+                            expression:
+                              "!paymentPreview && $page.user_detail.payment_file_url"
                           }
-                        }
+                        ],
+                        staticClass: "mt-2"
                       },
-                      [_vm._v("\n        Unggah Bukti Pembayaran\n      ")]
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                _c("jet-input-error", {
-                  staticClass: "mt-2",
-                  attrs: { message: _vm.form.error("paymentPreview") }
-                })
-              ],
-              1
-            )
+                      [
+                        _c("img", {
+                          staticClass: "w-40 h-40 object-cover",
+                          attrs: {
+                            src: _vm.$page.user_detail.payment_file_url,
+                            alt: "Bukti Pembayaran"
+                          }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.paymentPreview,
+                            expression: "paymentPreview"
+                          }
+                        ],
+                        staticClass: "mt-2"
+                      },
+                      [
+                        _c("span", {
+                          staticClass: "block w-40 h-40",
+                          style:
+                            "background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url('" +
+                            _vm.paymentPreview +
+                            "');"
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _vm.isEditable
+                      ? _c(
+                          "jet-secondary-button",
+                          {
+                            staticClass: "mt-2 mr-2",
+                            attrs: { type: "button" },
+                            nativeOn: {
+                              click: function($event) {
+                                $event.preventDefault()
+                                return _vm.selectNewPayment($event)
+                              }
+                            }
+                          },
+                          [_vm._v("\n        Unggah Bukti Pembayaran\n      ")]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("jet-input-error", {
+                      staticClass: "mt-2",
+                      attrs: { message: _vm.errors.payment_file }
+                    })
+                  ],
+                  1
+                )
+              : _vm._e()
           ]
         },
         proxy: true
@@ -68187,15 +68590,6 @@ var render = function() {
         key: "actions",
         fn: function() {
           return [
-            _c(
-              "jet-action-message",
-              {
-                staticClass: "mr-3",
-                attrs: { on: _vm.form.recentlySuccessful }
-              },
-              [_vm._v("\n      Tersimpan.\n    ")]
-            ),
-            _vm._v(" "),
             _c(
               "jet-button",
               {
@@ -68207,7 +68601,11 @@ var render = function() {
             _vm._v(" "),
             _c(
               "inertia-link",
-              { staticClass: "ml-3", attrs: { href: _vm.route("dashboard") } },
+              {
+                ref: "back",
+                staticClass: "ml-3",
+                attrs: { href: _vm.route("dashboard") }
+              },
               [_c("jet-secondary-button", [_vm._v("Kembali")])],
               1
             )
@@ -69925,6 +70323,22 @@ var render = function() {
                       _vm._v(
                         "\n          Poin: " +
                           _vm._s(_vm.$page.data.total_point || 0) +
+                          "\n        "
+                      )
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.$page.data.status === "AKTIF"
+                ? _c(
+                    "chip-label",
+                    { staticClass: "ml-2", attrs: { bgColor: "bg-green-500" } },
+                    [
+                      _vm._v(
+                        "\n          Nominal: " +
+                          _vm._s(
+                            _vm.formatRupiah(_vm.$page.data.total_amount) || 0
+                          ) +
                           "\n        "
                       )
                     ]
@@ -88553,6 +88967,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_vue_vue_type_template_id_a746c4a4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_vue_vue_type_template_id_a746c4a4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/JetStream/SecondaryButton.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/JetStream/SecondaryButton.vue ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _SecondaryButton_vue_vue_type_template_id_7de8da62___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SecondaryButton.vue?vue&type=template&id=7de8da62& */ "./resources/js/JetStream/SecondaryButton.vue?vue&type=template&id=7de8da62&");
+/* harmony import */ var _SecondaryButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SecondaryButton.vue?vue&type=script&lang=js& */ "./resources/js/JetStream/SecondaryButton.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _SecondaryButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _SecondaryButton_vue_vue_type_template_id_7de8da62___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _SecondaryButton_vue_vue_type_template_id_7de8da62___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/JetStream/SecondaryButton.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/JetStream/SecondaryButton.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/JetStream/SecondaryButton.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SecondaryButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./SecondaryButton.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/JetStream/SecondaryButton.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SecondaryButton_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/JetStream/SecondaryButton.vue?vue&type=template&id=7de8da62&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/JetStream/SecondaryButton.vue?vue&type=template&id=7de8da62& ***!
+  \***********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SecondaryButton_vue_vue_type_template_id_7de8da62___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./SecondaryButton.vue?vue&type=template&id=7de8da62& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/JetStream/SecondaryButton.vue?vue&type=template&id=7de8da62&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SecondaryButton_vue_vue_type_template_id_7de8da62___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SecondaryButton_vue_vue_type_template_id_7de8da62___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

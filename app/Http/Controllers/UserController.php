@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\UserDetail;
 use Exception;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -26,6 +25,8 @@ class UserController extends Controller
     public function updateUserDetail(Request $request)
     {
         $userId = Auth::user()->id;
+        $type = Auth::user()->type;
+
         try {
             if ($request->hasFile('ktp_file')) {
                 $this->uploadFile($request, ['user_id' => $userId], 'user_details', 'ktp_file', 'ktp_files');
@@ -36,11 +37,7 @@ class UserController extends Controller
             }
 
             $userDetail = UserDetail::where('user_id', $userId)->first();
-            $status = $userDetail->status;
-            if ($status === config('global.status.in_registration')) {
-                $status = config('global.status.in_review');
-            }
-            $userDetail->update([
+            $payload = [
                 'contact' => $request->input('contact'),
                 'province_id' => $request->input('province_id'),
                 'city_id' => $request->input('city_id'),
@@ -49,16 +46,28 @@ class UserController extends Controller
                 'account_number' => $request->input('account_number'),
                 'instagram_link' => $request->input('instagram_link'),
                 'shopee_link' => $request->input('shopee_link'),
-                'status' => $status,
+            ];
+
+            if ($userDetail->status === config('global.status.in_registration')) {
+                if ($type === config('global.type.agent')) {
+                    $payload['status'] = config('global.status.in_review');
+                } elseif ($type === config('global.type.reseller')) {
+                    $payload['status'] = config('global.status.active');
+                    $payload['identifier'] = generateUniqueId(8);
+                } else {
+                    $payload['status'] = config('global.status.active');
+                }
+            }
+
+            $userDetail->update($payload);
+
+            return back()->with([
+                'message' => 'success',
             ]);
-
-            $response = $request->wantsJson()
-                        ? new JsonResponse('', 200)
-                        : back()->with('status', 'user-detail-updated');
-
-            return $response;
         } catch (Exception $e) {
-            return $e->getMessage();
+            return back()->withErrors([
+                'failed' => $e->getMessage(),
+            ]);
         }
     }
 }

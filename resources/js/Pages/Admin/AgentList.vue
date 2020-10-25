@@ -46,13 +46,14 @@
             >
               <div class="flex justify-between items-center mb-4">
                 <user-status :status="agent.status" class="text-sm" />
-                <span
+                <chip-label
                   v-if="agent.status === 'AKTIF'"
-                  class="flex rounded-full py-1 px-2 bg-green-500 text-white items-center"
+                  :bgColor="pointComparisonColor(agent)"
+                  class="flex items-center"
                 >
-                  <dollar-icon />
-                  <span class="mx-1">{{ agent.total_point || 0 }}</span>
-                </span>
+                  <coin-icon />
+                  <span class="ml-2 text-sm">{{ agent.total_point_reseller || 0 }} / {{ agent.total_point || 0 }}</span>
+                </chip-label>
               </div>
               <hr class="mb-3" />
               <div class="flex items-center mb-4">
@@ -140,7 +141,7 @@
                       })
                     "
                   >
-                    <jet-button>Lihat Reseller</jet-button>
+                    <jet-secondary-button>Lihat Reseller</jet-secondary-button>
                   </inertia-link>
                 </div>
               </div>
@@ -165,6 +166,7 @@
 <script>
 import AppLayout from "./../../Layouts/AppLayout";
 import JetButton from "./../../JetStream/Button";
+import JetSecondaryButton from "./../../JetStream/SecondaryButton";
 import UserStatus from "./../../JetStream/UserStatus";
 import ChipLabel from "./../../JetStream/ChipLabel";
 import NoData from "./../../JetStream/NoData";
@@ -175,7 +177,7 @@ import CheckMarkIcon from "./../../Icons/CheckMark";
 import ShopeeIcon from "./../../Icons/Shopee";
 import InstagramIcon from "./../../Icons/Instagram";
 import CardIcon from "./../../Icons/Card";
-import DollarIcon from "./../../Icons/Dollar";
+import CoinIcon from "./../../Icons/Coin";
 import Pagination from "./../../JetStream/Pagination";
 
 export default {
@@ -183,6 +185,7 @@ export default {
     AppLayout,
     UserStatus,
     JetButton,
+    JetSecondaryButton,
     ChipLabel,
     NoData,
     CardLoader,
@@ -192,7 +195,7 @@ export default {
     ShopeeIcon,
     InstagramIcon,
     CardIcon,
-    DollarIcon,
+    CoinIcon,
     Pagination,
   },
 
@@ -213,6 +216,14 @@ export default {
   },
 
   methods: {
+    pointComparisonColor(agent) {
+      const { total_point, total_point_reseller } = agent;
+      if (total_point_reseller > total_point) {
+        return 'bg-orange-500';
+      }
+
+      return 'bg-green-500';
+    },
     getFullAddress(agent) {
       return `${agent.address}, ${agent.city.name}, ${agent.province.name}`;
     },

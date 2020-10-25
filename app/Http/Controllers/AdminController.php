@@ -20,8 +20,18 @@ class AdminController extends Controller
 
     public function showResellers($identifier)
     {
+        $agent = UserDetail::with('user')
+                        ->where('identifier', $identifier)
+                        ->first();
+        
+        $agent_name = null;
+        if ($agent) {
+            $agent_name = $agent->user->name;
+        }
+
         return Inertia::render('Admin/ResellerList', [
             'identifier' => $identifier,
+            'agent_name' => $agent_name,
         ]);
     }
 
@@ -29,11 +39,15 @@ class AdminController extends Controller
     {
         $builder = UserDetail::with(['bank', 'province', 'city'])
                             ->where('users.type', $request->input('type'))
-                            ->where('status', '<>', config('global.status.in_registration'))
+                            ->where('user_details.status', '<>', config('global.status.in_registration'))
                             ->leftJoin('users', 'user_details.user_id', '=', 'users.id');
 
+        if ($request->input('type') === config('global.type.reseller')) {
+            $builder->where('user_details.upline_identifier', $request->input('upline'));
+        }
+
         if ($status = $request->input('status')) {
-            $builder->where('status', $status);
+            $builder->where('user_details.status', $status);
         }
 
         if ($search = $request->input('search')) {
@@ -45,7 +59,6 @@ class AdminController extends Controller
         }
 
         $totalPoint = $builder->sum('user_details.total_point');
-        $pointSetting = PointSetting::where('type', $request->input('type'))->first();
 
         // Pagination
         $page = $this->getCurrentPage($request->input('page'));
@@ -60,12 +73,17 @@ class AdminController extends Controller
         $pagination = $data->toArray();
         unset($pagination['data']);
 
+        if ($request->input('type') === config('global.type.agent')) {
+            foreach($data->items() as $agent) {
+                $agent->total_point_reseller = (int) UserDetail::where('upline_identifier', $agent->identifier)->sum('total_point');
+            }
+        }
+
         return response()->json([
             'data' => $data->items(),
             'meta' => [
-                'base_url' => url('/'),
+                'base_url' => url('/').'/uploads/',
                 'total_point' => (int) $totalPoint,
-                'multiplier' => $pointSetting ? $pointSetting->amount : 0,
                 'pagination' => $pagination,
             ],
         ]);
@@ -80,7 +98,7 @@ class AdminController extends Controller
             $identifier = null;
             if ($input['is_verified']) {
                 $status = config('global.status.active');
-                $identifier = strtoupper(uniqid());
+                $identifier = generateUniqueId(8);
             }
 
             UserDetail::where('user_id', $userId)->update([

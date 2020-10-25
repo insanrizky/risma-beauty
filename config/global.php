@@ -14,10 +14,11 @@ return [
         'withdrawn' => 'KLAIM DICAIRKAN',
     ],
     'type' => [
+        'admin' => 'ADMIN',
         'agent' => 'AGENT',
         'reseller' => 'RESELLER',
     ],
     'pagination' => [
-        'limit' => 5,
+        'limit' => 10,
     ],
 ];

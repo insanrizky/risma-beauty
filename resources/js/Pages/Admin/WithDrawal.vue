@@ -19,28 +19,32 @@
         />
       </div>
 
-      <div v-if="hasCompleteCalculations" class="col-span-6 sm:col-span-4">
+      <div v-if="is_fetched" class="col-span-6 sm:col-span-4">
         <div class="mb-4">
           <chip-label :bgColor="'bg-purple-500'">Total Poin Agen:</chip-label>
           <div class="mt-2">
-            {{ total_point_agent }} poin x
-            {{ formatRupiah(agent_multiplier) }} =
-            {{ formatRupiah(totalAmountAgent) }}
+            {{ total_point_agent }} Poin
+            <span class="font-bold">
+              ({{ formatRupiah(total_amount_agent) }})
+            </span>
           </div>
         </div>
         <div class="mb-4">
           <chip-label :bgColor="'bg-blue-500'">Total Poin Reseller:</chip-label>
           <div class="mt-2">
-            {{ total_point_reseller }} poin x
-            {{ formatRupiah(reseller_multiplier) }} =
-            {{ formatRupiah(totalAmountReseller) }}
+            {{ total_point_reseller }} Poin
+            <span class="font-bold">
+              ({{ formatRupiah(total_amount_reseller) }})
+            </span>
           </div>
         </div>
 
         <div class="mb-6">
-          <chip-label :bgColor="'bg-green-500'">Total untuk Dicairkan</chip-label>
-          <div class="mt-2">
-            {{ formatRupiah(totalAmountToWithDraw) }}
+          <chip-label :bgColor="'bg-green-500'"
+            >Total untuk Dicairkan</chip-label
+          >
+          <div class="mt-2 text-xl">
+            {{ formatRupiah(total_amount_agent + total_amount_reseller) }}
           </div>
         </div>
       </div>
@@ -98,24 +102,16 @@ export default {
   data() {
     return {
       date_range: [],
+      is_fetched: false,
       is_processing: false,
-      agent_multiplier: 0,
-      reseller_multiplier: 0,
+      total_amount_agent: 0,
+      total_amount_reseller: 0,
       total_point_agent: 0,
       total_point_reseller: 0,
     };
   },
 
   computed: {
-    totalAmountToWithDraw() {
-      return this.totalAmountAgent + this.totalAmountReseller;
-    },
-    totalAmountReseller() {
-      return this.total_point_reseller * this.reseller_multiplier;
-    },
-    totalAmountAgent() {
-      return this.total_point_agent * this.agent_multiplier;
-    },
     isExportable() {
       return this.exportUrl !== "#";
     },
@@ -124,9 +120,6 @@ export default {
         return "#";
       }
       return `/api/export?start_date=${this.date_range[0]}&end_date=${this.date_range[1]}`;
-    },
-    hasCompleteCalculations() {
-      return this.agent_multiplier && this.reseller_multiplier;
     },
   },
 
@@ -143,8 +136,8 @@ export default {
             meta: {
               total_point_agent,
               total_point_reseller,
-              agent_multiplier,
-              reseller_multiplier,
+              total_amount_agent,
+              total_amount_reseller,
             },
           },
         } = await axios.get("/api/point/calculate", {
@@ -156,8 +149,9 @@ export default {
 
         this.total_point_agent = total_point_agent;
         this.total_point_reseller = total_point_reseller;
-        this.agent_multiplier = agent_multiplier;
-        this.reseller_multiplier = reseller_multiplier;
+        this.total_amount_agent = total_amount_agent;
+        this.total_amount_reseller = total_amount_reseller;
+        this.is_fetched = true;
       } catch (e) {
         console.log(e);
         this.$swal("Terjadi Kesalahan!", "", "error");
@@ -166,11 +160,12 @@ export default {
     async withDrawal() {
       try {
         this.is_processing = true;
-        await axios.post('/api/point/withdrawal', {
+        await axios.post("/api/point/withdrawal", {
           start_date: this.date_range[0],
           end_date: this.date_range[1],
         });
         this.is_processing = false;
+        this.is_fetched = false;
         this.resetData();
         this.$swal("Berhasil!", "Klaim telah dicairkan", "success");
       } catch (e) {
@@ -185,7 +180,7 @@ export default {
       this.total_point_reseller = 0;
       this.agent_multiplier = null;
       this.reseller_multiplier = null;
-    }
+    },
   },
 };
 </script>

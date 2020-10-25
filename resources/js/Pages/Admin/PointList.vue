@@ -21,7 +21,7 @@
     <div class="bg-white border-t">
       <div
         class="flex max-w-7xl mx-auto sm:px-4 px-0"
-        v-if="$page.user.type === 'ADMIN'"
+        v-if="$page.user.type === 'ADMIN' || $page.user.type === 'AGENT'"
       >
         <div class="bg-white pl-4 py-3">Tipe:</div>
         <select
@@ -81,28 +81,34 @@
             >
               <div class="max-w-sm rounded overflow-hidden shadow-lg bg-white">
                 <a :href="point.payment_file_url" target="_blank">
-                  <img class="w-full" :src="point.payment_file_url" />
+                  <img
+                    class="w-full object-cover h-48"
+                    :src="point.payment_file_url"
+                  />
                 </a>
                 <div class="px-6 py-4">
-                  <div class="font-bold text-xl mb-2">
+                  <div class="font-bold text-xl">
                     {{ point.name }}
                   </div>
-                  <chip-label :bgColor="chipColor(point.type)"
+                  <p>{{ point.email }}</p>
+                  <p class="text-sm mb-4">
+                    {{ point.created_at | luxon:format('E LLLL y, HH:mm:ss') }}
+                  </p>
+                  <chip-label :bgColor="chipClaimStatus(point.status)">{{
+                    point.status
+                  }}</chip-label>
+                  <!-- <chip-label :bgColor="chipColor(point.type)"
                     >ID: {{ point.identifier }}
-                  </chip-label>
+                  </chip-label> -->
                   <chip-label
                     :bgColor="'bg-green-500'"
                     class="mt-2 flex items-center"
                   >
                     <dollar-icon />
                     <span class="ml-1">
-                      Nominal Klaim: {{ formatRupiah(point.amount) }}
+                      Nominal: {{ formatRupiah(point.amount) }}
                     </span>
                   </chip-label>
-                  <p class="mt-3">{{ point.email }}</p>
-                  <p class="text-sm">
-                    {{ point.created_at | luxon:format('E LLLL y, HH:mm:ss') }}
-                  </p>
                 </div>
                 <div class="px-6 pb-2 flex justify-between">
                   <span
@@ -140,11 +146,6 @@
                       >
                         <trash-icon />
                       </button>
-                    </div>
-                    <div v-if="point.status !== 'MENUNGGU DIVERIFIKASI'">
-                      <chip-label :bgColor="chipClaimStatus(point.status)">{{
-                        point.status
-                      }}</chip-label>
                     </div>
                   </div>
                 </div>
@@ -221,8 +222,9 @@ export default {
         user_detail: { identifier },
       } = this.$page;
       return (
-        (type === "ADMIN" && status === "MENUNGGU DIVERIFIKASI") ||
-        (targetType === "RESELLER" && uplineIdentifier === identifier)
+        status === "MENUNGGU DIVERIFIKASI" &&
+        ((targetType === "AGENT" && type === "ADMIN") ||
+          (targetType === "RESELLER" && uplineIdentifier === identifier))
       );
     },
     canDeleteClaim(targetUserId, status) {
@@ -298,8 +300,9 @@ export default {
         this.fetchPoints();
         this.$swal("Berhasil!", "Klaim berhasil diverifikasi", "success");
       } catch (e) {
-        console.log(e);
-        this.$swal("Terjadi Kesalahan!", "", "error");
+        const error_message =
+          (e.response && e.response.data && e.response.data.message) || "";
+        this.$swal("Terjadi Kesalahan!", error_message, "error");
       }
     },
     async fetchPoints(page = 1) {

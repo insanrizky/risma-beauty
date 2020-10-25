@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
@@ -61,5 +62,12 @@ class User extends Authenticatable
     public function userDetail()
     {
         return $this->hasOne(UserDetail::class, 'user_id', 'id');
+    }
+
+    public function getProfilePhotoUrlAttribute()
+    {
+        return $this->profile_photo_path
+                    ? Storage::disk('public_uploads')->url($this->profile_photo_path)
+                    : $this->defaultProfilePhotoUrl();
     }
 }

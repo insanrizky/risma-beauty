@@ -87,9 +87,17 @@ export default {
   },
   methods: {
     updatePointSetting() {
-      this.form.post(route("admin.update-point-setting"), {
-        preserveScroll: true,
-      });
+      this.form
+        .post(route("admin.update-point-setting"), {
+          preserveScroll: true,
+        })
+        .then(() => {
+          if (this.$page.errors.message) {
+            this.$swal("Terjadi Kesalahan!", "", "error");
+            return;
+          }
+          this.$swal("Berhasil!", "Konversi poin berhasil diperbarui", "success");
+        });
     },
   },
 };

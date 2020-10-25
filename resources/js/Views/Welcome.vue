@@ -18,6 +18,13 @@
           >
             Poin: {{ $page.data.total_point || 0 }}
           </chip-label>
+          <chip-label
+            v-if="$page.data.status === 'AKTIF'"
+            :bgColor="'bg-green-500'"
+            class="ml-2"
+          >
+            Nominal: {{ formatRupiah($page.data.total_amount) || 0 }}
+          </chip-label>
         </div>
 
         <div class="mt-4">
@@ -203,6 +210,7 @@ import CoinIcon from "./../Icons/Coin";
 import AgentSearchIcon from "./../Icons/AgentSearch";
 import ArrowRightIcon from "./../Icons/ArrowRight";
 import RankIcon from "./../Icons/Rank";
+import { formatRupiah } from "./../helpers";
 
 export default {
   components: {
@@ -239,6 +247,10 @@ export default {
     isInVerification() {
       return this.$page.data.status === "SEDANG DIVERIFIKASI";
     },
+  },
+
+  methods: {
+    formatRupiah,
   },
 };
 </script>

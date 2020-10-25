@@ -9,11 +9,17 @@ class PointSetting extends Model
 {
     use HasFactory;
 
-    protected $appends = [
-        'user_detail'
+    protected $fillable = [
+        'type',
+        'amount',
     ];
 
-    public function getUserDetailAttribute() {
+    protected $appends = [
+        'user_detail',
+    ];
+
+    public function getUserDetailAttribute()
+    {
         return $this->belongsTo(UserDetail::class, 'user_id');
     }
 }

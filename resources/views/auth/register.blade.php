@@ -24,7 +24,7 @@
             </div>
 
             <div class="mt-4" id="agent_id_section">
-                <x-jet-label for="agent_id" value="{{ __('Agen ID') }}" />
+                <x-jet-label for="agent_id" value="{{ __('ID Agen') }}" />
                 <x-jet-input id="agent_id" class="block mt-1 w-full" type="text" name="upline_identifier" :value="old('upline_identifier')" />
             </div>
 

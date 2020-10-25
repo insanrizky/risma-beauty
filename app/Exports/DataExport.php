@@ -20,7 +20,7 @@ class DataExport implements FromCollection, WithHeadings
     public function headings(): array
     {
         return [
-            'System ID',
+            'ID Klaim',
             'ID AGEN/RESELLER',
             'Nama Lengkap',
             'Tipe',
@@ -42,12 +42,12 @@ class DataExport implements FromCollection, WithHeadings
         return DB::table('users')
                 ->leftJoin('user_details', 'users.id', '=', 'user_details.user_id')
                 ->leftJoin('banks', 'user_details.bank_id', '=', 'banks.id')
-                ->leftJoin('claims', 'users.id', '=', 'claims.user_id')
-                ->leftJoin('point_settings', 'users.type', '=', 'point_settings.type')
+                ->join('claims', 'users.id', '=', 'claims.user_id')
+                ->leftJoin('point_settings', 'claims.pointsetting_id', '=', 'point_settings.id')
                 ->whereNotNull('user_details.identifier')
                 // ->where('claims.status', config('global.claim_status.claimed'))
                 ->selectRaw('
-                    claims.id as "System ID",
+                    claims.id as "ID Klaim",
                     user_details.identifier as ID,
                     users.name as "Nama Lengkap",
                     users.type as Tipe,

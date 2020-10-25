@@ -12,6 +12,7 @@ class Claim extends Model
     use HasPaymentFile;
 
     protected $fillable = [
+        'pointsetting_id',
         'total_pcs',
         'user_id',
         'type',
