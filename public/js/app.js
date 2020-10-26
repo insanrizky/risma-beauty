@@ -2530,6 +2530,70 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Icons/Telegram.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Icons/Telegram.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Icons/Trash.vue?vue&type=script&lang=js&":
 /*!***********************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Icons/Trash.vue?vue&type=script&lang=js& ***!
@@ -8111,6 +8175,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -9038,6 +9104,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Icons_ArrowRight__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./../Icons/ArrowRight */ "./resources/js/Icons/ArrowRight.vue");
 /* harmony import */ var _Icons_Rank__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./../Icons/Rank */ "./resources/js/Icons/Rank.vue");
 /* harmony import */ var _Icons_Setting__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../Icons/Setting */ "./resources/js/Icons/Setting.vue");
+/* harmony import */ var _Icons_Telegram__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../Icons/Telegram */ "./resources/js/Icons/Telegram.vue");
 //
 //
 //
@@ -9169,6 +9236,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -9182,7 +9274,8 @@ __webpack_require__.r(__webpack_exports__);
     CoinIcon: _Icons_Coin__WEBPACK_IMPORTED_MODULE_2__["default"],
     ArrowRightIcon: _Icons_ArrowRight__WEBPACK_IMPORTED_MODULE_3__["default"],
     RankIcon: _Icons_Rank__WEBPACK_IMPORTED_MODULE_4__["default"],
-    SettingIcon: _Icons_Setting__WEBPACK_IMPORTED_MODULE_5__["default"]
+    SettingIcon: _Icons_Setting__WEBPACK_IMPORTED_MODULE_5__["default"],
+    TelegramIcon: _Icons_Telegram__WEBPACK_IMPORTED_MODULE_6__["default"]
   }
 });
 
@@ -9205,7 +9298,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Icons_AgentSearch__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./../Icons/AgentSearch */ "./resources/js/Icons/AgentSearch.vue");
 /* harmony import */ var _Icons_ArrowRight__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./../Icons/ArrowRight */ "./resources/js/Icons/ArrowRight.vue");
 /* harmony import */ var _Icons_Rank__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../Icons/Rank */ "./resources/js/Icons/Rank.vue");
-/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../helpers */ "./resources/js/helpers.js");
+/* harmony import */ var _Icons_Telegram__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./../Icons/Telegram */ "./resources/js/Icons/Telegram.vue");
+/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./../helpers */ "./resources/js/helpers.js");
 //
 //
 //
@@ -9409,6 +9503,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -9427,7 +9545,8 @@ __webpack_require__.r(__webpack_exports__);
     CoinIcon: _Icons_Coin__WEBPACK_IMPORTED_MODULE_4__["default"],
     AgentSearchIcon: _Icons_AgentSearch__WEBPACK_IMPORTED_MODULE_5__["default"],
     ArrowRightIcon: _Icons_ArrowRight__WEBPACK_IMPORTED_MODULE_6__["default"],
-    RankIcon: _Icons_Rank__WEBPACK_IMPORTED_MODULE_7__["default"]
+    RankIcon: _Icons_Rank__WEBPACK_IMPORTED_MODULE_7__["default"],
+    TelegramIcon: _Icons_Telegram__WEBPACK_IMPORTED_MODULE_8__["default"]
   },
   computed: {
     chipIdColor: function chipIdColor() {
@@ -9456,7 +9575,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    formatRupiah: _helpers__WEBPACK_IMPORTED_MODULE_8__["formatRupiah"]
+    formatRupiah: _helpers__WEBPACK_IMPORTED_MODULE_9__["formatRupiah"]
   }
 });
 
@@ -60857,6 +60976,112 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Icons/Telegram.vue?vue&type=template&id=4ef67f94&":
+/*!******************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Icons/Telegram.vue?vue&type=template&id=4ef67f94& ***!
+  \******************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "svg",
+    {
+      staticStyle: { "enable-background": "new 0 0 512 512" },
+      attrs: {
+        version: "1.1",
+        id: "Capa_1",
+        xmlns: "http://www.w3.org/2000/svg",
+        "xmlns:xlink": "http://www.w3.org/1999/xlink",
+        x: "0px",
+        y: "0px",
+        viewBox: "0 0 512 512",
+        width: "24",
+        height: "24",
+        "xml:space": "preserve"
+      }
+    },
+    [
+      _c("circle", {
+        staticStyle: { fill: "#41b4e6" },
+        attrs: { cx: "255.997", cy: "256", r: "255.997" }
+      }),
+      _vm._v(" "),
+      _c("path", {
+        staticStyle: { fill: "#0091c8" },
+        attrs: {
+          d:
+            "M512,256.003c0-6.238-0.235-12.419-0.673-18.546L405.228,131.36L106.772,248.759l114.191,114.192\n\tl1.498,5.392l1.939-1.955l0.008,0.008l-1.947,1.947L348.778,494.66C444.298,457.5,512,364.663,512,256.003z"
+        }
+      }),
+      _vm._v(" "),
+      _c("polygon", {
+        staticStyle: { fill: "#ffffff" },
+        attrs: {
+          points:
+            "231.138,293.3 346.829,380.647 405.228,131.36 106.771,248.759 197.588,278.84 \n\t363.331,167.664 "
+        }
+      }),
+      _vm._v(" "),
+      _c("polygon", {
+        staticStyle: { fill: "#d2d2d7" },
+        attrs: {
+          points:
+            "197.588,278.84 222.461,368.344 231.138,293.3 363.331,167.664 "
+        }
+      }),
+      _vm._v(" "),
+      _c("polygon", {
+        staticStyle: { fill: "#b9b9be" },
+        attrs: { points: "268.738,321.688 222.461,368.344 231.138,293.3 " }
+      }),
+      _vm._v(" "),
+      _c("g"),
+      _vm._v(" "),
+      _c("g"),
+      _vm._v(" "),
+      _c("g"),
+      _vm._v(" "),
+      _c("g"),
+      _vm._v(" "),
+      _c("g"),
+      _vm._v(" "),
+      _c("g"),
+      _vm._v(" "),
+      _c("g"),
+      _vm._v(" "),
+      _c("g"),
+      _vm._v(" "),
+      _c("g"),
+      _vm._v(" "),
+      _c("g"),
+      _vm._v(" "),
+      _c("g"),
+      _vm._v(" "),
+      _c("g"),
+      _vm._v(" "),
+      _c("g"),
+      _vm._v(" "),
+      _c("g"),
+      _vm._v(" "),
+      _c("g")
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Icons/Trash.vue?vue&type=template&id=95a47196&":
 /*!***************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Icons/Trash.vue?vue&type=template&id=95a47196& ***!
@@ -66514,7 +66739,7 @@ var render = function() {
       {
         key: "title",
         fn: function() {
-          return [_vm._v(" Pencairan Klaim ")]
+          return [_vm._v(" Rekapitulasi dan Pencairan Klaim ")]
         },
         proxy: true
       },
@@ -66523,7 +66748,7 @@ var render = function() {
         fn: function() {
           return [
             _vm._v(
-              "\n    Pilih rentang waktu untuk mencairkan klaim yang sudah diverifikasi.\n  "
+              "\n    Pilih rentang waktu untuk mengunduh rekapitulasi data dan mencairkan klaim yang sudah diverifikasi.\n  "
             )
           ]
         },
@@ -68285,6 +68510,10 @@ var render = function() {
                         "\n          Diwajibkan memiliki rekening\n          "
                       ),
                       _c("span", { staticClass: "font-bold" }, [
+                        _vm._v("Bank BCA")
+                      ]),
+                      _vm._v("\n          atau\n          "),
+                      _c("span", { staticClass: "font-bold" }, [
                         _vm._v("Bank BRI")
                       ]),
                       _vm._v(".\n        ")
@@ -69978,7 +70207,59 @@ var render = function() {
           _vm._v("Selamat Datang, " + _vm._s(_vm.$page.user.name) + "! 👋🏻")
         ]),
         _vm._v(" "),
-        _vm._m(0)
+        _c("div", { staticClass: "text-gray-500" }, [
+          _c("p", { staticClass: "mb-2" }, [
+            _vm._v("Kelola bisnismu mulai dari sini!")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "mt-4" }, [
+            _c("p", [_vm._v("Jangan lupa gabung grup Telegram kita juga ya!")]),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "mt-1 flex items-center",
+                attrs: {
+                  href: "https://t.me/joinchat/I9CH3RlTl8bUb-2yO10cxg",
+                  target: "_blank"
+                }
+              },
+              [
+                _c("telegram-icon"),
+                _vm._v(" "),
+                _c("p", { staticClass: "mx-2 text-l font-bold" }, [
+                  _vm._v("GLOWSKIN SOAP FAMILY")
+                ]),
+                _vm._v(" "),
+                _c("arrow-right-icon")
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _vm.$page.user.type !== "RESELLER"
+              ? _c(
+                  "a",
+                  {
+                    staticClass: "mt-1 flex items-center",
+                    attrs: {
+                      href: "https://t.me/joinchat/I9CH3RzKW695nPu8gjihpQ",
+                      target: "_blank"
+                    }
+                  },
+                  [
+                    _c("telegram-icon"),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "mx-2 text-l font-bold" }, [
+                      _vm._v("LV1. RESSELER GLOWSKIN SOAP")
+                    ]),
+                    _vm._v(" "),
+                    _c("arrow-right-icon")
+                  ],
+                  1
+                )
+              : _vm._e()
+          ])
+        ])
       ]
     ),
     _vm._v(" "),
@@ -70232,7 +70513,7 @@ var render = function() {
               [
                 _c("div", { staticClass: "mt-2 text-sm text-gray-500" }, [
                   _vm._v(
-                    "\n          Rekapitulasi data, pencairan klaim, dan pengaturan lanjutan ada di sini.\n        "
+                    "\n          Rekapitulasi data, pencairan klaim, dan pengaturan lanjutan ada di\n          sini.\n        "
                   )
                 ]),
                 _vm._v(" "),
@@ -70268,18 +70549,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "text-gray-500" }, [
-      _c("p", { staticClass: "mb-2" }, [
-        _vm._v("Kelola bisnismu mulai dari sini!")
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -70393,6 +70663,58 @@ var render = function() {
                 _vm._v(
                   "Akun kamu sudah aktif. Kamu bisa jualan sekarang! 💰💰💰\n      "
                 )
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.isActive
+            ? _c("div", { staticClass: "mt-4" }, [
+                _c("p", [
+                  _vm._v("Jangan lupa gabung grup Telegram kita juga ya!")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass: "mt-1 flex items-center",
+                    attrs: {
+                      href: "https://t.me/joinchat/I9CH3RlTl8bUb-2yO10cxg",
+                      target: "_blank"
+                    }
+                  },
+                  [
+                    _c("telegram-icon"),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "mx-2 text-l font-bold" }, [
+                      _vm._v("GLOWSKIN SOAP FAMILY")
+                    ]),
+                    _vm._v(" "),
+                    _c("arrow-right-icon")
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _vm.$page.user.type === "AGENT"
+                  ? _c(
+                      "a",
+                      {
+                        staticClass: "mt-1 flex items-center",
+                        attrs: {
+                          href: "https://t.me/joinchat/I9CH3RzKW695nPu8gjihpQ",
+                          target: "_blank"
+                        }
+                      },
+                      [
+                        _c("telegram-icon"),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "mx-2 text-l font-bold" }, [
+                          _vm._v("LV1. RESSELER GLOWSKIN SOAP")
+                        ]),
+                        _vm._v(" "),
+                        _c("arrow-right-icon")
+                      ],
+                      1
+                    )
+                  : _vm._e()
               ])
             : _vm._e(),
           _vm._v(" "),
@@ -88557,6 +88879,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Shopee_vue_vue_type_template_id_3efae8e9___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Shopee_vue_vue_type_template_id_3efae8e9___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/Icons/Telegram.vue":
+/*!*****************************************!*\
+  !*** ./resources/js/Icons/Telegram.vue ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Telegram_vue_vue_type_template_id_4ef67f94___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Telegram.vue?vue&type=template&id=4ef67f94& */ "./resources/js/Icons/Telegram.vue?vue&type=template&id=4ef67f94&");
+/* harmony import */ var _Telegram_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Telegram.vue?vue&type=script&lang=js& */ "./resources/js/Icons/Telegram.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Telegram_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Telegram_vue_vue_type_template_id_4ef67f94___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Telegram_vue_vue_type_template_id_4ef67f94___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Icons/Telegram.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Icons/Telegram.vue?vue&type=script&lang=js&":
+/*!******************************************************************!*\
+  !*** ./resources/js/Icons/Telegram.vue?vue&type=script&lang=js& ***!
+  \******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Telegram_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Telegram.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Icons/Telegram.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Telegram_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/Icons/Telegram.vue?vue&type=template&id=4ef67f94&":
+/*!************************************************************************!*\
+  !*** ./resources/js/Icons/Telegram.vue?vue&type=template&id=4ef67f94& ***!
+  \************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Telegram_vue_vue_type_template_id_4ef67f94___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Telegram.vue?vue&type=template&id=4ef67f94& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Icons/Telegram.vue?vue&type=template&id=4ef67f94&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Telegram_vue_vue_type_template_id_4ef67f94___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Telegram_vue_vue_type_template_id_4ef67f94___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

@@ -15,10 +15,10 @@ class BankSeeder extends Seeder
     public function run()
     {
         DB::table('banks')->insert([
-            // [
-            //     'name' => 'BCA',
-            //     'code' => '014',
-            // ],
+            [
+                'name' => 'BCA',
+                'code' => '014',
+            ],
             // [
             //     'name' => 'BNI',
             //     'code' => '009',

@@ -1,9 +1,9 @@
 <template>
   <jet-form-section>
-    <template #title> Pencairan Klaim </template>
+    <template #title> Rekapitulasi dan Pencairan Klaim </template>
 
     <template #description>
-      Pilih rentang waktu untuk mencairkan klaim yang sudah diverifikasi.
+      Pilih rentang waktu untuk mengunduh rekapitulasi data dan mencairkan klaim yang sudah diverifikasi.
     </template>
 
     <template #form>

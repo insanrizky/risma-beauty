@@ -5,6 +5,29 @@
 
       <div class="text-gray-500">
         <p class="mb-2">Kelola bisnismu mulai dari sini!</p>
+
+        <div class="mt-4">
+          <p>Jangan lupa gabung grup Telegram kita juga ya!</p>
+          <a
+            href="https://t.me/joinchat/I9CH3RlTl8bUb-2yO10cxg"
+            target="_blank"
+            class="mt-1 flex items-center"
+          >
+            <telegram-icon />
+            <p class="mx-2 text-l font-bold">GLOWSKIN SOAP FAMILY</p>
+            <arrow-right-icon />
+          </a>
+          <a
+            v-if="$page.user.type !== 'RESELLER'"
+            href="https://t.me/joinchat/I9CH3RzKW695nPu8gjihpQ"
+            target="_blank"
+            class="mt-1 flex items-center"
+          >
+            <telegram-icon />
+            <p class="mx-2 text-l font-bold">LV1. RESSELER GLOWSKIN SOAP</p>
+            <arrow-right-icon />
+          </a>
+        </div>
       </div>
     </div>
 
@@ -109,7 +132,8 @@
 
         <div class="ml-12">
           <div class="mt-2 text-sm text-gray-500">
-            Rekapitulasi data, pencairan klaim, dan pengaturan lanjutan ada di sini.
+            Rekapitulasi data, pencairan klaim, dan pengaturan lanjutan ada di
+            sini.
           </div>
 
           <inertia-link :href="route('admin.show-settings')">
@@ -136,6 +160,7 @@ import CoinIcon from "./../Icons/Coin";
 import ArrowRightIcon from "./../Icons/ArrowRight";
 import RankIcon from "./../Icons/Rank";
 import SettingIcon from "./../Icons/Setting";
+import TelegramIcon from "./../Icons/Telegram";
 
 export default {
   components: {
@@ -145,6 +170,7 @@ export default {
     ArrowRightIcon,
     RankIcon,
     SettingIcon,
+    TelegramIcon,
   },
 };
 </script>

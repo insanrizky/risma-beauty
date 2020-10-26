@@ -65,6 +65,8 @@
         <div class="mt-2 bg-orange-100 text-orange-700 px-4 py-2" role="alert">
           <p>
             Diwajibkan memiliki rekening
+            <span class="font-bold">Bank BCA</span>
+            atau
             <span class="font-bold">Bank BRI</span>.
           </p>
         </div>

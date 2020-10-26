@@ -58,6 +58,29 @@
           Yeay! 🎉<br />Akun kamu sudah aktif. Kamu bisa jualan sekarang! 💰💰💰
         </p>
 
+        <div class="mt-4" v-if="isActive">
+          <p>Jangan lupa gabung grup Telegram kita juga ya!</p>
+          <a
+            href="https://t.me/joinchat/I9CH3RlTl8bUb-2yO10cxg"
+            target="_blank"
+            class="mt-1 flex items-center"
+          >
+            <telegram-icon />
+            <p class="mx-2 text-l font-bold">GLOWSKIN SOAP FAMILY</p>
+            <arrow-right-icon />
+          </a>
+          <a
+            v-if="$page.user.type === 'AGENT'"
+            href="https://t.me/joinchat/I9CH3RzKW695nPu8gjihpQ"
+            target="_blank"
+            class="mt-1 flex items-center"
+          >
+            <telegram-icon />
+            <p class="mx-2 text-l font-bold">LV1. RESSELER GLOWSKIN SOAP</p>
+            <arrow-right-icon />
+          </a>
+        </div>
+
         <p class="mt-6 border-t pt-4" v-if="isVerificatonFailed">
           Yah.. 😭<br />Kamu belum bisa jualan nih! Tapi kamu bisa hubungin
           admin kok untuk informasi lebih lanjut.
@@ -210,6 +233,7 @@ import CoinIcon from "./../Icons/Coin";
 import AgentSearchIcon from "./../Icons/AgentSearch";
 import ArrowRightIcon from "./../Icons/ArrowRight";
 import RankIcon from "./../Icons/Rank";
+import TelegramIcon from "./../Icons/Telegram";
 import { formatRupiah } from "./../helpers";
 
 export default {
@@ -222,6 +246,7 @@ export default {
     AgentSearchIcon,
     ArrowRightIcon,
     RankIcon,
+    TelegramIcon,
   },
 
   computed: {
