@@ -55,11 +55,11 @@
           <div v-if="is_fetching">
             <card-loader :total="3" />
           </div>
-          <div v-else class="max-w-sm w-full md:max-w-full md:flex">
+          <div v-else class="grid sm:grid-cols-2 lg:grid-cols-3">
             <div
               v-for="reseller in resellers"
               :key="reseller.id"
-              class="bg-white mb-6 md:ml-6 shadow rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal"
+              class="bg-white mb-6 md:mr-6 shadow rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal"
             >
               <div class="flex justify-between items-center mb-4">
                 <user-status :status="reseller.status" class="text-sm" />

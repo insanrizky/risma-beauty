@@ -101,7 +101,7 @@
         class="p-6 border-t border-gray-200 md:border-t-0 md:border-l"
       >
         <div class="flex items-center">
-          <coin-icon />
+          <coin-icon width="32" height="32" />
           <div class="ml-4 text-lg text-gray-600 leading-7 font-semibold">
             <inertia-link :href="route('admin.show-points')"
               >Klaim dan Tukar Poin</inertia-link

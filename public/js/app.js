@@ -2176,7 +2176,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ["height", "width"]
+});
 
 /***/ }),
 
@@ -60280,8 +60282,8 @@ var render = function() {
         "xmlns:xlink": "http://www.w3.org/1999/xlink",
         x: "0px",
         y: "0px",
-        height: "16",
-        width: "16",
+        height: _vm.height || 16,
+        width: _vm.width || 16,
         viewBox: "0 0 512 512",
         "xml:space": "preserve"
       }
@@ -64670,18 +64672,20 @@ var render = function() {
                                 1
                               ),
                               _vm._v(" "),
-                              _c(
-                                "a",
-                                {
-                                  staticClass: "ml-2",
-                                  attrs: {
-                                    href: agent.shopee_link,
-                                    target: "_blank"
-                                  }
-                                },
-                                [_c("shopee-icon")],
-                                1
-                              )
+                              agent.shopee_link
+                                ? _c(
+                                    "a",
+                                    {
+                                      staticClass: "ml-2",
+                                      attrs: {
+                                        href: agent.shopee_link,
+                                        target: "_blank"
+                                      }
+                                    },
+                                    [_c("shopee-icon")],
+                                    1
+                                  )
+                                : _vm._e()
                             ]),
                             _vm._v(" "),
                             agent.status === "SEDANG DIVERIFIKASI"
@@ -66094,14 +66098,14 @@ var render = function() {
                 ? _c("div", [_c("card-loader", { attrs: { total: 3 } })], 1)
                 : _c(
                     "div",
-                    { staticClass: "max-w-sm w-full md:max-w-full md:flex" },
+                    { staticClass: "grid sm:grid-cols-2 lg:grid-cols-3" },
                     _vm._l(_vm.resellers, function(reseller) {
                       return _c(
                         "div",
                         {
                           key: reseller.id,
                           staticClass:
-                            "bg-white mb-6 md:ml-6 shadow rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal"
+                            "bg-white mb-6 md:mr-6 shadow rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal"
                         },
                         [
                           _c(
@@ -70487,7 +70491,7 @@ var render = function() {
                   "div",
                   { staticClass: "flex items-center" },
                   [
-                    _c("coin-icon"),
+                    _c("coin-icon", { attrs: { width: "32", height: "32" } }),
                     _vm._v(" "),
                     _c(
                       "div",

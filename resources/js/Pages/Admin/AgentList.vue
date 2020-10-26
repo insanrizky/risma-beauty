@@ -113,7 +113,7 @@
                   <a :href="agent.instagram_link" target="_blank">
                     <instagram-icon />
                   </a>
-                  <a :href="agent.shopee_link" target="_blank" class="ml-2">
+                  <a v-if="agent.shopee_link" :href="agent.shopee_link" target="_blank" class="ml-2">
                     <shopee-icon />
                   </a>
                 </div>

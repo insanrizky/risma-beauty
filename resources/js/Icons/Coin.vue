@@ -6,8 +6,8 @@
     xmlns:xlink="http://www.w3.org/1999/xlink"
     x="0px"
     y="0px"
-    height="16"
-    width="16"
+    :height="height || 16"
+    :width="width || 16"
     viewBox="0 0 512 512"
     style="enable-background: new 0 0 512 512; fill: currentColor"
     xml:space="preserve"
@@ -59,5 +59,7 @@
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["height", "width"],
+};
 </script>
