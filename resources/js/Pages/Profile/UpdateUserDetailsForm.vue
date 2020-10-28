@@ -343,7 +343,7 @@ export default {
       return true;
     },
     updateUserDetail() {
-      if (!this.validateForm()) {
+      if (this.isEditable && !this.validateForm()) {
         return false;
       }
 

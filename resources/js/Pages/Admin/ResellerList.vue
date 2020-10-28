@@ -30,9 +30,7 @@
         <div class="overflow-hidden sm:rounded-lg">
           <div class="px-4 py-2 mt-2 mb-0 bg-green-500 text-white rounded">
             <div class="font-bold text-xl">Total Poin: {{ total_point }}</div>
-            <div class="font-bold">
-              Total Reseller: {{ total_member || 0 }}
-            </div>
+            <div class="font-bold">Total Reseller: {{ total_member || 0 }}</div>
           </div>
         </div>
       </div>
@@ -64,7 +62,10 @@
               <div class="flex justify-between items-center mb-4">
                 <user-status :status="reseller.status" class="text-sm" />
                 <span
-                  v-if="reseller.status === 'AKTIF'"
+                  v-if="
+                    reseller.status === 'AKTIF' ||
+                    reseller.status === 'AKUN DINONAKTIFKAN'
+                  "
                   class="flex rounded py-1 px-2 bg-green-500 text-white items-center"
                 >
                   <coin-icon />
@@ -149,6 +150,22 @@
                   </button>
                   <button
                     @click="verifyReseller(reseller.id, false)"
+                    class="inline-flex items-center px-2 py-1 ml-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 transition ease-in-out duration-150"
+                  >
+                    <cross-mark-icon />
+                  </button>
+                </div>
+
+                <div
+                  v-if="
+                    reseller.status === 'AKTIF' ||
+                    reseller.status === 'AKUN DINONAKTIFKAN'
+                  "
+                  class="flex items-center"
+                >
+                  <button
+                    v-if="reseller.status === 'AKTIF'"
+                    @click="verifySuspend(reseller.user_id, reseller.name)"
                     class="inline-flex items-center px-2 py-1 ml-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 transition ease-in-out duration-150"
                   >
                     <cross-mark-icon />
@@ -300,6 +317,29 @@ export default {
         } else {
           this.$swal("Berhasil!", "Verifikasi Agen digagalkan", "success");
         }
+      } catch (e) {
+        this.$swal("Terjadi Kesalahan!", "", "error");
+        console.log(e);
+      }
+    },
+    verifySuspend(id, name) {
+      this.$swal({
+        title: `Yakin ingin menonaktifkan Reseller ${name}?`,
+        text: "Semua klaim yang telah diverifikasi tidak bisa dibatalkan.",
+        showDenyButton: true,
+        confirmButtonText: "Ya",
+        denyButtonText: `Batalkan`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.suspend(id);
+        }
+      });
+    },
+    async suspend(id) {
+      try {
+        await axios.put(`/api/admin/suspend/${id}`);
+        this.$swal("Berhasil!", "Akun berhasil dinonaktifkan", "success");
+        this.fetchResellers();
       } catch (e) {
         this.$swal("Terjadi Kesalahan!", "", "error");
         console.log(e);

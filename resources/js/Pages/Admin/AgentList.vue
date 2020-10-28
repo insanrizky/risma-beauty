@@ -16,6 +16,7 @@
           <option>Sedang Diverifikasi</option>
           <option>Aktif</option>
           <option>Gagal Verifikasi</option>
+          <option>Akun Dinonaktifkan</option>
         </select>
       </div>
     </div>
@@ -52,7 +53,10 @@
                   class="flex items-center"
                 >
                   <coin-icon />
-                  <span class="ml-2 text-sm">{{ agent.total_point_reseller || 0 }} / {{ agent.total_point || 0 }}</span>
+                  <span class="ml-2 text-sm"
+                    >{{ agent.total_point_reseller || 0 }} /
+                    {{ agent.total_point || 0 }}</span
+                  >
                 </chip-label>
               </div>
               <hr class="mb-3" />
@@ -113,7 +117,12 @@
                   <a :href="agent.instagram_link" target="_blank">
                     <instagram-icon />
                   </a>
-                  <a v-if="agent.shopee_link" :href="agent.shopee_link" target="_blank" class="ml-2">
+                  <a
+                    v-if="agent.shopee_link"
+                    :href="agent.shopee_link"
+                    target="_blank"
+                    class="ml-2"
+                  >
                     <shopee-icon />
                   </a>
                 </div>
@@ -133,7 +142,13 @@
                   </button>
                 </div>
 
-                <div v-if="agent.status === 'AKTIF'">
+                <div
+                  v-if="
+                    agent.status === 'AKTIF' ||
+                    agent.status === 'AKUN DINONAKTIFKAN'
+                  "
+                  class="flex items-center"
+                >
                   <inertia-link
                     :href="
                       route('admin.show-resellers', {
@@ -143,6 +158,13 @@
                   >
                     <jet-secondary-button>Lihat Reseller</jet-secondary-button>
                   </inertia-link>
+                  <button
+                    v-if="agent.status === 'AKTIF'"
+                    @click="verifySuspend(agent.user_id, agent.name)"
+                    class="inline-flex items-center px-2 py-1 ml-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 transition ease-in-out duration-150"
+                  >
+                    <cross-mark-icon />
+                  </button>
                 </div>
               </div>
             </div>
@@ -219,10 +241,10 @@ export default {
     pointComparisonColor(agent) {
       const { total_point, total_point_reseller } = agent;
       if (total_point_reseller > total_point) {
-        return 'bg-orange-500';
+        return "bg-orange-500";
       }
 
-      return 'bg-green-500';
+      return "bg-green-500";
     },
     getFullAddress(agent) {
       return `${agent.address}, ${agent.city.name}, ${agent.province.name}`;
@@ -281,6 +303,29 @@ export default {
         } else {
           this.$swal("Berhasil!", "Verifikasi Agen digagalkan", "success");
         }
+      } catch (e) {
+        this.$swal("Terjadi Kesalahan!", "", "error");
+        console.log(e);
+      }
+    },
+    verifySuspend(id, name) {
+      this.$swal({
+        title: `Yakin ingin menonaktifkan Agen ${name}?`,
+        text: 'Semua Reseller di bawah Agen ini akan otomatis dinonaktifkan juga.',
+        showDenyButton: true,
+        confirmButtonText: "Ya",
+        denyButtonText: `Batalkan`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.suspend(id);
+        }
+      });
+    },
+    async suspend(id) {
+      try {
+        await axios.put(`/api/admin/suspend/${id}`);
+        this.$swal("Berhasil!", "Akun berhasil dinonaktifkan", "success");
+        this.fetchAgents();
       } catch (e) {
         this.$swal("Terjadi Kesalahan!", "", "error");
         console.log(e);

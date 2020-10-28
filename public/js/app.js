@@ -4489,6 +4489,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -5056,6 +5058,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5109,10 +5133,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           total_point_reseller = agent.total_point_reseller;
 
       if (total_point_reseller > total_point) {
-        return 'bg-orange-500';
+        return "bg-orange-500";
       }
 
-      return 'bg-green-500';
+      return "bg-green-500";
     },
     getFullAddress: function getFullAddress(agent) {
       return "".concat(agent.address, ", ").concat(agent.city.name, ", ").concat(agent.province.name);
@@ -5231,6 +5255,57 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee2, null, [[0, 11]]);
+      }))();
+    },
+    verifySuspend: function verifySuspend(id, name) {
+      var _this4 = this;
+
+      this.$swal({
+        title: "Yakin ingin menonaktifkan Agen ".concat(name, "?"),
+        text: 'Semua Reseller di bawah Agen ini akan otomatis dinonaktifkan juga.',
+        showDenyButton: true,
+        confirmButtonText: "Ya",
+        denyButtonText: "Batalkan"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          _this4.suspend(id);
+        }
+      });
+    },
+    suspend: function suspend(id) {
+      var _this5 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.prev = 0;
+                _context3.next = 3;
+                return axios.put("/api/admin/suspend/".concat(id));
+
+              case 3:
+                _this5.$swal("Berhasil!", "Akun berhasil dinonaktifkan", "success");
+
+                _this5.fetchAgents();
+
+                _context3.next = 11;
+                break;
+
+              case 7:
+                _context3.prev = 7;
+                _context3.t0 = _context3["catch"](0);
+
+                _this5.$swal("Terjadi Kesalahan!", "", "error");
+
+                console.log(_context3.t0);
+
+              case 11:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, null, [[0, 7]]);
       }))();
     }
   }
@@ -6526,6 +6601,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -6710,6 +6802,57 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee2, null, [[0, 11]]);
+      }))();
+    },
+    verifySuspend: function verifySuspend(id, name) {
+      var _this3 = this;
+
+      this.$swal({
+        title: "Yakin ingin menonaktifkan Reseller ".concat(name, "?"),
+        text: "Semua klaim yang telah diverifikasi tidak bisa dibatalkan.",
+        showDenyButton: true,
+        confirmButtonText: "Ya",
+        denyButtonText: "Batalkan"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          _this3.suspend(id);
+        }
+      });
+    },
+    suspend: function suspend(id) {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.prev = 0;
+                _context3.next = 3;
+                return axios.put("/api/admin/suspend/".concat(id));
+
+              case 3:
+                _this4.$swal("Berhasil!", "Akun berhasil dinonaktifkan", "success");
+
+                _this4.fetchResellers();
+
+                _context3.next = 11;
+                break;
+
+              case 7:
+                _context3.prev = 7;
+                _context3.t0 = _context3["catch"](0);
+
+                _this4.$swal("Terjadi Kesalahan!", "", "error");
+
+                console.log(_context3.t0);
+
+              case 11:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, null, [[0, 7]]);
       }))();
     }
   }
@@ -8284,7 +8427,7 @@ __webpack_require__.r(__webpack_exports__);
     updateUserDetail: function updateUserDetail() {
       var _this = this;
 
-      if (!this.validateForm()) {
+      if (this.isEditable && !this.validateForm()) {
         return false;
       }
 
@@ -63076,17 +63219,19 @@ var render = function() {
                       )
                     : _vm._e(),
                   _vm._v(" "),
-                  _c(
-                    "jet-nav-link",
-                    {
-                      attrs: {
-                        href: _vm.route("admin.show-points"),
-                        active:
-                          _vm.$page.currentRouteName == "admin.show-points"
-                      }
-                    },
-                    [_vm._v("\n              Klaim Poin\n            ")]
-                  ),
+                  _vm.$page.user.status === "AKTIF"
+                    ? _c(
+                        "jet-nav-link",
+                        {
+                          attrs: {
+                            href: _vm.route("admin.show-points"),
+                            active:
+                              _vm.$page.currentRouteName == "admin.show-points"
+                          }
+                        },
+                        [_vm._v("\n              Klaim Poin\n            ")]
+                      )
+                    : _vm._e(),
                   _vm._v(" "),
                   _c(
                     "jet-nav-link",
@@ -63535,16 +63680,19 @@ var render = function() {
               "div",
               { staticClass: "pt-2 pb-3 space-y-1" },
               [
-                _c(
-                  "jet-responsive-nav-link",
-                  {
-                    attrs: {
-                      href: _vm.route("admin.show-points"),
-                      active: _vm.$page.currentRouteName == "admin.show-points"
-                    }
-                  },
-                  [_vm._v("\n          Klaim Poin\n        ")]
-                )
+                _vm.$page.user.status === "AKTIF"
+                  ? _c(
+                      "jet-responsive-nav-link",
+                      {
+                        attrs: {
+                          href: _vm.route("admin.show-points"),
+                          active:
+                            _vm.$page.currentRouteName == "admin.show-points"
+                        }
+                      },
+                      [_vm._v("\n          Klaim Poin\n        ")]
+                    )
+                  : _vm._e()
               ],
               1
             ),
@@ -64606,7 +64754,9 @@ var render = function() {
               _vm._v(" "),
               _c("option", [_vm._v("Aktif")]),
               _vm._v(" "),
-              _c("option", [_vm._v("Gagal Verifikasi")])
+              _c("option", [_vm._v("Gagal Verifikasi")]),
+              _vm._v(" "),
+              _c("option", [_vm._v("Akun Dinonaktifkan")])
             ]
           )
         ])
@@ -64699,7 +64849,7 @@ var render = function() {
                                             _vm._s(
                                               agent.total_point_reseller || 0
                                             ) +
-                                              " / " +
+                                              " /\n                  " +
                                               _vm._s(agent.total_point || 0)
                                           )
                                         ]
@@ -64953,9 +65103,11 @@ var render = function() {
                                 ])
                               : _vm._e(),
                             _vm._v(" "),
-                            agent.status === "AKTIF"
+                            agent.status === "AKTIF" ||
+                            agent.status === "AKUN DINONAKTIFKAN"
                               ? _c(
                                   "div",
+                                  { staticClass: "flex items-center" },
                                   [
                                     _c(
                                       "inertia-link",
@@ -64975,7 +65127,27 @@ var render = function() {
                                         ])
                                       ],
                                       1
-                                    )
+                                    ),
+                                    _vm._v(" "),
+                                    agent.status === "AKTIF"
+                                      ? _c(
+                                          "button",
+                                          {
+                                            staticClass:
+                                              "inline-flex items-center px-2 py-1 ml-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 transition ease-in-out duration-150",
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.verifySuspend(
+                                                  agent.user_id,
+                                                  agent.name
+                                                )
+                                              }
+                                            }
+                                          },
+                                          [_c("cross-mark-icon")],
+                                          1
+                                        )
+                                      : _vm._e()
                                   ],
                                   1
                                 )
@@ -66267,11 +66439,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "font-bold" }, [
-                  _vm._v(
-                    "\n            Total Reseller: " +
-                      _vm._s(_vm.total_member || 0) +
-                      "\n          "
-                  )
+                  _vm._v("Total Reseller: " + _vm._s(_vm.total_member || 0))
                 ])
               ]
             )
@@ -66345,7 +66513,8 @@ var render = function() {
                                 attrs: { status: reseller.status }
                               }),
                               _vm._v(" "),
-                              reseller.status === "AKTIF"
+                              reseller.status === "AKTIF" ||
+                              reseller.status === "AKUN DINONAKTIFKAN"
                                 ? _c(
                                     "span",
                                     {
@@ -66615,6 +66784,35 @@ var render = function() {
                                     1
                                   )
                                 ])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            reseller.status === "AKTIF" ||
+                            reseller.status === "AKUN DINONAKTIFKAN"
+                              ? _c(
+                                  "div",
+                                  { staticClass: "flex items-center" },
+                                  [
+                                    reseller.status === "AKTIF"
+                                      ? _c(
+                                          "button",
+                                          {
+                                            staticClass:
+                                              "inline-flex items-center px-2 py-1 ml-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 transition ease-in-out duration-150",
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.verifySuspend(
+                                                  reseller.user_id,
+                                                  reseller.name
+                                                )
+                                              }
+                                            }
+                                          },
+                                          [_c("cross-mark-icon")],
+                                          1
+                                        )
+                                      : _vm._e()
+                                  ]
+                                )
                               : _vm._e()
                           ])
                         ]

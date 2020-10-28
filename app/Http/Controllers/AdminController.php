@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Exports\DataExport;
-use App\Models\PointSetting;
 use App\Models\UserDetail;
 use Exception;
 use Illuminate\Http\Request;
@@ -23,7 +22,7 @@ class AdminController extends Controller
         $agent = UserDetail::with('user')
                         ->where('identifier', $identifier)
                         ->first();
-        
+
         $agent_name = null;
         if ($agent) {
             $agent_name = $agent->user->name;
@@ -74,7 +73,7 @@ class AdminController extends Controller
         unset($pagination['data']);
 
         if ($request->input('type') === config('global.type.agent')) {
-            foreach($data->items() as $agent) {
+            foreach ($data->items() as $agent) {
                 $agent->total_point_reseller = (int) UserDetail::where('upline_identifier', $agent->identifier)->sum('total_point');
             }
         }
@@ -120,6 +119,39 @@ class AdminController extends Controller
                 'error' => true,
                 'message' => $e->getMessage(),
             ]);
+        }
+    }
+
+    public function suspend($userId)
+    {
+        DB::beginTransaction();
+        try {
+            $payload = [
+                'status' => config('global.status.suspended'),
+            ];
+
+            $user = UserDetail::with('user')
+                            ->where('user_id', $userId)
+                            ->first();
+            $user->update($payload);
+
+            // Suspend Resellers as well
+            if ($user->user->type === config('global.type.agent')) {
+                UserDetail::where('upline_identifier', $user->identifier)
+                        ->update($payload);
+            }
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+            ]);
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+            ], 422);
         }
     }
 

@@ -17,7 +17,9 @@ class PointController extends Controller
     public function showPoints()
     {
         $userDetail = UserDetail::where('user_id', Auth::user()->id)->first();
-
+        if ($userDetail->status !== config('global.status.active')) {
+            return redirect('dashboard');
+        }
         return Inertia::render('Admin/PointList', [
             'user_detail' => $userDetail,
         ]);
@@ -87,6 +89,10 @@ class PointController extends Controller
 
     public function claimPointsView()
     {
+        $userDetail = UserDetail::where('user_id', Auth::user()->id)->first();
+        if ($userDetail->status !== config('global.status.active')) {
+            return redirect('dashboard');
+        }
         return Inertia::render('Admin/ClaimPoint');
     }
 

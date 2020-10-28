@@ -57,11 +57,17 @@ class User extends Authenticatable
      */
     protected $appends = [
         'profile_photo_url',
+        'status',
     ];
 
     public function userDetail()
     {
         return $this->hasOne(UserDetail::class, 'user_id', 'id');
+    }
+
+    public function getStatusAttribute() {
+        $userDetail = UserDetail::where('user_id', $this->id)->first();
+        return $userDetail->status;
     }
 
     public function getProfilePhotoUrlAttribute()

@@ -37,6 +37,7 @@
                 Reseller
               </jet-nav-link> -->
               <jet-nav-link
+                v-if="$page.user.status === 'AKTIF'"
                 :href="route('admin.show-points')"
                 :active="$page.currentRouteName == 'admin.show-points'"
               >
@@ -244,6 +245,7 @@
         </div>
         <div class="pt-2 pb-3 space-y-1">
           <jet-responsive-nav-link
+            v-if="$page.user.status === 'AKTIF'"
             :href="route('admin.show-points')"
             :active="$page.currentRouteName == 'admin.show-points'"
           >

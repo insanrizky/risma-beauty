@@ -6,6 +6,7 @@ return [
         'in_review' => 'SEDANG DIVERIFIKASI',
         'active' => 'AKTIF',
         'rejected' => 'GAGAL VERIFIKASI',
+        'suspended' => 'AKUN DINONAKTIFKAN',
     ],
     'claim_status' => [
         'in_review' => 'MENUNGGU DIVERIFIKASI',

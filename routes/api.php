@@ -24,6 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/admin/user', [AdminController::class, 'getUserList'])->name('admin.get-user-list');
 Route::put('/admin/verify/{userId}', [AdminController::class, 'verify'])->name('admin.verify');
+Route::put('/admin/suspend/{userId}', [AdminController::class, 'suspend'])->name('admin.suspend');
 
 Route::get('/bank', [ReferenceController::class, 'getBanks']);
 Route::get('/province', [ReferenceController::class, 'getProvinces']);
