@@ -70250,7 +70250,7 @@ var render = function() {
                     _c("telegram-icon"),
                     _vm._v(" "),
                     _c("p", { staticClass: "mx-2 text-l font-bold" }, [
-                      _vm._v("LV1. RESSELER GLOWSKIN SOAP")
+                      _vm._v("AGEN GLOWSKIN SOAP")
                     ]),
                     _vm._v(" "),
                     _c("arrow-right-icon")
@@ -70707,7 +70707,7 @@ var render = function() {
                         _c("telegram-icon"),
                         _vm._v(" "),
                         _c("p", { staticClass: "mx-2 text-l font-bold" }, [
-                          _vm._v("LV1. RESSELER GLOWSKIN SOAP")
+                          _vm._v("AGEN GLOWSKIN SOAP")
                         ]),
                         _vm._v(" "),
                         _c("arrow-right-icon")

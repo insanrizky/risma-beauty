@@ -24,7 +24,7 @@
             class="mt-1 flex items-center"
           >
             <telegram-icon />
-            <p class="mx-2 text-l font-bold">LV1. RESSELER GLOWSKIN SOAP</p>
+            <p class="mx-2 text-l font-bold">AGEN GLOWSKIN SOAP</p>
             <arrow-right-icon />
           </a>
         </div>
