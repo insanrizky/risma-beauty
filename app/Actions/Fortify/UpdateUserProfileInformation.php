@@ -34,7 +34,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             $userInstance = $builder->first();
             $old = $userInstance->profile_photo_path;
 
-            $disk = 'public_uploads';
+            $disk = 'minio';
             $path = $input['photo']->storePublicly('profile_photos', $disk);
             $builder->update([
                 'profile_photo_path' => $path,

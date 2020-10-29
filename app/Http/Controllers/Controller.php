@@ -16,7 +16,7 @@ class Controller extends BaseController
     use DispatchesJobs;
     use ValidatesRequests;
 
-    public function uploadFile(Request $request, $condition, $table, $attributeName, $storePath, $disk = 'public_uploads')
+    public function uploadFile(Request $request, $condition, $table, $attributeName, $storePath, $disk = 'minio')
     {
         $userDetail = DB::table($table)->where($condition)->first();
         $old = $userDetail->{$attributeName};
@@ -31,7 +31,7 @@ class Controller extends BaseController
         }
     }
 
-    public function deleteFile($old, $disk = 'public_uploads')
+    public function deleteFile($old, $disk = 'minio')
     {
         Storage::disk($disk)->delete($old);
     }
