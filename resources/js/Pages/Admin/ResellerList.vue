@@ -143,13 +143,13 @@
                   class="flex"
                 >
                   <button
-                    @click="verifyReseller(reseller.id, true)"
+                    @click="confirmVerifyReseller(reseller, true)"
                     class="inline-flex items-center px-2 py-1 bg-green-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-600 transition ease-in-out duration-150"
                   >
                     <check-mark-icon />
                   </button>
                   <button
-                    @click="verifyReseller(reseller.id, false)"
+                    @click="confirmVerifyReseller(reseller, false)"
                     class="inline-flex items-center px-2 py-1 ml-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 transition ease-in-out duration-150"
                   >
                     <cross-mark-icon />
@@ -301,6 +301,24 @@ export default {
         console.log(e);
         this.is_fetching = false;
       }
+    },
+    confirmVerifyReseller(reseller, is_verified) {
+      let title = `Yakin ingin menolak reseller ini?`;
+      if (is_verified) {
+        title = `Yakin ingin mengaktifkan reseller ini?`;
+      }
+
+      this.$swal({
+        title,
+        text: `${reseller.name} - ${reseller.email}`,
+        showDenyButton: true,
+        confirmButtonText: "Ya",
+        denyButtonText: `Batalkan`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.verifyReseller(reseller.id, is_verified);
+        }
+      });
     },
     async verifyReseller(id, is_verified) {
       try {

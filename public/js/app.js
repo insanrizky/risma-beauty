@@ -5207,8 +5207,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee, null, [[2, 17]]);
       }))();
     },
-    verifyAgent: function verifyAgent(id, is_verified) {
+    confirmVerifyAgent: function confirmVerifyAgent(agent, is_verified) {
       var _this3 = this;
+
+      var title = "Yakin ingin menolak agen ini?";
+
+      if (is_verified) {
+        title = "Yakin ingin mengaktifkan agen ini?";
+      }
+
+      this.$swal({
+        title: title,
+        text: "".concat(agent.name, " - ").concat(agent.email),
+        showDenyButton: true,
+        confirmButtonText: "Ya",
+        denyButtonText: "Batalkan"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          _this3.verifyAgent(agent.id, is_verified);
+        }
+      });
+    },
+    verifyAgent: function verifyAgent(id, is_verified) {
+      var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         var _yield$axios$put, data, agent;
@@ -5226,16 +5247,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 3:
                 _yield$axios$put = _context2.sent;
                 data = _yield$axios$put.data.data;
-                agent = _this3.agents.find(function (agent) {
+                agent = _this4.agents.find(function (agent) {
                   return agent.user_id === id;
                 });
                 agent.status = data.status;
                 agent.identifier = data.identifier;
 
                 if (is_verified) {
-                  _this3.$swal("Berhasil!", "Agen berhasil diverifikasi", "success");
+                  _this4.$swal("Berhasil!", "Agen berhasil diverifikasi", "success");
                 } else {
-                  _this3.$swal("Berhasil!", "Verifikasi Agen digagalkan", "success");
+                  _this4.$swal("Berhasil!", "Verifikasi Agen digagalkan", "success");
                 }
 
                 _context2.next = 15;
@@ -5245,7 +5266,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context2.prev = 11;
                 _context2.t0 = _context2["catch"](0);
 
-                _this3.$swal("Terjadi Kesalahan!", "", "error");
+                _this4.$swal("Terjadi Kesalahan!", "", "error");
 
                 console.log(_context2.t0);
 
@@ -5257,8 +5278,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2, null, [[0, 11]]);
       }))();
     },
-    verifySuspend: function verifySuspend(id, name) {
-      var _this4 = this;
+    confirmSuspend: function confirmSuspend(id, name) {
+      var _this5 = this;
 
       this.$swal({
         title: "Yakin ingin menonaktifkan Agen ".concat(name, "?"),
@@ -5268,12 +5289,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         denyButtonText: "Batalkan"
       }).then(function (result) {
         if (result.isConfirmed) {
-          _this4.suspend(id);
+          _this5.suspend(id);
         }
       });
     },
     suspend: function suspend(id) {
-      var _this5 = this;
+      var _this6 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
@@ -5285,9 +5306,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return axios.put("/api/admin/suspend/".concat(id));
 
               case 3:
-                _this5.$swal("Berhasil!", "Akun berhasil dinonaktifkan", "success");
+                _this6.$swal("Berhasil!", "Akun berhasil dinonaktifkan", "success");
 
-                _this5.fetchAgents();
+                _this6.fetchAgents();
 
                 _context3.next = 11;
                 break;
@@ -5296,7 +5317,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context3.prev = 7;
                 _context3.t0 = _context3["catch"](0);
 
-                _this5.$swal("Terjadi Kesalahan!", "", "error");
+                _this6.$swal("Terjadi Kesalahan!", "", "error");
 
                 console.log(_context3.t0);
 
@@ -5996,8 +6017,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         _this.fetchPoints();
       }, 700);
     },
-    deleteClaim: function deleteClaim(id) {
+    confirmDeleteClaim: function confirmDeleteClaim(point) {
       var _this2 = this;
+
+      this.$swal({
+        title: "Yakin ingin menghapus klaim ini?",
+        text: "Total pcs ".concat(point.total_pcs, " dengan nominal ").concat(Object(_helpers__WEBPACK_IMPORTED_MODULE_13__["formatRupiah"])(point.amount)),
+        showDenyButton: true,
+        confirmButtonText: "Ya",
+        denyButtonText: "Batalkan"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          _this2.deleteClaim(point.id);
+        }
+      });
+    },
+    deleteClaim: function deleteClaim(id) {
+      var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         var _yield$axios$delete, data;
@@ -6014,9 +6050,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _yield$axios$delete = _context.sent;
                 data = _yield$axios$delete.data.data;
 
-                _this2.fetchPoints();
+                _this3.fetchPoints();
 
-                _this2.$swal("Berhasil!", "Klaim telah terhapus", "success");
+                _this3.$swal("Berhasil!", "Klaim telah terhapus", "success");
 
                 _context.next = 13;
                 break;
@@ -6026,7 +6062,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context.t0 = _context["catch"](0);
                 console.log(_context.t0);
 
-                _this2.$swal("Terjadi Kesalahan!", "", "error");
+                _this3.$swal("Terjadi Kesalahan!", "", "error");
 
               case 13:
               case "end":
@@ -6036,8 +6072,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee, null, [[0, 9]]);
       }))();
     },
+    confirmVerifyPoint: function confirmVerifyPoint(point, is_verified) {
+      var _this4 = this;
+
+      var title = "Yakin ingin menolak klaim ini?";
+
+      if (is_verified) {
+        title = "Yakin ingin menyetujui klaim ini?";
+      }
+
+      this.$swal({
+        title: title,
+        text: "Total pcs ".concat(point.total_pcs, " dengan nominal ").concat(Object(_helpers__WEBPACK_IMPORTED_MODULE_13__["formatRupiah"])(point.amount)),
+        showDenyButton: true,
+        confirmButtonText: "Ya",
+        denyButtonText: "Batalkan"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          _this4.verifyPoint(point.id, is_verified);
+        }
+      });
+    },
     verifyPoint: function verifyPoint(id, is_verified) {
-      var _this3 = this;
+      var _this5 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         var _yield$axios$put, data, error_message;
@@ -6056,9 +6113,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _yield$axios$put = _context2.sent;
                 data = _yield$axios$put.data.data;
 
-                _this3.fetchPoints();
+                _this5.fetchPoints();
 
-                _this3.$swal("Berhasil!", "Klaim berhasil diverifikasi", "success");
+                _this5.$swal("Berhasil!", "Klaim berhasil diverifikasi", "success");
 
                 _context2.next = 13;
                 break;
@@ -6068,7 +6125,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context2.t0 = _context2["catch"](0);
                 error_message = _context2.t0.response && _context2.t0.response.data && _context2.t0.response.data.message || "";
 
-                _this3.$swal("Terjadi Kesalahan!", error_message, "error");
+                _this5.$swal("Terjadi Kesalahan!", error_message, "error");
 
               case 13:
               case "end":
@@ -6080,7 +6137,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     fetchPoints: function fetchPoints() {
       var _arguments = arguments,
-          _this4 = this;
+          _this6 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
         var page, _yield$axios$get, _yield$axios$get$data, data, pagination;
@@ -6090,15 +6147,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context3.prev = _context3.next) {
               case 0:
                 page = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : 1;
-                _this4.is_fetching = true;
+                _this6.is_fetching = true;
                 _context3.prev = 2;
                 _context3.next = 5;
                 return axios.get("/api/point", {
                   params: {
-                    dxpoint: _this4.$page.user.type === "ADMIN" ? undefined : _this4.$page.user.id,
-                    type: _this4.filterUserType,
-                    status: _this4.filterStatus,
-                    search: _this4.search,
+                    dxpoint: _this6.$page.user.type === "ADMIN" ? undefined : _this6.$page.user.id,
+                    type: _this6.filterUserType,
+                    status: _this6.filterStatus,
+                    search: _this6.search,
                     page: page
                   }
                 });
@@ -6108,9 +6165,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _yield$axios$get$data = _yield$axios$get.data;
                 data = _yield$axios$get$data.data;
                 pagination = _yield$axios$get$data.meta.pagination;
-                _this4.points = data;
-                _this4.pagination = pagination;
-                _this4.is_fetching = false;
+                _this6.points = data;
+                _this6.pagination = pagination;
+                _this6.is_fetching = false;
                 _context3.next = 18;
                 break;
 
@@ -6118,7 +6175,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context3.prev = 14;
                 _context3.t0 = _context3["catch"](2);
                 console.log(_context3.t0);
-                _this4.is_fetching = false;
+                _this6.is_fetching = false;
 
               case 18:
               case "end":
@@ -6754,8 +6811,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee, null, [[2, 20]]);
       }))();
     },
-    verifyReseller: function verifyReseller(id, is_verified) {
+    confirmVerifyReseller: function confirmVerifyReseller(reseller, is_verified) {
       var _this2 = this;
+
+      var title = "Yakin ingin menolak reseller ini?";
+
+      if (is_verified) {
+        title = "Yakin ingin mengaktifkan reseller ini?";
+      }
+
+      this.$swal({
+        title: title,
+        text: "".concat(reseller.name, " - ").concat(reseller.email),
+        showDenyButton: true,
+        confirmButtonText: "Ya",
+        denyButtonText: "Batalkan"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          _this2.verifyReseller(reseller.id, is_verified);
+        }
+      });
+    },
+    verifyReseller: function verifyReseller(id, is_verified) {
+      var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         var _yield$axios$put, data, reseller;
@@ -6773,16 +6851,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 3:
                 _yield$axios$put = _context2.sent;
                 data = _yield$axios$put.data.data;
-                reseller = _this2.resellers.find(function (reseller) {
+                reseller = _this3.resellers.find(function (reseller) {
                   return reseller.id === id;
                 });
                 reseller.status = data.status;
                 reseller.identifier = data.identifier;
 
                 if (is_verified) {
-                  _this2.$swal("Berhasil!", "Agen berhasil diverifikasi", "success");
+                  _this3.$swal("Berhasil!", "Agen berhasil diverifikasi", "success");
                 } else {
-                  _this2.$swal("Berhasil!", "Verifikasi Agen digagalkan", "success");
+                  _this3.$swal("Berhasil!", "Verifikasi Agen digagalkan", "success");
                 }
 
                 _context2.next = 15;
@@ -6792,7 +6870,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context2.prev = 11;
                 _context2.t0 = _context2["catch"](0);
 
-                _this2.$swal("Terjadi Kesalahan!", "", "error");
+                _this3.$swal("Terjadi Kesalahan!", "", "error");
 
                 console.log(_context2.t0);
 
@@ -6805,7 +6883,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     verifySuspend: function verifySuspend(id, name) {
-      var _this3 = this;
+      var _this4 = this;
 
       this.$swal({
         title: "Yakin ingin menonaktifkan Reseller ".concat(name, "?"),
@@ -6815,12 +6893,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         denyButtonText: "Batalkan"
       }).then(function (result) {
         if (result.isConfirmed) {
-          _this3.suspend(id);
+          _this4.suspend(id);
         }
       });
     },
     suspend: function suspend(id) {
-      var _this4 = this;
+      var _this5 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
@@ -6832,9 +6910,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return axios.put("/api/admin/suspend/".concat(id));
 
               case 3:
-                _this4.$swal("Berhasil!", "Akun berhasil dinonaktifkan", "success");
+                _this5.$swal("Berhasil!", "Akun berhasil dinonaktifkan", "success");
 
-                _this4.fetchResellers();
+                _this5.fetchResellers();
 
                 _context3.next = 11;
                 break;
@@ -6843,7 +6921,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context3.prev = 7;
                 _context3.t0 = _context3["catch"](0);
 
-                _this4.$swal("Terjadi Kesalahan!", "", "error");
+                _this5.$swal("Terjadi Kesalahan!", "", "error");
 
                 console.log(_context3.t0);
 
@@ -65072,8 +65150,8 @@ var render = function() {
                                         "inline-flex items-center px-2 py-1 bg-green-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-600 transition ease-in-out duration-150",
                                       on: {
                                         click: function($event) {
-                                          return _vm.verifyAgent(
-                                            agent.user_id,
+                                          return _vm.confirmVerifyAgent(
+                                            agent,
                                             true
                                           )
                                         }
@@ -65090,8 +65168,8 @@ var render = function() {
                                         "inline-flex items-center px-2 py-1 ml-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 transition ease-in-out duration-150",
                                       on: {
                                         click: function($event) {
-                                          return _vm.verifyAgent(
-                                            agent.user_id,
+                                          return _vm.confirmVerifyAgent(
+                                            agent,
                                             false
                                           )
                                         }
@@ -65137,7 +65215,7 @@ var render = function() {
                                               "inline-flex items-center px-2 py-1 ml-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 transition ease-in-out duration-150",
                                             on: {
                                               click: function($event) {
-                                                return _vm.verifySuspend(
+                                                return _vm.confirmSuspend(
                                                   agent.user_id,
                                                   agent.name
                                                 )
@@ -65908,8 +65986,8 @@ var render = function() {
                                                 "inline-flex items-center px-2 py-1 bg-green-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-600 transition ease-in-out duration-150",
                                               on: {
                                                 click: function($event) {
-                                                  return _vm.verifyPoint(
-                                                    point.id,
+                                                  return _vm.confirmVerifyPoint(
+                                                    point,
                                                     true
                                                   )
                                                 }
@@ -65926,8 +66004,8 @@ var render = function() {
                                                 "inline-flex items-center px-2 py-1 ml-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 transition ease-in-out duration-150",
                                               on: {
                                                 click: function($event) {
-                                                  return _vm.verifyPoint(
-                                                    point.id,
+                                                  return _vm.confirmVerifyPoint(
+                                                    point,
                                                     false
                                                   )
                                                 }
@@ -65951,8 +66029,8 @@ var render = function() {
                                                 "inline-flex items-center px-2 py-1 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-600 transition ease-in-out duration-150",
                                               on: {
                                                 click: function($event) {
-                                                  return _vm.deleteClaim(
-                                                    point.id
+                                                  return _vm.confirmDeleteClaim(
+                                                    point
                                                   )
                                                 }
                                               }
@@ -66755,8 +66833,8 @@ var render = function() {
                                         "inline-flex items-center px-2 py-1 bg-green-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-600 transition ease-in-out duration-150",
                                       on: {
                                         click: function($event) {
-                                          return _vm.verifyReseller(
-                                            reseller.id,
+                                          return _vm.confirmVerifyReseller(
+                                            reseller,
                                             true
                                           )
                                         }
@@ -66773,8 +66851,8 @@ var render = function() {
                                         "inline-flex items-center px-2 py-1 ml-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 transition ease-in-out duration-150",
                                       on: {
                                         click: function($event) {
-                                          return _vm.verifyReseller(
-                                            reseller.id,
+                                          return _vm.confirmVerifyReseller(
+                                            reseller,
                                             false
                                           )
                                         }
@@ -70542,7 +70620,7 @@ var render = function() {
               "div",
               { staticClass: "flex items-center" },
               [
-                _c("coin-icon"),
+                _c("coin-icon", { attrs: { width: "32", height: "32" } }),
                 _vm._v(" "),
                 _c(
                   "div",

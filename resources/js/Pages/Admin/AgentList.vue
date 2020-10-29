@@ -129,13 +129,13 @@
 
                 <div v-if="agent.status === 'SEDANG DIVERIFIKASI'" class="flex">
                   <button
-                    @click="verifyAgent(agent.user_id, true)"
+                    @click="confirmVerifyAgent(agent, true)"
                     class="inline-flex items-center px-2 py-1 bg-green-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-600 transition ease-in-out duration-150"
                   >
                     <check-mark-icon />
                   </button>
                   <button
-                    @click="verifyAgent(agent.user_id, false)"
+                    @click="confirmVerifyAgent(agent, false)"
                     class="inline-flex items-center px-2 py-1 ml-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 transition ease-in-out duration-150"
                   >
                     <cross-mark-icon />
@@ -160,7 +160,7 @@
                   </inertia-link>
                   <button
                     v-if="agent.status === 'AKTIF'"
-                    @click="verifySuspend(agent.user_id, agent.name)"
+                    @click="confirmSuspend(agent.user_id, agent.name)"
                     class="inline-flex items-center px-2 py-1 ml-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 transition ease-in-out duration-150"
                   >
                     <cross-mark-icon />
@@ -288,6 +288,24 @@ export default {
         this.is_fetching = false;
       }
     },
+    confirmVerifyAgent(agent, is_verified) {
+      let title = `Yakin ingin menolak agen ini?`;
+      if (is_verified) {
+        title = `Yakin ingin mengaktifkan agen ini?`;
+      }
+
+      this.$swal({
+        title,
+        text: `${agent.name} - ${agent.email}`,
+        showDenyButton: true,
+        confirmButtonText: "Ya",
+        denyButtonText: `Batalkan`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.verifyAgent(agent.id, is_verified);
+        }
+      });
+    },
     async verifyAgent(id, is_verified) {
       try {
         const {
@@ -308,7 +326,7 @@ export default {
         console.log(e);
       }
     },
-    verifySuspend(id, name) {
+    confirmSuspend(id, name) {
       this.$swal({
         title: `Yakin ingin menonaktifkan Agen ${name}?`,
         text: 'Semua Reseller di bawah Agen ini akan otomatis dinonaktifkan juga.',

@@ -127,13 +127,13 @@
                       "
                     >
                       <button
-                        @click="verifyPoint(point.id, true)"
+                        @click="confirmVerifyPoint(point, true)"
                         class="inline-flex items-center px-2 py-1 bg-green-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-600 transition ease-in-out duration-150"
                       >
                         <check-mark-icon />
                       </button>
                       <button
-                        @click="verifyPoint(point.id, false)"
+                        @click="confirmVerifyPoint(point, false)"
                         class="inline-flex items-center px-2 py-1 ml-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 transition ease-in-out duration-150"
                       >
                         <cross-mark-icon />
@@ -141,7 +141,7 @@
                     </div>
                     <div v-if="canDeleteClaim(point.user_id, point.status)">
                       <button
-                        @click="deleteClaim(point.id)"
+                        @click="confirmDeleteClaim(point)"
                         class="inline-flex items-center px-2 py-1 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-600 transition ease-in-out duration-150"
                       >
                         <trash-icon />
@@ -277,6 +277,19 @@ export default {
         this.fetchPoints();
       }, 700);
     },
+    confirmDeleteClaim(point) {
+      this.$swal({
+        title: `Yakin ingin menghapus klaim ini?`,
+        text: `Total pcs ${point.total_pcs} dengan nominal ${formatRupiah(point.amount)}`,
+        showDenyButton: true,
+        confirmButtonText: "Ya",
+        denyButtonText: `Batalkan`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.deleteClaim(point.id);
+        }
+      });
+    },
     async deleteClaim(id) {
       try {
         const {
@@ -288,6 +301,24 @@ export default {
         console.log(e);
         this.$swal("Terjadi Kesalahan!", "", "error");
       }
+    },
+    confirmVerifyPoint(point, is_verified) {
+      let title = `Yakin ingin menolak klaim ini?`;
+      if (is_verified) {
+        title = `Yakin ingin menyetujui klaim ini?`;
+      }
+
+      this.$swal({
+        title,
+        text: `Total pcs ${point.total_pcs} dengan nominal ${formatRupiah(point.amount)}`,
+        showDenyButton: true,
+        confirmButtonText: "Ya",
+        denyButtonText: `Batalkan`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.verifyPoint(point.id, is_verified);
+        }
+      });
     },
     async verifyPoint(id, is_verified) {
       try {
