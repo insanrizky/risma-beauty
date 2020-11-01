@@ -97,7 +97,10 @@ class AdminController extends Controller
             $identifier = null;
             if ($input['is_verified']) {
                 $status = config('global.status.active');
-                $identifier = generateUniqueId(8);
+                do {
+                    $identifier = generateUniqueId(8);
+                    $found = UserDetail::where('identifier', $identifier)->first();
+                } while ($found);
             }
 
             UserDetail::where('user_id', $userId)->update([

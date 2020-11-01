@@ -53,7 +53,11 @@ class UserController extends Controller
                     $payload['status'] = config('global.status.in_review');
                 } elseif ($type === config('global.type.reseller')) {
                     $payload['status'] = config('global.status.active');
-                    $payload['identifier'] = generateUniqueId(8);
+                    do {
+                        $identifier = generateUniqueId(8);
+                        $found = UserDetail::where('identifier', $identifier)->first();
+                    } while ($found);
+                    $payload['identifier'] = $identifier;
                 } else {
                     $payload['status'] = config('global.status.active');
                 }
