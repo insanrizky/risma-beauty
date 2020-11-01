@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AnalyticController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PointController;
 use App\Http\Controllers\RankController;
@@ -42,4 +43,6 @@ Route::group(['middleware' => ['auth:sanctum', 'verified']], function () {
 
     Route::get('/setting', [SettingController::class, 'showSettings'])->name('admin.show-settings');
     Route::put('/setting', [SettingController::class, 'updatePointSetting'])->name('admin.update-point-setting');
+
+    Route::get('/analytic', [AnalyticController::class, 'showAnalytics'])->name('admin.show-analytics');
 });

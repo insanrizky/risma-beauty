@@ -21,7 +21,7 @@
                 Dashboard
               </jet-nav-link>
               <jet-nav-link
-                v-if="$page.user.type === 'ADMIN'"
+                v-if="isAdmin"
                 :href="route('admin.show-agents')"
                 :active="$page.currentRouteName == 'admin.show-agents'"
               >
@@ -48,6 +48,13 @@
                 :active="$page.currentRouteName == 'admin.show-ranks'"
               >
                 Peringkat
+              </jet-nav-link>
+              <jet-nav-link
+                v-if="isAdmin"
+                :href="route('admin.show-analytics')"
+                :active="$page.currentRouteName == 'admin.show-analytics'"
+              >
+                Analitik
               </jet-nav-link>
             </div>
           </div>
@@ -146,7 +153,7 @@
                     </div>
 
                     <template v-for="team in $page.user.all_teams">
-                      <form @submit.prevent="switchToTeam(team)">
+                      <form @submit.prevent="switchToTeam(team)" :key="team.id">
                         <jet-dropdown-link as="button">
                           <div class="flex items-center">
                             <svg
@@ -235,7 +242,7 @@
             Dashboard
           </jet-responsive-nav-link>
         </div>
-        <div v-if="$page.user.type === 'ADMIN'" class="pt-2 pb-3 space-y-1">
+        <div v-if="isAdmin" class="pt-2 pb-3 space-y-1">
           <jet-responsive-nav-link
             :href="route('admin.show-agents')"
             :active="$page.currentRouteName == 'admin.show-agents'"
@@ -243,9 +250,8 @@
             Agen
           </jet-responsive-nav-link>
         </div>
-        <div class="pt-2 pb-3 space-y-1">
+        <div class="pt-2 pb-3 space-y-1" v-if="$page.user.status === 'AKTIF'">
           <jet-responsive-nav-link
-            v-if="$page.user.status === 'AKTIF'"
             :href="route('admin.show-points')"
             :active="$page.currentRouteName == 'admin.show-points'"
           >
@@ -258,6 +264,14 @@
             :active="$page.currentRouteName == 'admin.show-ranks'"
           >
             Peringkat
+          </jet-responsive-nav-link>
+        </div>
+        <div class="pt-2 pb-3 space-y-1" v-if="isAdmin">
+          <jet-responsive-nav-link
+            :href="route('admin.show-analytics')"
+            :active="$page.currentRouteName == 'admin.show-analytics'"
+          >
+            Analitik
           </jet-responsive-nav-link>
         </div>
 
@@ -443,6 +457,9 @@ export default {
   },
 
   computed: {
+    isAdmin() {
+      return this.$page.user.type === 'ADMIN';
+    },
     path() {
       return window.location.pathname;
     },
