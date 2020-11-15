@@ -7,6 +7,15 @@ use App\Models\Province;
 
 class AnalyticService
 {
+    private $admin;
+    private $active;
+
+    public function __construct()
+    {
+        $this->admin = config('global.type.admin');
+        $this->active = config('global.status.active');
+    }
+
     public function getReportByProvince($requestType)
     {
         $builder = Province::leftJoin('user_details', function ($join) {
@@ -16,19 +25,17 @@ class AnalyticService
         });
         $unionQuery = clone $builder;
 
-        $type = 'ALL';
-        $counterCondition = "users.type <> 'ADMIN'";
+        $type = 'all';
+        $counterCondition = "users.type <> '$this->admin' and user_details.status = '$this->active'";
         if ($requestType) {
             $type = $requestType;
-            $counterCondition = "users.type = '$type'";
-            $unionQuery->where('users.type', $type);
-        } else {
-            $unionQuery->where('users.type', '<>', 'ADMIN');
+            $counterCondition = "users.type = '$type' and user_details.status = '$this->active'";
         }
 
-        $builder->selectRaw("provinces.name as name, count(case when $counterCondition then user_details.province_id else null end) as total")
+        $builder->selectRaw("provinces.id as id, provinces.name as name, count(case when $counterCondition then user_details.province_id else null end) as total")
                 ->groupBy('provinces.id');
-        $unionQuery->selectRaw('null, count(user_details.province_id)');
+        $unionQuery->whereRaw($counterCondition)
+                ->selectRaw('null, null, count(user_details.province_id)');
 
         $result = $builder->union($unionQuery)->get()->each->setAppends([]);
         $totalAll = $result->pop()->total;
@@ -50,18 +57,16 @@ class AnalyticService
         $unionQuery = clone $builder;
 
         $type = 'ALL';
-        $counterCondition = "users.type <> 'ADMIN'";
+        $counterCondition = "users.type <> '$this->admin' and cities.province_id = $provinceId and user_details.status = '$this->active'";
         if ($requestType) {
             $type = $requestType;
-            $counterCondition = "users.type = '$type' and cities.province_id = $provinceId";
-            $unionQuery->where('users.type', $type);
-        } else {
-            $unionQuery->where('users.type', '<>', 'ADMIN');
+            $counterCondition = "users.type = '$type' and cities.province_id = $provinceId and user_details.status = '$this->active'";
         }
 
-        $builder->selectRaw("cities.name as name, count(case when $counterCondition then user_details.city_id else null end) as total")
+        $builder->selectRaw("cities.id as id, cities.name as name, count(case when $counterCondition then user_details.city_id else null end) as total")
                 ->groupBy('cities.id');
-        $unionQuery->selectRaw('null, count(user_details.city_id)');
+        $unionQuery->whereRaw($counterCondition)
+                ->selectRaw('null, null, count(user_details.city_id)');
 
         $result = $builder->union($unionQuery)->get()->each->setAppends([]);
         $totalAll = $result->pop()->total;
