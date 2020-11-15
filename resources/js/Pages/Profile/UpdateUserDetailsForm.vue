@@ -27,6 +27,7 @@
           id="province"
           required
           v-model="form.province_id"
+          class="w-full"
         />
         <jet-input-error :message="form.error('province_id')" class="mt-2" />
       </div>
@@ -39,6 +40,7 @@
           required
           v-model="form.city_id"
           :province_id="form.province_id"
+          class="w-full"
         />
         <jet-input-error :message="form.error('city_id')" class="mt-2" />
       </div>

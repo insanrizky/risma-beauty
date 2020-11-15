@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AnalyticController;
 use App\Http\Controllers\PointController;
 use App\Http\Controllers\RankController;
 use App\Http\Controllers\ReferenceController;
@@ -41,3 +42,6 @@ Route::post('/point/withdrawal', [PointController::class, 'withdrawal'])->name('
 Route::get('/rank', [RankController::class, 'getRanks'])->name('admin.get-ranks');
 
 Route::get('/export', [AdminController::class, 'export'])->name('admin.export');
+Route::get('/analytic/area/user', [AnalyticController::class, 'getTotalUserByArea'])->name('admin.get-total-user-by-area');
+Route::get('/analytic/area/user/status', [AnalyticController::class, 'getUserStatusByArea'])->name('admin.get-user-status-by-area');
+Route::get('/analytic/claim', [AnalyticController::class, 'getClaims'])->name('admin.get-claims');
