@@ -3,8 +3,10 @@
 namespace App\Services;
 
 use App\Models\City;
+use App\Models\Claim;
 use App\Models\Province;
 use App\Models\UserDetail;
+use Carbon\Carbon;
 
 class AnalyticService
 {
@@ -88,8 +90,7 @@ class AnalyticService
         $type = 'all';
         $builder = UserDetail::join('users', function ($join) {
             $join->on('user_details.user_id', '=', 'users.id');
-        })->selectRaw('user_details.status, count(user_details.status) as total')
-        ->groupBy('user_details.status');
+        });
 
         $condition = "users.type <> '$this->admin'";
         if ($requestType) {
@@ -100,12 +101,53 @@ class AnalyticService
 
         if ($provinceId) {
             $builder->where('province_id', $provinceId);
+            $province = Province::find($provinceId);
         }
 
-        $result = $builder->get()->each->setAppends([]);
+        $unionQuery = clone $builder;
+        $builder->selectRaw('user_details.status, count(user_details.status) as total')
+            ->groupBy('user_details.status');
+        $unionQuery->selectRaw('null, count(user_details.status)');
+
+        $result = $builder->union($unionQuery)->get()->each->setAppends([]);
+        $total = $result->pop()->total;
 
         return [
             'type' => $type,
+            'total' => $total,
+            'attributes' => [
+                'province' => $province->name ?? null,
+                'report' => $result,
+            ],
+        ];
+    }
+
+    public function getClaimsByDate($start_date, $end_date, $requestType = null)
+    {
+        $type = 'all';
+        $start_date = Carbon::parse($start_date)->toDateTimeString();
+        $end_date = Carbon::parse($end_date)->toDateTimeString();
+
+        $builder = Claim::where('updated_at', '>=', $start_date)
+                    ->where('updated_at', '<=', $end_date)
+                    ->orderByRaw('DATE(updated_at)');
+
+        if ($requestType) {
+            $type = $requestType;
+            $builder->where('type', $type);
+        }
+
+        $unionQuery = clone $builder;
+        $builder->groupByRaw('DATE(updated_at), status')
+                ->selectRaw('DATE(updated_at) as date, status, count(DATE(updated_at)) as total');
+        $unionQuery->selectRaw('null, null, count(DATE(updated_at))');
+
+        $result = $builder->union($unionQuery)->get()->each->setAppends([]);
+        $total = $result->pop()->total;
+
+        return [
+            'type' => $type,
+            'total' => $total,
             'attributes' => [
                 'report' => $result,
             ],

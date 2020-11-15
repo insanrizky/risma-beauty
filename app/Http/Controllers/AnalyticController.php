@@ -42,4 +42,17 @@ class AnalyticController extends Controller
             'data' => $result,
         ]);
     }
+
+    public function getClaims(Request $request)
+    {
+        $result = $this->service->getClaimsByDate(
+            $request->input('start_date'),
+            $request->input('end_date'),
+            $request->input('type')
+        );
+
+        return response()->json([
+            'data' => $result,
+        ]);
+    }
 }

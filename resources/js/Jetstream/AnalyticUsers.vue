@@ -4,8 +4,10 @@
       <div class="overflow-hidden sm:rounded-lg">
         <div class="grid sm:grid-cols-2 lg:grid-cols-3">
           <div class="lg:col-span-2 bg-white p-4 mx-2">
-            <div class="text-xl font-bold mb-3">
-              {{ typeInWord }} berdasarkan Area
+            <div class="flex items-center justify-between">
+              <div class="text-xl font-bold mb-3">
+                {{ typeInWord }} berdasarkan Area
+              </div>
             </div>
             <div class="flex items-center mb-3">
               <select
@@ -46,7 +48,10 @@
             />
           </div>
           <div class="bg-white p-4 mx-2">
-            <div class="text-xl font-bold mb-3">Status {{ typeInWord }}</div>
+            <div class="text-xl font-bold">Status {{ typeInWord }}</div>
+            <div v-if="province_name" class="text-sm mb-3">
+              Provinsi {{ province_name }}
+            </div>
             <pie-chart
               :chartData="this.chart_user_status"
               :options="this.chart_options"
@@ -60,12 +65,11 @@
 
 <script>
 import BarChart from "./../Charts/Bar";
-import LineChart from "./../Charts/Line";
 import PieChart from "./../Charts/Pie";
 import SelectProvince from "./../Jetstream/SelectProvince";
 import SelectCity from "./../Jetstream/SelectCity";
 
-const COLORS = {
+const STATUS_COLOR = {
   AKTIF: {
     BACKGROUND: "rgba(75, 192, 192, 0.2)",
     BORDER: "rgba(75, 192, 192, 1)",
@@ -91,7 +95,6 @@ const COLORS = {
 export default {
   components: {
     BarChart,
-    LineChart,
     PieChart,
     SelectProvince,
     SelectCity,
@@ -101,6 +104,7 @@ export default {
       type: "",
       isShowingAll: true,
       province_id: "",
+      province_name: "",
       chart_user_area: {
         labels: [],
         datasets: [],
@@ -169,7 +173,7 @@ export default {
             province_id: this.province_id || undefined,
           },
         });
-
+        this.province_name = data.attributes.province;
         this.mapChartAreaUserStatus(data.attributes.report);
       } catch (e) {
         console.log(e);
@@ -195,8 +199,8 @@ export default {
       data.forEach((d) => {
         chart_labels.push(d.status);
         chart_data.push(d.total);
-        chart_background_color.push(COLORS[d.status].BACKGROUND);
-        chart_border_color.push(COLORS[d.status].BORDER);
+        chart_background_color.push(STATUS_COLOR[d.status].BACKGROUND);
+        chart_border_color.push(STATUS_COLOR[d.status].BORDER);
       });
 
       this.chart_user_status = {
