@@ -22,10 +22,21 @@ class AnalyticController extends Controller
     {
         $type = $request->input('type');
         if ($provinceId = $request->input('province_id')) {
-            $result = $this->service->getReportByCity($provinceId, $type);
+            $result = $this->service->getTotalUserByProvince($provinceId, $type);
         } else {
-            $result = $this->service->getReportByProvince($type);
+            $result = $this->service->getTotalUser($type);
         }
+
+        return response()->json([
+            'data' => $result,
+        ]);
+    }
+
+    public function getUserStatusByArea(Request $request)
+    {
+        $type = $request->input('type');
+        $provinceId = $request->input('province_id');
+        $result = $this->service->getUserStatus($type, $provinceId);
 
         return response()->json([
             'data' => $result,

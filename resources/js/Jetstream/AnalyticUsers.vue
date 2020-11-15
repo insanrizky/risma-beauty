@@ -10,7 +10,7 @@
             <div class="flex items-center mb-3">
               <select
                 v-model="type"
-                @change="fetchUserAnalytic"
+                @change="updateChart"
                 class="form-input mt-1 rounded"
               >
                 <option value="">Semua</option>
@@ -48,7 +48,7 @@
           <div class="bg-white p-4 mx-2">
             <div class="text-xl font-bold mb-3">Status {{ typeInWord }}</div>
             <pie-chart
-              :chartData="this.chartData"
+              :chartData="this.chart_user_status"
               :options="this.chart_options"
             />
           </div>
@@ -59,12 +59,34 @@
 </template>
 
 <script>
-
 import BarChart from "./../Charts/Bar";
 import LineChart from "./../Charts/Line";
 import PieChart from "./../Charts/Pie";
 import SelectProvince from "./../Jetstream/SelectProvince";
 import SelectCity from "./../Jetstream/SelectCity";
+
+const COLORS = {
+  AKTIF: {
+    BACKGROUND: "rgba(75, 192, 192, 0.2)",
+    BORDER: "rgba(75, 192, 192, 1)",
+  },
+  "AKUN DINONAKTIFKAN": {
+    BACKGROUND: "rgba(0, 0, 0, 0.2)",
+    BORDER: "rgba(0, 0, 0, 0.7)",
+  },
+  "DALAM PROSES PENDAFTARAN": {
+    BACKGROUND: "rgba(255, 206, 86, 0.2)",
+    BORDER: "rgba(255, 206, 86, 1)",
+  },
+  "GAGAL VERIFIKASI": {
+    BACKGROUND: "rgba(255, 99, 132, 0.2)",
+    BORDER: "rgba(255, 99, 132, 1)",
+  },
+  "SEDANG DIVERIFIKASI": {
+    BACKGROUND: "rgba(153, 102, 255, 0.2)",
+    BORDER: "rgba(153, 102, 255, 1)",
+  },
+};
 
 export default {
   components: {
@@ -83,29 +105,14 @@ export default {
         labels: [],
         datasets: [],
       },
-      chartData: {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+      chart_user_status: {
+        labels: [],
         datasets: [
           {
-            label: "# of Votes",
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-              "rgba(255, 99, 132, 0.2)",
-              "rgba(54, 162, 235, 0.2)",
-              "rgba(255, 206, 86, 0.2)",
-              "rgba(75, 192, 192, 0.2)",
-              "rgba(153, 102, 255, 0.2)",
-              "rgba(255, 159, 64, 0.2)",
-            ],
-            borderColor: [
-              "rgba(255, 99, 132, 1)",
-              "rgba(54, 162, 235, 1)",
-              "rgba(255, 206, 86, 1)",
-              "rgba(75, 192, 192, 1)",
-              "rgba(153, 102, 255, 1)",
-              "rgba(255, 159, 64, 1)",
-            ],
-            borderWidth: 1,
+            label: `Status ${this.typeInWord}`,
+            data: [],
+            backgroundColor: [],
+            borderColor: [],
           },
         ],
       },
@@ -129,46 +136,91 @@ export default {
     },
   },
   mounted() {
-    this.fetchUserAnalytic();
+    this.updateChart();
   },
   methods: {
+    updateChart() {
+      this.fetchUserAnalytic();
+      this.fetchUserStatusAnalytic();
+    },
     async fetchUserAnalytic() {
       try {
         const {
           data: { data },
-        } = await axios.get("/api/analytic/user/area", {
+        } = await axios.get("/api/analytic/area/user", {
           params: {
             type: this.type,
             province_id: this.province_id || undefined,
           },
         });
 
-        this.mapChartUserArea(data.attributes);
+        this.mapChartAreaUser(data.attributes.report);
       } catch (e) {
         console.log(e);
       }
     },
-    mapChartUserArea(data) {
+    async fetchUserStatusAnalytic() {
+      try {
+        const {
+          data: { data },
+        } = await axios.get("/api/analytic/area/user/status", {
+          params: {
+            type: this.type,
+            province_id: this.province_id || undefined,
+          },
+        });
+
+        this.mapChartAreaUserStatus(data.attributes.report);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    mapChartAreaUser(data) {
       this.chart_user_area = {
-        labels: data.map(d => d.name),
+        labels: data.map((d) => d.name),
+        datasets: [
+          {
+            label: `${this.typeInWord} (AKTIF)`,
+            backgroundColor: "rgba(75, 192, 192, 0.7)",
+            data: data.map((d) => d.total),
+          },
+        ],
+      };
+    },
+    mapChartAreaUserStatus(data) {
+      const chart_data = [];
+      const chart_labels = [];
+      const chart_background_color = [];
+      const chart_border_color = [];
+      data.forEach((d) => {
+        chart_labels.push(d.status);
+        chart_data.push(d.total);
+        chart_background_color.push(COLORS[d.status].BACKGROUND);
+        chart_border_color.push(COLORS[d.status].BORDER);
+      });
+
+      this.chart_user_status = {
+        labels: chart_labels,
         datasets: [
           {
             label: this.typeInWord,
-            backgroundColor: '#4BC0C0',
-            data: data.map(d => d.total),
-          }
+            data: chart_data,
+            backgroundColor: chart_background_color,
+            borderColor: chart_border_color,
+            borderWidth: 1,
+          },
         ],
       };
     },
     onChangeProvince(value) {
       this.province_id = value;
       this.isShowingAll = false;
-      this.fetchUserAnalytic();
+      this.updateChart();
     },
     showAll() {
       this.province_id = "";
       this.isShowingAll = !this.isShowingAll;
-      this.fetchUserAnalytic();
+      this.updateChart();
     },
   },
 };

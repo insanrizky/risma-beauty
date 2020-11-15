@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\City;
 use App\Models\Province;
+use App\Models\UserDetail;
 
 class AnalyticService
 {
@@ -16,7 +17,7 @@ class AnalyticService
         $this->active = config('global.status.active');
     }
 
-    public function getReportByProvince($requestType)
+    public function getTotalUser($requestType)
     {
         $builder = Province::leftJoin('user_details', function ($join) {
             $join->on('provinces.id', '=', 'user_details.province_id');
@@ -43,11 +44,13 @@ class AnalyticService
         return [
             'type' => $type,
             'total' => $totalAll,
-            'attributes' => $result,
+            'attributes' => [
+                'report' => $result,
+            ],
         ];
     }
 
-    public function getReportByCity($provinceId, $requestType)
+    public function getTotalUserByProvince($provinceId, $requestType)
     {
         $builder = City::leftJoin('user_details', function ($join) {
             $join->on('cities.id', '=', 'user_details.city_id');
@@ -74,7 +77,38 @@ class AnalyticService
         return [
             'type' => $type,
             'total' => $totalAll,
-            'attributes' => $result,
+            'attributes' => [
+                'report' => $result,
+            ],
+        ];
+    }
+
+    public function getUserStatus($requestType, $provinceId = null)
+    {
+        $type = 'all';
+        $builder = UserDetail::join('users', function ($join) {
+            $join->on('user_details.user_id', '=', 'users.id');
+        })->selectRaw('user_details.status, count(user_details.status) as total')
+        ->groupBy('user_details.status');
+
+        $condition = "users.type <> '$this->admin'";
+        if ($requestType) {
+            $type = $requestType;
+            $condition = "users.type = '$type'";
+        }
+        $builder->whereRaw($condition);
+
+        if ($provinceId) {
+            $builder->where('province_id', $provinceId);
+        }
+
+        $result = $builder->get()->each->setAppends([]);
+
+        return [
+            'type' => $type,
+            'attributes' => [
+                'report' => $result,
+            ],
         ];
     }
 }
