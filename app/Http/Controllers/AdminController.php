@@ -93,6 +93,15 @@ class AdminController extends Controller
         $input = $request->all();
         DB::beginTransaction();
         try {
+            $userDetail = UserDetail::where('user_id', $userId)->first();
+            if ($userDetail->identifier) {
+                return response()->json(['data' => [
+                    'is_verified' => true,
+                    'status' => $userDetail->status,
+                    'identifier' => $userDetail->identifier,
+                ]]);
+            }
+
             $status = config('global.status.rejected');
             $identifier = null;
             if ($input['is_verified']) {

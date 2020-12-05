@@ -302,7 +302,7 @@ export default {
         denyButtonText: `Batalkan`,
       }).then((result) => {
         if (result.isConfirmed) {
-          this.verifyAgent(agent.id, is_verified);
+          this.verifyAgent(agent.user_id, is_verified);
         }
       });
     },

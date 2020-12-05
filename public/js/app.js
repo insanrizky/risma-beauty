@@ -5224,7 +5224,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         denyButtonText: "Batalkan"
       }).then(function (result) {
         if (result.isConfirmed) {
-          _this3.verifyAgent(agent.id, is_verified);
+          _this3.verifyAgent(agent.user_id, is_verified);
         }
       });
     },
