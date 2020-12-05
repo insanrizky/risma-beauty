@@ -141,7 +141,10 @@ class PointController extends Controller
 
             return response()->json(['success' => true]);
         } catch (Exception $e) {
-            return response()->json(['error' => true, 'message' => $e->getMessage()]);
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage()
+            ], 422);
         }
     }
 
@@ -266,7 +269,7 @@ class PointController extends Controller
             return response()->json([
                 'error' => true,
                 'message' => $e->getMessage(),
-            ]);
+            ], 422);
         }
     }
 }

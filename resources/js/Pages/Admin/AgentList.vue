@@ -70,7 +70,7 @@
                 <img
                   v-if="agent.profile_photo_path"
                   class="w-10 h-10 rounded-full mr-4"
-                  :src="`${base_url}/storage/${agent.profile_photo_path}`"
+                  :src="`${base_url}/${agent.profile_photo_path}`"
                   alt="Avatar"
                 />
                 <div class="text-sm">
@@ -87,13 +87,14 @@
                 <div class="flex">
                   <whatsapp-icon />
                   <p class="ml-2 text-gray-700 text-base">
-                    {{ agent.contact }}
+                    {{ agent.contact || '-' }}
                   </p>
                 </div>
                 <div class="flex">
                   <card-icon />
                   <p class="ml-2 text-gray-700 text-base">
-                    Bank {{ agent.bank.name }} - {{ agent.account_number }}
+                    Bank {{ getBankName(agent) }} -
+                    {{ agent.account_number }}
                   </p>
                 </div>
                 <p class="mt-3 text-gray-700 text-base">
@@ -247,7 +248,15 @@ export default {
       return "bg-green-500";
     },
     getFullAddress(agent) {
-      return `${agent.address}, ${agent.city.name}, ${agent.province.name}`;
+      return `${agent.address || "-"}, ${agent.city ? agent.city.name : "-"}, ${
+        agent.province ? agent.province.name : "-"
+      }`;
+    },
+    getBankName(agent) {
+      if (!agent.bank) {
+        return "-";
+      }
+      return agent.bank.name;
     },
     changeSearch($event) {
       this.search = $event.target.value;
@@ -322,14 +331,15 @@ export default {
           this.$swal("Berhasil!", "Verifikasi Agen digagalkan", "success");
         }
       } catch (e) {
-        this.$swal("Terjadi Kesalahan!", "", "error");
-        console.log(e);
+        const message = e.response ? e.response.data.message : "";
+        this.$swal("Terjadi Kesalahan!", message, "error");
       }
     },
     confirmSuspend(id, name) {
       this.$swal({
         title: `Yakin ingin menonaktifkan Agen ${name}?`,
-        text: 'Semua Reseller di bawah Agen ini akan otomatis dinonaktifkan juga.',
+        text:
+          "Semua Reseller di bawah Agen ini akan otomatis dinonaktifkan juga.",
         showDenyButton: true,
         confirmButtonText: "Ya",
         denyButtonText: `Batalkan`,
@@ -345,8 +355,31 @@ export default {
         this.$swal("Berhasil!", "Akun berhasil dinonaktifkan", "success");
         this.fetchAgents();
       } catch (e) {
-        this.$swal("Terjadi Kesalahan!", "", "error");
-        console.log(e);
+        const message = e.response ? e.response.data.message : "";
+        this.$swal("Terjadi Kesalahan!", message, "error");
+      }
+    },
+    confirmDelete(id, name) {
+      this.$swal({
+        title: `Yakin ingin menghapus Agen ${name}?`,
+        text: "Semua Reseller di bawah Agen ini akan otomatis dihapus juga.",
+        showDenyButton: true,
+        confirmButtonText: "Ya",
+        denyButtonText: `Batalkan`,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.delete(id);
+        }
+      });
+    },
+    async delete(id) {
+      try {
+        await axios.delete(`/api/admin/delete/${id}`);
+        this.$swal("Berhasil!", "Akun berhasil dihapus", "success");
+        this.fetchAgents();
+      } catch (e) {
+        const message = e.response ? e.response.data.message : "";
+        this.$swal("Terjadi Kesalahan!", message, "error");
       }
     },
   },

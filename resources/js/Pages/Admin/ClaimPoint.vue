@@ -194,8 +194,8 @@ export default {
         this.$refs.back.click();
       } catch (e) {
         this.is_processing = false;
-        console.log(e);
-        this.$swal("Terjadi Kesalahan!", "", "error");
+        const message = e.response ? e.response.data.message : "";
+        this.$swal("Terjadi Kesalahan!", message, "error");
       }
     },
   },

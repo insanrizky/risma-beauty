@@ -81,11 +81,36 @@ class AdminController extends Controller
         return response()->json([
             'data' => $data->items(),
             'meta' => [
-                'base_url' => url('/').'/uploads/',
+                'base_url' => env('MINIO_ENDPOINT').'/'.env('MINIO_BUCKET'),
                 'total_point' => (int) $totalPoint,
                 'pagination' => $pagination,
             ],
         ]);
+    }
+
+    private function validateUserProfile($userDetail)
+    {
+        $requiredFields = [
+            'bank_id' => 'Bank',
+            'account_number' => 'Nomor Rekening',
+            'contact' => 'Nomor HP',
+            'province_id' => 'Provinsi',
+            'city_id' => 'Kab/Kota',
+            'address' => 'Alamat',
+            'ktp_file' => 'KTP',
+            'payment_file' => 'Bukti Pembayaran',
+            'instagram_link' => 'Instagram Link',
+        ];
+
+        $notCompleteAttributes = [];
+
+        foreach ($requiredFields as $field => $name) {
+            if (!$userDetail->$field) {
+                array_push($notCompleteAttributes, $name);
+            }
+        }
+
+        return $notCompleteAttributes ?: null;
     }
 
     public function verify(Request $request, $userId)
@@ -95,11 +120,12 @@ class AdminController extends Controller
         try {
             $userDetail = UserDetail::where('user_id', $userId)->first();
             if ($userDetail->identifier) {
-                return response()->json(['data' => [
-                    'is_verified' => true,
-                    'status' => $userDetail->status,
-                    'identifier' => $userDetail->identifier,
-                ]]);
+                throw new Exception('Akun sudah diverifikasi (AKTIF)');
+            }
+
+            if ($notCompleteAttributes = $this->validateUserProfile($userDetail)) {
+                $message = 'Profil tidak lengkap: '.implode(', ', $notCompleteAttributes);
+                throw new Exception($message);
             }
 
             $status = config('global.status.rejected');
@@ -130,7 +156,7 @@ class AdminController extends Controller
             return response()->json([
                 'error' => true,
                 'message' => $e->getMessage(),
-            ]);
+            ], 422);
         }
     }
 
@@ -152,6 +178,36 @@ class AdminController extends Controller
                 UserDetail::where('upline_identifier', $user->identifier)
                         ->update($payload);
             }
+            DB::commit();
+
+            return response()->json([
+                'success' => true,
+            ]);
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage(),
+            ], 422);
+        }
+    }
+
+    public function deleteByUserId($userId)
+    {
+        DB::beginTransaction();
+        try {
+            $user = UserDetail::with('user')
+                            ->where('user_id', $userId)
+                            ->first();
+
+            // Delete All Resellers [Downline]
+            if ($user->user->type === config('global.type.agent')) {
+                UserDetail::where('upline_identifier', $user->identifier)
+                        ->delete();
+            }
+            $user->delete();
+
             DB::commit();
 
             return response()->json([

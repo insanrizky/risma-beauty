@@ -85,7 +85,7 @@
                 <img
                   v-if="reseller.profile_photo_path"
                   class="w-10 h-10 rounded-full mr-4"
-                  :src="`${base_url}${reseller.profile_photo_path}`"
+                  :src="`${base_url}/${reseller.profile_photo_path}`"
                   alt="Avatar"
                 />
                 <div class="text-sm">
@@ -165,7 +165,7 @@
                 >
                   <button
                     v-if="reseller.status === 'AKTIF'"
-                    @click="verifySuspend(reseller.user_id, reseller.name)"
+                    @click="confirmSuspend(reseller.user_id, reseller.name)"
                     class="inline-flex items-center px-2 py-1 ml-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 transition ease-in-out duration-150"
                   >
                     <cross-mark-icon />
@@ -336,11 +336,11 @@ export default {
           this.$swal("Berhasil!", "Verifikasi Agen digagalkan", "success");
         }
       } catch (e) {
-        this.$swal("Terjadi Kesalahan!", "", "error");
-        console.log(e);
+        const message = e.response ? e.response.data.message : "";
+        this.$swal("Terjadi Kesalahan!", message, "error");
       }
     },
-    verifySuspend(id, name) {
+    confirmSuspend(id, name) {
       this.$swal({
         title: `Yakin ingin menonaktifkan Reseller ${name}?`,
         text: "Semua klaim yang telah diverifikasi tidak bisa dibatalkan.",
@@ -359,10 +359,33 @@ export default {
         this.$swal("Berhasil!", "Akun berhasil dinonaktifkan", "success");
         this.fetchResellers();
       } catch (e) {
-        this.$swal("Terjadi Kesalahan!", "", "error");
-        console.log(e);
+        const message = e.response ? e.response.data.message : "";
+        this.$swal("Terjadi Kesalahan!", message, "error");
       }
     },
+  },
+  confirmDelete(id, name) {
+    this.$swal({
+      title: `Yakin ingin menghapus Reseller ${name}?`,
+      text: "Semua klaim yang telah diverifikasi tidak bisa dibatalkan.",
+      showDenyButton: true,
+      confirmButtonText: "Ya",
+      denyButtonText: `Batalkan`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.delete(id);
+      }
+    });
+  },
+  async delete(id) {
+    try {
+      await axios.delete(`/api/admin/delete/${id}`);
+      this.$swal("Berhasil!", "Akun berhasil dinonaktifkan", "success");
+      this.fetchResellers();
+    } catch (e) {
+        const message = e.response ? e.response.data.message : "";
+        this.$swal("Terjadi Kesalahan!", message, "error");
+    }
   },
 };
 </script>

@@ -2832,6 +2832,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["pagination"],
   methods: {
@@ -5080,6 +5086,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 
@@ -5139,7 +5146,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return "bg-green-500";
     },
     getFullAddress: function getFullAddress(agent) {
-      return "".concat(agent.address, ", ").concat(agent.city.name, ", ").concat(agent.province.name);
+      return "".concat(agent.address || "-", ", ").concat(agent.city ? agent.city.name : "-", ", ").concat(agent.province ? agent.province.name : "-");
+    },
+    getBankName: function getBankName(agent) {
+      if (!agent.bank) {
+        return "-";
+      }
+
+      return agent.bank.name;
     },
     changeSearch: function changeSearch($event) {
       var _this = this;
@@ -5232,7 +5246,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this4 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var _yield$axios$put, data, agent;
+        var _yield$axios$put, data, agent, message;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
@@ -5265,10 +5279,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 11:
                 _context2.prev = 11;
                 _context2.t0 = _context2["catch"](0);
+                message = _context2.t0.response ? _context2.t0.response.data.message : "";
 
-                _this4.$swal("Terjadi Kesalahan!", "", "error");
-
-                console.log(_context2.t0);
+                _this4.$swal("Terjadi Kesalahan!", message, "error");
 
               case 15:
               case "end":
@@ -5283,7 +5296,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       this.$swal({
         title: "Yakin ingin menonaktifkan Agen ".concat(name, "?"),
-        text: 'Semua Reseller di bawah Agen ini akan otomatis dinonaktifkan juga.',
+        text: "Semua Reseller di bawah Agen ini akan otomatis dinonaktifkan juga.",
         showDenyButton: true,
         confirmButtonText: "Ya",
         denyButtonText: "Batalkan"
@@ -5297,6 +5310,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this6 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var message;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
@@ -5316,10 +5330,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 7:
                 _context3.prev = 7;
                 _context3.t0 = _context3["catch"](0);
+                message = _context3.t0.response ? _context3.t0.response.data.message : "";
 
-                _this6.$swal("Terjadi Kesalahan!", "", "error");
-
-                console.log(_context3.t0);
+                _this6.$swal("Terjadi Kesalahan!", message, "error");
 
               case 11:
               case "end":
@@ -5327,6 +5340,57 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee3, null, [[0, 7]]);
+      }))();
+    },
+    confirmDelete: function confirmDelete(id, name) {
+      var _this7 = this;
+
+      this.$swal({
+        title: "Yakin ingin menghapus Agen ".concat(name, "?"),
+        text: "Semua Reseller di bawah Agen ini akan otomatis dihapus juga.",
+        showDenyButton: true,
+        confirmButtonText: "Ya",
+        denyButtonText: "Batalkan"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          _this7["delete"](id);
+        }
+      });
+    },
+    "delete": function _delete(id) {
+      var _this8 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var message;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.prev = 0;
+                _context4.next = 3;
+                return axios["delete"]("/api/admin/delete/".concat(id));
+
+              case 3:
+                _this8.$swal("Berhasil!", "Akun berhasil dihapus", "success");
+
+                _this8.fetchAgents();
+
+                _context4.next = 11;
+                break;
+
+              case 7:
+                _context4.prev = 7;
+                _context4.t0 = _context4["catch"](0);
+                message = _context4.t0.response ? _context4.t0.response.data.message : "";
+
+                _this8.$swal("Terjadi Kesalahan!", message, "error");
+
+              case 11:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, null, [[0, 7]]);
       }))();
     }
   }
@@ -5533,7 +5597,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var payload, _yield$axios$post, data;
+        var payload, _yield$axios$post, data, message;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
@@ -5577,9 +5641,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context.prev = 18;
                 _context.t0 = _context["catch"](2);
                 _this2.is_processing = false;
-                console.log(_context.t0);
+                message = _context.t0.response ? _context.t0.response.data.message : "";
 
-                _this2.$swal("Terjadi Kesalahan!", "", "error");
+                _this2.$swal("Terjadi Kesalahan!", message, "error");
 
               case 23:
               case "end":
@@ -6036,7 +6100,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var _yield$axios$delete, data;
+        var _yield$axios$delete, data, message;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
@@ -6060,9 +6124,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 9:
                 _context.prev = 9;
                 _context.t0 = _context["catch"](0);
-                console.log(_context.t0);
+                message = _context.t0.response ? _context.t0.response.data.message : "";
 
-                _this3.$swal("Terjadi Kesalahan!", "", "error");
+                _this3.$swal("Terjadi Kesalahan!", message, "error");
 
               case 13:
               case "end":
@@ -6836,7 +6900,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var _yield$axios$put, data, reseller;
+        var _yield$axios$put, data, reseller, message;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
@@ -6869,10 +6933,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 11:
                 _context2.prev = 11;
                 _context2.t0 = _context2["catch"](0);
+                message = _context2.t0.response ? _context2.t0.response.data.message : "";
 
-                _this3.$swal("Terjadi Kesalahan!", "", "error");
-
-                console.log(_context2.t0);
+                _this3.$swal("Terjadi Kesalahan!", message, "error");
 
               case 15:
               case "end":
@@ -6882,7 +6945,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2, null, [[0, 11]]);
       }))();
     },
-    verifySuspend: function verifySuspend(id, name) {
+    confirmSuspend: function confirmSuspend(id, name) {
       var _this4 = this;
 
       this.$swal({
@@ -6901,6 +6964,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this5 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var message;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
@@ -6920,10 +6984,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 7:
                 _context3.prev = 7;
                 _context3.t0 = _context3["catch"](0);
+                message = _context3.t0.response ? _context3.t0.response.data.message : "";
 
-                _this5.$swal("Terjadi Kesalahan!", "", "error");
-
-                console.log(_context3.t0);
+                _this5.$swal("Terjadi Kesalahan!", message, "error");
 
               case 11:
               case "end":
@@ -6933,6 +6996,57 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee3, null, [[0, 7]]);
       }))();
     }
+  },
+  confirmDelete: function confirmDelete(id, name) {
+    var _this6 = this;
+
+    this.$swal({
+      title: "Yakin ingin menghapus Reseller ".concat(name, "?"),
+      text: "Semua klaim yang telah diverifikasi tidak bisa dibatalkan.",
+      showDenyButton: true,
+      confirmButtonText: "Ya",
+      denyButtonText: "Batalkan"
+    }).then(function (result) {
+      if (result.isConfirmed) {
+        _this6["delete"](id);
+      }
+    });
+  },
+  "delete": function _delete(id) {
+    var _this7 = this;
+
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+      var message;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.prev = 0;
+              _context4.next = 3;
+              return axios["delete"]("/api/admin/delete/".concat(id));
+
+            case 3:
+              _this7.$swal("Berhasil!", "Akun berhasil dinonaktifkan", "success");
+
+              _this7.fetchResellers();
+
+              _context4.next = 11;
+              break;
+
+            case 7:
+              _context4.prev = 7;
+              _context4.t0 = _context4["catch"](0);
+              message = _context4.t0.response ? _context4.t0.response.data.message : "";
+
+              _this7.$swal("Terjadi Kesalahan!", message, "error");
+
+            case 11:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4, null, [[0, 7]]);
+    }))();
   }
 });
 
@@ -7138,7 +7252,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var _yield$axios$get, _yield$axios$get$data, total_point_agent, total_point_reseller, total_amount_agent, total_amount_reseller;
+        var _yield$axios$get, _yield$axios$get$data, total_point_agent, total_point_reseller, total_amount_agent, total_amount_reseller, message;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
@@ -7171,9 +7285,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 16:
                 _context.prev = 16;
                 _context.t0 = _context["catch"](0);
-                console.log(_context.t0);
+                message = _context.t0.response ? _context.t0.response.data.message : "";
 
-                _this.$swal("Terjadi Kesalahan!", "", "error");
+                _this.$swal("Terjadi Kesalahan!", message, "error");
 
               case 20:
               case "end":
@@ -7187,6 +7301,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var message;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
@@ -7213,9 +7328,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 10:
                 _context2.prev = 10;
                 _context2.t0 = _context2["catch"](0);
-                console.log(_context2.t0);
+                message = _context2.t0.response ? _context2.t0.response.data.message : "";
 
-                _this2.$swal("Terjadi Kesalahan!", "", "error");
+                _this2.$swal("Terjadi Kesalahan!", message, "error");
 
                 _this2.is_processing = false;
 
@@ -9834,6 +9949,25 @@ exports = module.exports = __webpack_require__(/*! ../css-loader/lib/css-base.js
 
 // module
 exports.push([module.i, ".mx-icon-left:before,.mx-icon-right:before,.mx-icon-double-left:before,.mx-icon-double-right:before,.mx-icon-double-left:after,.mx-icon-double-right:after{\n  content:\"\";\n  position:relative;\n  top:-1px;\n  display:inline-block;\n  width:10px;\n  height:10px;\n  vertical-align:middle;\n  border-style:solid;\n  border-color:currentColor;\n  border-width:2px 0 0 2px;\n  border-radius:1px;\n  -webkit-box-sizing:border-box;\n  box-sizing:border-box;\n  -webkit-transform-origin:center;\n  transform-origin:center;\n  -webkit-transform:rotate(-45deg) scale(0.7);\n  transform:rotate(-45deg) scale(0.7)\n}\n\n.mx-icon-double-left:after{\n  left:-4px\n}\n\n.mx-icon-double-right:before{\n  left:4px\n}\n\n.mx-icon-right:before,.mx-icon-double-right:before,.mx-icon-double-right:after{\n  -webkit-transform:rotate(135deg) scale(0.7);\n  transform:rotate(135deg) scale(0.7)\n}\n\n.mx-btn{\n  -webkit-box-sizing:border-box;\n  box-sizing:border-box;\n  line-height:1;\n  font-size:14px;\n  font-weight:500;\n  padding:7px 15px;\n  margin:0;\n  cursor:pointer;\n  background-color:transparent;\n  outline:none;\n  border:1px solid rgba(0,0,0,.1);\n  border-radius:4px;\n  color:#73879c;\n  white-space:nowrap\n}\n\n.mx-btn:hover{\n  border-color:#1284e7;\n  color:#1284e7\n}\n\n.mx-btn-text{\n  border:0;\n  padding:0 4px;\n  text-align:left;\n  line-height:inherit\n}\n\n.mx-scrollbar{\n  height:100%\n}\n\n.mx-scrollbar:hover .mx-scrollbar-track{\n  opacity:1\n}\n\n.mx-scrollbar-wrap{\n  height:100%;\n  overflow-x:hidden;\n  overflow-y:auto\n}\n\n.mx-scrollbar-track{\n  position:absolute;\n  top:2px;\n  right:2px;\n  bottom:2px;\n  width:6px;\n  z-index:1;\n  border-radius:4px;\n  opacity:0;\n  -webkit-transition:opacity .24s ease-out;\n  transition:opacity .24s ease-out\n}\n\n.mx-scrollbar-track .mx-scrollbar-thumb{\n  position:absolute;\n  width:100%;\n  height:0;\n  cursor:pointer;\n  border-radius:inherit;\n  background-color:rgba(144,147,153,.3);\n  -webkit-transition:background-color .3s;\n  transition:background-color .3s\n}\n\n.mx-zoom-in-down-enter-active,.mx-zoom-in-down-leave-active{\n  opacity:1;\n  -webkit-transform:scaleY(1);\n  transform:scaleY(1);\n  -webkit-transition:opacity .3s cubic-bezier(0.23, 1, 0.32, 1),-webkit-transform .3s cubic-bezier(0.23, 1, 0.32, 1);\n  transition:opacity .3s cubic-bezier(0.23, 1, 0.32, 1),-webkit-transform .3s cubic-bezier(0.23, 1, 0.32, 1);\n  transition:transform .3s cubic-bezier(0.23, 1, 0.32, 1),opacity .3s cubic-bezier(0.23, 1, 0.32, 1);\n  transition:transform .3s cubic-bezier(0.23, 1, 0.32, 1),opacity .3s cubic-bezier(0.23, 1, 0.32, 1),-webkit-transform .3s cubic-bezier(0.23, 1, 0.32, 1);\n  -webkit-transform-origin:center top;\n  transform-origin:center top\n}\n\n.mx-zoom-in-down-enter,.mx-zoom-in-down-leave-to{\n  opacity:0;\n  -webkit-transform:scaleY(0);\n  transform:scaleY(0)\n}\n\n.mx-datepicker{\n  position:relative;\n  display:inline-block;\n  width:210px\n}\n\n.mx-datepicker svg{\n  width:1em;\n  height:1em;\n  vertical-align:-0.15em;\n  fill:currentColor;\n  overflow:hidden\n}\n\n.mx-datepicker-range{\n  width:320px\n}\n\n.mx-datepicker-inline{\n  width:auto\n}\n\n.mx-input-wrapper{\n  position:relative\n}\n\n.mx-input-wrapper .mx-icon-clear{\n  display:none\n}\n\n.mx-input-wrapper:hover .mx-icon-clear{\n  display:block\n}\n\n.mx-input-wrapper:hover .mx-icon-clear+.mx-icon-calendar{\n  display:none\n}\n\n.mx-input{\n  display:inline-block;\n  -webkit-box-sizing:border-box;\n  box-sizing:border-box;\n  width:100%;\n  height:34px;\n  padding:6px 30px;\n  padding-left:10px;\n  font-size:14px;\n  line-height:1.4;\n  color:#555;\n  background-color:#fff;\n  border:1px solid #ccc;\n  border-radius:4px;\n  -webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,.075);\n  box-shadow:inset 0 1px 1px rgba(0,0,0,.075)\n}\n\n.mx-input:hover,.mx-input:focus{\n  border-color:#409aff\n}\n\n.mx-input:disabled,.mx-input.disabled{\n  color:#ccc;\n  background-color:#f3f3f3;\n  border-color:#ccc;\n  cursor:not-allowed\n}\n\n.mx-input:focus{\n  outline:none\n}\n\n.mx-input::-ms-clear{\n  display:none\n}\n\n.mx-icon-calendar,.mx-icon-clear{\n  position:absolute;\n  top:50%;\n  right:8px;\n  -webkit-transform:translateY(-50%);\n  transform:translateY(-50%);\n  font-size:16px;\n  line-height:1;\n  color:rgba(0,0,0,.5);\n  vertical-align:middle\n}\n\n.mx-icon-clear{\n  cursor:pointer\n}\n\n.mx-icon-clear:hover{\n  color:rgba(0,0,0,.8)\n}\n\n.mx-datepicker-main{\n  font:14px/1.5 \"Helvetica Neue\",Helvetica,Arial,\"Microsoft Yahei\",sans-serif;\n  color:#73879c;\n  background-color:#fff;\n  border:1px solid #e8e8e8\n}\n\n.mx-datepicker-popup{\n  position:absolute;\n  margin-top:1px;\n  margin-bottom:1px;\n  -webkit-box-shadow:0 6px 12px rgba(0,0,0,.175);\n  box-shadow:0 6px 12px rgba(0,0,0,.175);\n  z-index:2001\n}\n\n.mx-datepicker-sidebar{\n  float:left;\n  -webkit-box-sizing:border-box;\n  box-sizing:border-box;\n  width:100px;\n  padding:6px;\n  overflow:auto\n}\n\n.mx-datepicker-sidebar+.mx-datepicker-content{\n  margin-left:100px;\n  border-left:1px solid #e8e8e8\n}\n\n.mx-datepicker-body{\n  position:relative;\n  -webkit-user-select:none;\n  -moz-user-select:none;\n  -ms-user-select:none;\n  user-select:none\n}\n\n.mx-btn-shortcut{\n  display:block;\n  padding:0 6px;\n  line-height:24px\n}\n\n.mx-range-wrapper{\n  display:-webkit-box;\n  display:-ms-flexbox;\n  display:flex\n}\n\n@media(max-width: 750px){\n  .mx-range-wrapper{\n    -webkit-box-orient:vertical;\n    -webkit-box-direction:normal;\n    -ms-flex-direction:column;\n    flex-direction:column\n  }\n}\n\n.mx-datepicker-header{\n  padding:6px 8px;\n  border-bottom:1px solid #e8e8e8\n}\n\n.mx-datepicker-footer{\n  padding:6px 8px;\n  text-align:right;\n  border-top:1px solid #e8e8e8\n}\n\n.mx-calendar{\n  -webkit-box-sizing:border-box;\n  box-sizing:border-box;\n  width:248px;\n  padding:6px 12px\n}\n\n.mx-calendar+.mx-calendar{\n  border-left:1px solid #e8e8e8\n}\n\n.mx-calendar-header,.mx-time-header{\n  -webkit-box-sizing:border-box;\n  box-sizing:border-box;\n  height:34px;\n  line-height:34px;\n  text-align:center;\n  overflow:hidden\n}\n\n.mx-btn-icon-left,.mx-btn-icon-double-left{\n  float:left\n}\n\n.mx-btn-icon-right,.mx-btn-icon-double-right{\n  float:right\n}\n\n.mx-calendar-header-label{\n  font-size:14px\n}\n\n.mx-calendar-decade-separator{\n  margin:0 2px\n}\n\n.mx-calendar-decade-separator:after{\n  content:\"~\"\n}\n\n.mx-calendar-content{\n  position:relative;\n  height:224px;\n  -webkit-box-sizing:border-box;\n  box-sizing:border-box\n}\n\n.mx-calendar-content .cell{\n  cursor:pointer\n}\n\n.mx-calendar-content .cell:hover{\n  color:#73879c;\n  background-color:#f3f9fe\n}\n\n.mx-calendar-content .cell.active{\n  color:#fff;\n  background-color:#1284e7\n}\n\n.mx-calendar-content .cell.in-range{\n  color:#73879c;\n  background-color:#dbedfb\n}\n\n.mx-calendar-content .cell.disabled{\n  cursor:not-allowed;\n  color:#ccc;\n  background-color:#f3f3f3\n}\n\n.mx-calendar-week-mode .mx-date-row{\n  cursor:pointer\n}\n\n.mx-calendar-week-mode .mx-date-row:hover{\n  background-color:#f3f9fe\n}\n\n.mx-calendar-week-mode .mx-date-row.mx-active-week{\n  background-color:#dbedfb\n}\n\n.mx-calendar-week-mode .mx-date-row .cell:hover{\n  color:inherit;\n  background-color:transparent\n}\n\n.mx-calendar-week-mode .mx-date-row .cell.active{\n  color:inherit;\n  background-color:transparent\n}\n\n.mx-week-number{\n  opacity:.5\n}\n\n.mx-table{\n  table-layout:fixed;\n  border-collapse:separate;\n  border-spacing:0;\n  width:100%;\n  height:100%;\n  -webkit-box-sizing:border-box;\n  box-sizing:border-box;\n  text-align:center;\n  vertical-align:middle\n}\n\n.mx-table th{\n  padding:0;\n  font-weight:500\n}\n\n.mx-table td{\n  padding:0\n}\n\n.mx-table-date td,.mx-table-date th{\n  height:32px;\n  font-size:12px\n}\n\n.mx-table-date .today{\n  color:#2a90e9\n}\n\n.mx-table-date .cell.not-current-month{\n  color:#ccc\n}\n\n.mx-time{\n  -webkit-box-flex:1;\n  -ms-flex:1;\n  flex:1;\n  width:224px;\n  background:#fff\n}\n\n.mx-time+.mx-time{\n  border-left:1px solid #e8e8e8\n}\n\n.mx-calendar-time{\n  position:absolute;\n  top:0;\n  left:0;\n  width:100%;\n  height:100%\n}\n\n.mx-time-header{\n  border-bottom:1px solid #e8e8e8\n}\n\n.mx-time-content{\n  height:224px;\n  -webkit-box-sizing:border-box;\n  box-sizing:border-box;\n  overflow:hidden\n}\n\n.mx-time-columns{\n  display:-webkit-box;\n  display:-ms-flexbox;\n  display:flex;\n  width:100%;\n  height:100%;\n  overflow:hidden\n}\n\n.mx-time-column{\n  -webkit-box-flex:1;\n  -ms-flex:1;\n  flex:1;\n  position:relative;\n  border-left:1px solid #e8e8e8;\n  text-align:center\n}\n\n.mx-time-column:first-child{\n  border-left:0\n}\n\n.mx-time-column .mx-time-list{\n  margin:0;\n  padding:0;\n  list-style:none\n}\n\n.mx-time-column .mx-time-list::after{\n  content:\"\";\n  display:block;\n  height:192px\n}\n\n.mx-time-column .mx-time-item{\n  cursor:pointer;\n  font-size:12px;\n  height:32px;\n  line-height:32px\n}\n\n.mx-time-column .mx-time-item:hover{\n  color:#73879c;\n  background-color:#f3f9fe\n}\n\n.mx-time-column .mx-time-item.active{\n  color:#1284e7;\n  background-color:transparent;\n  font-weight:700\n}\n\n.mx-time-column .mx-time-item.disabled{\n  cursor:not-allowed;\n  color:#ccc;\n  background-color:#f3f3f3\n}\n\n.mx-time-option{\n  cursor:pointer;\n  padding:8px 10px;\n  font-size:14px;\n  line-height:20px\n}\n\n.mx-time-option:hover{\n  color:#73879c;\n  background-color:#f3f9fe\n}\n\n.mx-time-option.active{\n  color:#1284e7;\n  background-color:transparent;\n  font-weight:700\n}\n\n.mx-time-option.disabled{\n  cursor:not-allowed;\n  color:#ccc;\n  background-color:#f3f3f3\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/JetStream/Pagination.vue?vue&type=style&index=0&id=a746c4a4&scoped=true&lang=css&":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/JetStream/Pagination.vue?vue&type=style&index=0&id=a746c4a4&scoped=true&lang=css& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".visibility-hidden[data-v-a746c4a4] {\n  visibility: hidden;\n}\n", ""]);
 
 // exports
 
@@ -56279,6 +56413,36 @@ try {
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/JetStream/Pagination.vue?vue&type=style&index=0&id=a746c4a4&scoped=true&lang=css&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/JetStream/Pagination.vue?vue&type=style&index=0&id=a746c4a4&scoped=true&lang=css& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./Pagination.vue?vue&type=style&index=0&id=a746c4a4&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/JetStream/Pagination.vue?vue&type=style&index=0&id=a746c4a4&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Pages/Admin/AgentList.vue?vue&type=style&index=0&lang=css&":
 /*!********************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Pages/Admin/AgentList.vue?vue&type=style&index=0&lang=css& ***!
@@ -61496,10 +61660,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/JetStream/Pagination.vue?vue&type=template&id=a746c4a4&":
-/*!************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/JetStream/Pagination.vue?vue&type=template&id=a746c4a4& ***!
-  \************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/JetStream/Pagination.vue?vue&type=template&id=a746c4a4&scoped=true&":
+/*!************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/JetStream/Pagination.vue?vue&type=template&id=a746c4a4&scoped=true& ***!
+  \************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -61519,37 +61683,35 @@ var render = function() {
     },
     [
       _c("div", { staticClass: "flex-1 flex justify-between sm:hidden" }, [
-        _vm.pagination.prev_page_url
-          ? _c(
-              "a",
-              {
-                staticClass:
-                  "relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150",
-                on: {
-                  click: function($event) {
-                    return _vm.goTo(_vm.pagination.current_page - 1)
-                  }
-                }
-              },
-              [_vm._v("\n      Sebelumnya\n    ")]
-            )
-          : _vm._e(),
+        _c(
+          "a",
+          {
+            staticClass:
+              "relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150",
+            class: !_vm.pagination.prev_page_url && "visibility-hidden",
+            on: {
+              click: function($event) {
+                return _vm.goTo(_vm.pagination.current_page - 1)
+              }
+            }
+          },
+          [_vm._v("\n      Sebelumnya\n    ")]
+        ),
         _vm._v(" "),
-        _vm.pagination.next_page_url
-          ? _c(
-              "a",
-              {
-                staticClass:
-                  "ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150",
-                on: {
-                  click: function($event) {
-                    return _vm.goTo(_vm.pagination.current_page + 1)
-                  }
-                }
-              },
-              [_vm._v("\n      Berikutnya\n    ")]
-            )
-          : _vm._e()
+        _c(
+          "a",
+          {
+            staticClass:
+              "ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150",
+            class: !_vm.pagination.next_page_url && "visibility-hidden",
+            on: {
+              click: function($event) {
+                return _vm.goTo(_vm.pagination.current_page + 1)
+              }
+            }
+          },
+          [_vm._v("\n      Berikutnya\n    ")]
+        )
       ]),
       _vm._v(" "),
       _c(
@@ -64962,7 +65124,7 @@ var render = function() {
                                   attrs: {
                                     src:
                                       _vm.base_url +
-                                      "/storage/" +
+                                      "/" +
                                       agent.profile_photo_path,
                                     alt: "Avatar"
                                   }
@@ -65018,7 +65180,7 @@ var render = function() {
                                   [
                                     _vm._v(
                                       "\n                  " +
-                                        _vm._s(agent.contact) +
+                                        _vm._s(agent.contact || "-") +
                                         "\n                "
                                     )
                                   ]
@@ -65041,8 +65203,8 @@ var render = function() {
                                   [
                                     _vm._v(
                                       "\n                  Bank " +
-                                        _vm._s(agent.bank.name) +
-                                        " - " +
+                                        _vm._s(_vm.getBankName(agent)) +
+                                        " -\n                  " +
                                         _vm._s(agent.account_number) +
                                         "\n                "
                                     )
@@ -66640,8 +66802,8 @@ var render = function() {
                                   staticClass: "w-10 h-10 rounded-full mr-4",
                                   attrs: {
                                     src:
-                                      "" +
                                       _vm.base_url +
+                                      "/" +
                                       reseller.profile_photo_path,
                                     alt: "Avatar"
                                   }
@@ -66878,7 +67040,7 @@ var render = function() {
                                               "inline-flex items-center px-2 py-1 ml-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 transition ease-in-out duration-150",
                                             on: {
                                               click: function($event) {
-                                                return _vm.verifySuspend(
+                                                return _vm.confirmSuspend(
                                                   reseller.user_id,
                                                   reseller.name
                                                 )
@@ -89583,9 +89745,11 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Pagination_vue_vue_type_template_id_a746c4a4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Pagination.vue?vue&type=template&id=a746c4a4& */ "./resources/js/JetStream/Pagination.vue?vue&type=template&id=a746c4a4&");
+/* harmony import */ var _Pagination_vue_vue_type_template_id_a746c4a4_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Pagination.vue?vue&type=template&id=a746c4a4&scoped=true& */ "./resources/js/JetStream/Pagination.vue?vue&type=template&id=a746c4a4&scoped=true&");
 /* harmony import */ var _Pagination_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Pagination.vue?vue&type=script&lang=js& */ "./resources/js/JetStream/Pagination.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _Pagination_vue_vue_type_style_index_0_id_a746c4a4_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Pagination.vue?vue&type=style&index=0&id=a746c4a4&scoped=true&lang=css& */ "./resources/js/JetStream/Pagination.vue?vue&type=style&index=0&id=a746c4a4&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -89593,13 +89757,13 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _Pagination_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Pagination_vue_vue_type_template_id_a746c4a4___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Pagination_vue_vue_type_template_id_a746c4a4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Pagination_vue_vue_type_template_id_a746c4a4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Pagination_vue_vue_type_template_id_a746c4a4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
-  null,
+  "a746c4a4",
   null
   
 )
@@ -89625,19 +89789,35 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/JetStream/Pagination.vue?vue&type=template&id=a746c4a4&":
-/*!******************************************************************************!*\
-  !*** ./resources/js/JetStream/Pagination.vue?vue&type=template&id=a746c4a4& ***!
-  \******************************************************************************/
+/***/ "./resources/js/JetStream/Pagination.vue?vue&type=style&index=0&id=a746c4a4&scoped=true&lang=css&":
+/*!********************************************************************************************************!*\
+  !*** ./resources/js/JetStream/Pagination.vue?vue&type=style&index=0&id=a746c4a4&scoped=true&lang=css& ***!
+  \********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_vue_vue_type_style_index_0_id_a746c4a4_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./Pagination.vue?vue&type=style&index=0&id=a746c4a4&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/JetStream/Pagination.vue?vue&type=style&index=0&id=a746c4a4&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_vue_vue_type_style_index_0_id_a746c4a4_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_vue_vue_type_style_index_0_id_a746c4a4_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_vue_vue_type_style_index_0_id_a746c4a4_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_vue_vue_type_style_index_0_id_a746c4a4_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_vue_vue_type_style_index_0_id_a746c4a4_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/JetStream/Pagination.vue?vue&type=template&id=a746c4a4&scoped=true&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/JetStream/Pagination.vue?vue&type=template&id=a746c4a4&scoped=true& ***!
+  \******************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_vue_vue_type_template_id_a746c4a4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Pagination.vue?vue&type=template&id=a746c4a4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/JetStream/Pagination.vue?vue&type=template&id=a746c4a4&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_vue_vue_type_template_id_a746c4a4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_vue_vue_type_template_id_a746c4a4_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Pagination.vue?vue&type=template&id=a746c4a4&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/JetStream/Pagination.vue?vue&type=template&id=a746c4a4&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_vue_vue_type_template_id_a746c4a4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_vue_vue_type_template_id_a746c4a4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_vue_vue_type_template_id_a746c4a4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

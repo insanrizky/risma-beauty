@@ -298,8 +298,8 @@ export default {
         this.fetchPoints();
         this.$swal("Berhasil!", "Klaim telah terhapus", "success");
       } catch (e) {
-        console.log(e);
-        this.$swal("Terjadi Kesalahan!", "", "error");
+        const message = e.response ? e.response.data.message : "";
+        this.$swal("Terjadi Kesalahan!", message, "error");
       }
     },
     confirmVerifyPoint(point, is_verified) {

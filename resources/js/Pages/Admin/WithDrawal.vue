@@ -153,8 +153,8 @@ export default {
         this.total_amount_reseller = total_amount_reseller;
         this.is_fetched = true;
       } catch (e) {
-        console.log(e);
-        this.$swal("Terjadi Kesalahan!", "", "error");
+        const message = e.response ? e.response.data.message : "";
+        this.$swal("Terjadi Kesalahan!", message, "error");
       }
     },
     async withDrawal() {
@@ -169,8 +169,8 @@ export default {
         this.resetData();
         this.$swal("Berhasil!", "Klaim telah dicairkan", "success");
       } catch (e) {
-        console.log(e);
-        this.$swal("Terjadi Kesalahan!", "", "error");
+        const message = e.response ? e.response.data.message : "";
+        this.$swal("Terjadi Kesalahan!", message, "error");
         this.is_processing = false;
       }
     },

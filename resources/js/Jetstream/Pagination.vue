@@ -4,16 +4,16 @@
   >
     <div class="flex-1 flex justify-between sm:hidden">
       <a
-        v-if="pagination.prev_page_url"
         @click="goTo(pagination.current_page - 1)"
         class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150"
+        :class="!pagination.prev_page_url && 'visibility-hidden'"
       >
         Sebelumnya
       </a>
       <a
-        v-if="pagination.next_page_url"
         @click="goTo(pagination.current_page + 1)"
         class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm leading-5 font-medium rounded-md text-gray-700 bg-white hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150"
+        :class="!pagination.next_page_url && 'visibility-hidden'"
       >
         Berikutnya
       </a>
@@ -94,6 +94,12 @@
     </div>
   </div>
 </template>
+
+<style scoped>
+.visibility-hidden {
+  visibility: hidden;
+}
+</style>
 
 <script>
 export default {
