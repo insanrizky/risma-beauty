@@ -3,6 +3,7 @@
 /public/storage
 /public/uploads
 !/storage
+/storage/logs
 /vendor
 .env
 .env.backup
