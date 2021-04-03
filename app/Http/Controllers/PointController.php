@@ -166,7 +166,7 @@ class PointController extends Controller
                     $total_point_reseller = (int) UserDetail::leftJoin('claims', 'user_details.user_id', '=', 'claims.user_id')
                                                 ->where('upline_identifier', $upliner->identifier)
                                                 ->where('claims.status', config('global.claim_status.claimed'))
-                                                ->sum('total_point');
+                                                ->sum('total_pcs');
                     if ($total_point_reseller + $claim->total_pcs > $upliner->total_point) {
                         throw new Exception('Total pcs klaim akan melebihi total poin agen');
                     }
